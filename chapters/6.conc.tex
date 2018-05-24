@@ -1,0 +1,37 @@
+This project presents an approach for the automatic recognition of transient events with the use of machine learning techniques. Given proposal was developed under the scope of forthcoming astronomical synaptic surveys such as the LSST (\cite{0805.2366}).
+
+The method introduced in this project consists in oversampling filtered light curves, then extracting characteristic features from them, and finally using those features as inputs to machine learning algorithms. The features extracted from light curves were either statistical descriptors of the observations, or polynomial curve fitting coefficients applied to the light curves.  
+Three different machine learning models were trained with the resulting measurements.
+
+A variety of classification tasks were researched. Namely, binary classification among transients and non-transients, and multi-class classification of various transient classes, sometimes including transients too. Detailed description of these tasks can be found in Section \ref{section_method}. 
+\textit{Overall, the best classifier for all tasks was the Random Forest, followed by Neural Networks and then Support Vector Machines.}
+
+For the sake of experimentation, each task was executed several times with different data subsets. Given subsets corresponded to the decision of selecting parameter value combinations, including: balancing classes or not, using either 30, 26 or 20 features only and normalizing or standardizing feature vectors.
+
+% VERIFY %
+\textit{State of the art results were obtained when testing the trained models to unseen sets of data, specifically in binary and transient multi-class classification. Recall scores obtained from the best classifier for each task, are equivalent to those results found in \cite{1401.3211} and \cite{1601.03931}. This implies that the methodology proposed in this project, which is a new methodology proposal, works correctly for the classification tasks propounded}
+
+% VERIFY %
+\textit{
+The best experimentation parameters were also investigated. 
+Training with light curves which contained 10 observations minimum always outperformed those with minimum 5. This may be explained due to the lower noise that curves with more observations provide.
+Overall, the best results when classifying only transient sources was achieved using 26 features per light curve, while using 31 features performed better when non-transients were present in the task. This possibly occurred since they have more populated light-curves, which could generate a more precise higher rank polynomial fitting that non-transients.
+Finally, using balanced classes worked better when doing transient recognition only.
+}
+
+The methodology proposed in this project, together with the positive results lay the foundations on the development of more robust Transient Object Classifiers. This research becomes a base for the work of Research groups at Universidad de los Andes and CPPM keep exploring the field, groups that also look forward to contribute to the new age of synoptic surveys.
+
+
+
+
+% ------------------------------------------------------------
+
+\section{Future Work} \label{future_work}
+
+Though the obtained results demonstrate that the methodology proposed works well, final scores are far from perfect. Results are not significantly better than what the state of the art already obtained, meaning there are still more improvements to develop in order to construct better classifiers which are usable in next-generation astronomical surveys. 
+
+Finding clean information is one of the hardest tasks when using photometric data. Astronomical data-sources tend to be obscure and hard to deal with, which makes it difficult to understand the information that is being gathered. Having said that, a critical improvement on transient recognition would be to train the algorithms with cleaner data. This means data with lower amount of duplicates and errors, and specifically, using a more reliable non-transient data-set. 
+
+It would also be beneficial experiment with data-sets that contain more light curves and more balanced classes. Several transient types in the CRTS dataset project contained a single light curve, which is not nearly enough for correct classification. Though artificially balancing classes with the techniques presented slightly improves performance, counting with more real sources would significantly may generate higher impact.
+
+Expanding the methodology presented may be beneficial too. Using additional features could also increase the classifiers performance. Moreover, different classification algorithms can also be tested for a better detection of transient objects.

@@ -1,0 +1,36 @@
+% All papers should start with an Introduction section, which sets the work
+% in context, cites relevant earlier studies in the field by \citet{Others2013},
+% and describes the problem the authors aim to solve \citep[e.g.][]{Author2012}.
+
+%%% NEW MULTI EPOCH SURVEYS ENABLE STUDY AND DETECTION IN CRAZY SCALES
+The study and detection of astronomical variable sources is expected to occur in unprecedented scales with the new generation of forthcoming multi-epoch and multi-band (synoptic) astronomical surveys. To give an example, The Large Synoptic Survey Telescope (LSST) (\cite{0805.2366}), one of the largest synoptic survey telescopes to come in the following years, will generate approximately 15 terabytes of data every night (\cite{1512.07914}). 
+%Such telescope is expected to detect and alert about 10 million possible transients too. 
+Other surveys including the Square Kilometer Array (SKA) are expected too to daily generate exuberant data-streams.
+
+%%% HISTORICALLY IT HAS BEEN DONE MANUALLY, NOW IT ISN"T POSSIBLE
+Thus, with the newest sky surveys old-school astronomical object classification techniques may not be feasible anymore. Traditionally, such objects have been classified manually by astronomers or through crowd-sourcing \cite{1011.2199} \cite{0708.2750}. This is a process in which humans still intervene, making it a slow and expensive. Other concerns exist too, since that hand-made classification tends to be biased and hard to standardize among astronomers \cite{1104.3142}. Conversely, transient detection can be executed much faster than human astronomers through computational techniques using machine learning, which are deterministic and give degrees of certainty on the results. They additionally allow for real-time triggering of follow-up observations that optimize the economical and temporal resources. Showing thus that new methodologies which are taking over the older techniques, which become unfeasible with the advent of the next generation of surveys. 
+
+
+%%% TRANSIENTS EVENTS ARE CHALLENGES (AND WHAT TRANSIENT EVENTS ARE)
+One of the many several new objects classification challenges in Time Domain Astronomy is Real-Time Transient classification. Astronomical Transients are events which luminosity varies in short duration relative in the timescale of the universe, from minutes to several years. Transients include phenomena such as supernovae, novae, neutron stars, blazars, pulsars, cataclysmic variable stars (CV), gamma ray bursts (GRB) and active galaxy nucleus (AGN). The time-domain dependency of these objects is one of the reasons why they are hard to classify: their data is usually heterogeneous, unbalanced, sparse, unevenly sampled and with missing information. Automating the recognition and classification of transient events, a type of such variable sources, would reduce costs and speed up this process as well as provide scientists information of the universe in various spacial scales \cite{2011arXiv1110.4655D}.
+
+%%% HOW DOES TRANSIENT DETECTION
+Transient and variable star detection is generally done through a process named difference imaging \cite{1507.05137} \cite{1608.01733} \cite{1708.02850}. It consists in aligning the image of interest on a reference image of the same region of sky, processing the former to match it's point-spread function in all regions with the latter's, and subtracting both (\cite{astro-ph/9712287}). As a result, variable stars and transient objects which were not visible in the reference image will remain in the resulting image. Nonetheless, resulting difference images will also contain additional artificial (bogus) artifacts generated in the process, which occur due to imperfections in the image processing phase, in the telescope used or due to natural phenomena. Unfortunately, distinguishing between bogus and real objects is still a hand-made process which is expensive and slows down knowledge discovery \cite{2011arXiv1110.4655D}.
+
+
+%%% STATE OF THE ART I: REAL VS BOGUS
+Successful attempts to detect real objects from such bogus artifacts have been tested by astronomers. Raw images from the  Skymapper Supernova and Transient Survey and the High cadence Transient Survey (HiTS) have been used as input for automatic detection algorithms (\cite{1708.08947}, \cite{1701.00458}). In specific, Convolutional Neural Networks (CNN) have been trained for this binary classification task, achieving high accuracies. Other studies have shown that bogus artifacts can be detected using features extracted from raw images. In \cite{1601.06151} and \cite{1601.06320}, reliable classification is enabled by transforming transient data from the OGLE-IV data-reduction pipeline and training it with machine learning algorithms such as: Artificial Neural Networks, Support Vector Machines, Random Forests, Naive Bayes, K-Nearest Neighbors and Linear Discriminant Analysis. Similarly, \cite{1501.05470} uses images from Pan-STARRS1 Medium Deep Surveys, and \cite{1407.4118} utilizes single-epoch multi-band images from the SDSS supernova survey for the same purpose.
+
+
+%%% STATE OF THE ART II: DIRECT
+
+Alternative approaches try to classify astronomical transient events directly, skipping the difference imaging process.
+This is usually done by extracting relevant features (e.g. periodic, non-periodic) from the astronomical object light-curves, and using machine learning algorithms for classification. For instance, in \cite{1401.3211} and \cite{1601.03931}, light curves of objects six or more transient classes from the Catalina Real Time Transient Survey and the Downes set \cite{d05} were classified. Other studies which research a similar approach include \cite{1603.00882}, where supernovas from the Supernova Photometric Classification Challenge were automatically classified.
+
+Direct use of light curves as data inputs is also currently under research. Recurrent Neural Networks (RNNs) have been proven succesfull to classify transient events. In \cite{1606.07442} and \cite{1710.06804} it is evident how more modern algorithms can also learn from time-series data without much pre-processing.
+
+% PROPOSAL
+In this work we test different techniques to automatically classify transient events with machine learning, namely: filtering them by their observation count, oversampling unbalanced light curve classes and extracting several statistical descriptors from the resulting data. Such generated statistics are used as input to three different machine learning models: Support Vector Machines, Neural Networks and Random Forests, which automatically learn to detect and classify between different types of transient objects. With extensive testing several experiments were tested, in order to find the best training parameters. This lead to state of the art results.
+
+% STRUCTURE
+The paper is structured as it follows: in Section 2 we present the dataset used for this project. Section 3 describes the methodology used. Section 4 explains the experiments performed to classify transient objects with machine learning. Finally, the results are discussed in Section 4.
