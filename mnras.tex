@@ -46,7 +46,13 @@
 \usepackage{amsmath}	% Advanced maths commands
 \usepackage{amssymb}	% Extra maths symbols
 
+% \usepackage{multicol}        % Multi-column entries in tables
+% \usepackage{bm}		% Bold maths symbols, including upright Greek
+\usepackage{pdflscape}	% Landscape pages
 \usepackage[utf8]{inputenc}
+\usepackage{multirow}
+\usepackage{float} % here for H placement parameter
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%% AUTHORS - PLACE YOUR OWN COMMANDS HERE %%%%%
@@ -67,7 +73,7 @@
 % If you need two or more lines of authors, add an extra line using \newauthor
 \author[Diego. A. Gomez et al.]{
 Diego A. Gomez,$^{1}$\thanks{E-mail: da.gomez11@uniandes.edu.co}
-Marcela Hernandez Hoyos$^{1}$   
+Marcela Hernandez$^{1}$   
 Jaime Forero-Romero$^{2}$
 and Pablo Arbelaez$^{3}$
 \\
@@ -116,20 +122,20 @@ methods: data analysis, statistical
 \section{Methodology} \label{section_method}
 \import{./chapters/}{3.method.tex}
 
-\section{Experiments}
+\section{Experiments} \label{section_experimentation}
 \import{./chapters/}{4.exp.tex}
 
-\section{Results}
-\import{./chapters/}{5.res.tex}
+\section{Results} \label{section_results}
+\import{./chapters/}{5.res.tex} 
 
 \section{Conclusions}
 \import{./chapters/}{6.conc.tex}
 
-\section*{Acknowledgements}
+% \section*{Acknowledgements}
 
-The Acknowledgements section is not numbered. Here you can thank helpful
-colleagues, acknowledge funding agencies, telescopes and facilities used etc.
-Try to keep it short.
+% The Acknowledgements section is not numbered. Here you can thank helpful
+% colleagues, acknowledge funding agencies, telescopes and facilities used etc.
+% Try to keep it short.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -155,8 +161,8 @@ Try to keep it short.
 
 %%%%%%%%%%%%%%%%% APPENDICES %%%%%%%%%%%%%%%%%%%%%
 
-% \appendix
-
+\appendix
+\import{./chapters/}{7.appendix.tex}
 % \section{Some extra material}
 
 % If you want to present additional material which would interrupt the flow of the main paper,

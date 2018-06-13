@@ -1543,6 +1543,7 @@ $\reset@font\displaystyle##$\hfil\cr>\cr\approx\cr}}}
   \@dblfloat{table}\centering\fstyle@table}
 \@namedef{endtable*}{\end@dblfloat\st@rredfloatfalse}
 
+
 \newcounter{figure}
 \def\thefigure{\@arabic\c@figure}
 \def\fps@figure{tbp}
