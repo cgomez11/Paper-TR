@@ -4,24 +4,17 @@
 % No references should appear in the abstract.
 
 
+
 The arrival of massive multi-epoch and multi-band astronomical surveys
 demands the development of computational techniques to automate the
 study and detection of transient astronomical sources. 
 In this work we characterize various machine learning algorithms to
-recognize and classify such kinds of events.
+recognize and classify such events.
 We use light-curves from the Catalina Real Time Transient Survey
 (CRTS) to classifity thousands of unique transient and non-transient
 event light-curves.
 we experimented  with multiple data pre-processing methods,
 feature selection techniques and self-learning models. State of the
 art results were obtained in five classification tasks, particularly
-there was one binary and four multi-class classification tasks. In our
-research we discovered that the best performing algorithm was Random
-Forests, \textit{which scored a recall of 89.39\%} on binary
-(transient \& non-transient) classification. Six-class transient
-classification scored a \textit{77.86\% recall}, and an
-additional \textit{66.91\% recall} when including an ambiguous sources
-class with new samples. Variations on the multi-class transient
-classifications mentioned above, those chich included non-transient
-sources, resulted in a \textit{77.31\% recall} and a \textit{68.23\%
-recall} respectively.   
+there was one binary and four multi-class classification tasks. 
+In our research we discovered that the best performing algorithm was Random Forests, which achieved a f1-score of 87.27\% on binary (transient \& non-transient) classification. Six-class transient classification achieved a 77.54\% f1-score, and an additional 66.39\% f1-score when including an ambiguous sources class with new samples. Variations on the multi-class transient classifications mentioned above, those which included non-transient sources, resulted in a 75.05\% f1-score and a 66.05\% f1-score respectively.
