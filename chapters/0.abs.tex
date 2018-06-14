@@ -13,8 +13,15 @@ recognize and classify such events.
 We use light-curves from the Catalina Real Time Transient Survey
 (CRTS) to classifity thousands of unique transient and non-transient
 event light-curves.
-we experimented  with multiple data pre-processing methods,
-feature selection techniques and self-learning models. State of the
-art results were obtained in five classification tasks, particularly
-there was one binary and four multi-class classification tasks. 
-In our research we discovered that the best performing algorithm was Random Forests, which achieved a f1-score of 87.27\% on binary (transient \& non-transient) classification. Six-class transient classification achieved a 77.54\% f1-score, and an additional 66.39\% f1-score when including an ambiguous sources class with new samples. Variations on the multi-class transient classifications mentioned above, those which included non-transient sources, resulted in a 75.05\% f1-score and a 66.05\% f1-score respectively.
+We experiment  with multiple data pre-processing methods,
+feature selection techniques and self-learning models. 
+We obtain new results in five classification tasks.
+We pay particular attention to a binary and a four multi-class
+classifications task. 
+We conclude that the best performing algorithm was
+a Random Forest with an f1-score of 87.27\% on binary
+(transient \& non-transient) classification. 
+Six-class transient classification achieved a 77.54\% f1-score, and a
+66.39\% f1-score when including an ambiguous sources class.
+Multi-class transient classifications including non-transient sources,
+resulted in a 75.05\% f1-score and a 66.05\% f1-score respectively.  
