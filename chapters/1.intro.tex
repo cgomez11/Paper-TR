@@ -7,7 +7,7 @@ The study and detection of astronomical variable sources is expected
 to occur on unprecedented scales with the new generation of
 forthcoming multi-epoch and multi-band (synoptic) astronomical
 surveys. 
-Fos instance, the Large Synoptic Survey Telescope (LSST)
+For instance, the Large Synoptic Survey Telescope (LSST)
 \citep{0805.2366}, one of the largest synoptic survey telescopes to
 come in the following years, will generate approximately 15 terabytes
 of data every night \citep{1512.07914}.  
@@ -50,7 +50,7 @@ as provide scientists information of the universe in various spatial
 scales \citep{2011arXiv1110.4655D}.  
 
 %%% HOW DOES TRANSIENT DETECTION
-Transient and variable star detection is generally done through 
+Transient detection is generally done through 
 difference imaging \citep{1507.05137,1608.01733,1708.02850}. 
 This algorithm starts by aligning the image of interest on a reference image of the
 same region of sky, processing the former to match its point-spread
@@ -68,7 +68,25 @@ still requires human intervetion, making it expensive and slow
 
 
 %%% STATE OF THE ART I: REAL VS BOGUS
-Successful attempts to detect real objects from such bogus artifacts have been tested by astronomers. Raw images from the  Skymapper Supernova and Transient Survey and the High cadence Transient Survey (HiTS) have been used as inputs for automatic detection algorithms (\cite{1708.08947} \& \cite{1701.00458}). In specific, Convolutional Neural Networks (CNN) have been trained for this binary classification task, achieving high accuracies. Other studies have shown that bogus artifacts can be detected using features extracted from raw images. In \cite{1601.06151} and \cite{1601.06320}, reliable classification is enabled by transforming transient data from the OGLE-IV data-reduction pipeline and training it with machine learning algorithms such as Artificial Neural Networks, Support Vector Machines, Random Forests, Naive Bayes, K-Nearest Neighbors and Linear Discriminant Analysis. Similarly, \cite{1501.05470} uses images from Pan-STARRS1 Medium Deep Surveys, and \cite{1407.4118} utilizes single-epoch multi-band images from the SDSS supernova survey for the same purpose.
+There are succesful attempts to implement automatic detection
+algorithms and distinguish bogus artifacts from real transient
+objects.  
+For instance, raw images from the  Skymapper Supernova and Transient
+Survey and the High cadence Transient Survey (HiTS) have been used as
+inputs for automatic detection algorithms \citep{1708.08947,1701.00458}.
+Convolutional Neural Networks (CNN) have also achieved
+high accuracy in this binary classification task.
+Other studies have shown that bogus artifacts can be detected using
+features extracted from raw images. 
+\cite{1601.06151} and \cite{1601.06320}, achieved reliable
+classification by transforming transient data from the OGLE-IV
+data-reduction pipeline and training it with machine learning
+algorithms such as Artificial Neural Networks, Support Vector
+Machines, Random Forests, Naive Bayes, K-Nearest Neighbors and Linear
+Discriminant Analysis.  
+Similarly, \cite{1501.05470} used images from Pan-STARS1 Medium Deep
+Surveys, and \cite{1407.4118} processed single-epoch multi-band images
+from the SDSS supernova survey for the same purpose.  
 
 
 %%% STATE OF THE ART II: DIRECT
