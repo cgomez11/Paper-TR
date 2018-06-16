@@ -91,13 +91,44 @@ from the SDSS supernova survey for the same purpose.
 
 %%% STATE OF THE ART II: DIRECT
 
-Alternative approaches try to classify astronomical transient events directly, skipping the difference imaging process.
-This is usually done by extracting relevant features (e.g. periodic, non-periodic) from the astronomical object light-curves, and using machine learning algorithms for classification. For instance, in \cite{1401.3211} and \cite{1601.03931}, light curves of objects six or more transient classes from the Catalina Real Time Transient Survey and the Downes set (\cite{d05}) were classified. Other studies which research a similar approach include \cite{1603.00882}, where supernovas from the Supernova Photometric Classification Challenge were automatically classified.
-
-Direct use of light curves as data inputs is also currently under research. Recurrent Neural Networks (RNNs) have been proven succesful to classify transient events. In \cite{1606.07442} and \cite{1710.06804} it is evident how more modern algorithms can also learn from time-series data without much pre-processing.
+Some alternative approaches classify astronomical transient
+events skipping the difference imaging process. 
+This is usually done by extracting relevant features (e.g. periodic,
+non-periodic) from the astronomical object light-curves, and using
+machine learning algorithms for classification. 
+For instance, in \cite{1401.3211} and \cite{1601.03931}, light curves
+of objects six or more transient classes from the Catalina Real Time
+Transient Survey and the Downes set (\cite{d05}) were
+classified using this approach. 
+Other studies which research a similar approach
+\cite{1603.00882} used the same approach to finf 
+where supernovas from the Supernova Photometric Classification
+Challenge.
+Recurrent Neural Networks (RNNs) have also been proven succesful to
+classify transient events, \cite{1606.07442} and \cite{1710.06804}
+shoed that  modern algorithms can also learn from time-series data
+without expensive image processing.    
 
 % PROPOSAL
-In this work we test different techniques to automatically classify transient events with machine learning, using their light curves. Namely: filtering them by their observation count, oversampling unbalanced light curve classes and extracting several statistical descriptors from the resulting data. Such generated statistics are used as input to three different machine learning models with several hyper-parameter variations: Support Vector Machines, Neural Networks and Random Forests, which automatically learn to detect and classify between different types of transient objects. With extensive testing, multiple experiments were executed in order to find the best training parameters. This lead to state of the art and novel experimental results.
+In this paper we follow this approach and test different machine
+learning algorithms to classify transient events using light curves as
+an input.  
+We start by extracting several statistical descriptors from the light
+curves.
+These descriptors are the input of three different machine learning
+models with several hyper-parameter variations: Support Vector
+Machines, Neural Networks and Random Forests, which automatically
+learn to detect and classify between different types of transient
+objects. 
+We present the results of extensive testing and multiple experiments 
+executed in order to find the best training parameters. 
 
 % STRUCTURE
-The paper is structured as it follows: in Section \ref{section_data} we present the dataset used for this project. Section \ref{section_method} describes the methodology proposed. Section \ref{section_experimentation} explains the experiments performed to classify transient objects with machine learning. Finally, the results are discussed in Section \ref{section_results}.
+The paper is structured as it follows. In Section \ref{section_data}
+we present the dataset used for this project. 
+Section \ref{section_method} describes the methodology.
+Section \ref{section_experimentation} explains the experiments
+performed to classify transient objects with mach ine
+learning. 
+Finally, the results are presented and discussed in
+Section \ref{section_results}.  
