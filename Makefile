@@ -3,7 +3,7 @@ MAIN  = MAIN
 
 all: $(MAIN).pdf
 
-$(MAIN).pdf: 	$(MAIN).tex  chapters/0.abs.tex chapters/1.intro.tex
+$(MAIN).pdf: 	$(MAIN).tex  chapters/0.abs.tex chapters/1.intro.tex chapters/6.conc.tex
 	$(LATEX) $(MAIN).tex 
 	bibtex $(MAIN)
 	$(LATEX) $(MAIN).tex 
