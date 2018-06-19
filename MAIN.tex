@@ -98,7 +98,33 @@ $^{3}$Departamento de Ingenier\'ia Biom\'edica, Universidad de los Andes, Cra. 1
 % Abstract of the paper
 \begin{abstract}
 
-\import{./chapters/}{0.abs.tex}
+%\import{./chapters/}{0.abs.tex}
+% This is a simple template for authors to write new MNRAS papers.
+% The abstract should briefly describe the aims, methods, and main results of the paper.
+% It should be a single paragraph not more than 250 words (200 words for Letters).
+% No references should appear in the abstract.
+
+
+
+The arrival of massive multi-epoch and multi-band astronomical surveys
+demands the development of computational techniques to automate the
+study and detection of transient astronomical sources. 
+In this work we characterize various machine learning algorithms to
+recognize and classify such events.
+We use light-curves from the Catalina Real Time Transient Survey
+(CRTS) to classifity thousands of unique transient and non-transient
+event light-curves.
+We experiment  with multiple data pre-processing methods,
+feature selection techniques and self-learning models. 
+We obtain new results in five classification tasks, paying particular
+attention to a binary and a four multi-class classifications task.  
+We conclude that the best performing algorithm was
+a Random Forest with an f1-score of 87.27\% on binary
+(transient \& non-transient) classification. 
+Six-class transient classification achieved a 77.54\% f1-score, and a
+66.39\% f1-score when including an ambiguous sources class.
+Multi-class transient classifications including non-transient sources,
+resulted in a 75.05\% f1-score and a 66.05\% f1-score respectively.  
 
 \end{abstract}
 
@@ -114,13 +140,348 @@ methods: data analysis, statistical
 %%%%%%%%%%%%%%%%% BODY OF PAPER %%%%%%%%%%%%%%%%%%
 
 \section{Introduction}
-\import{./chapters/}{1.intro.tex}
+%\import{./chapters/}{1.intro.tex}
+% All papers should start with an Introduction section, which sets the work
+% in context, cites relevant earlier studies in the field by \citet{Others2013},
+% and describes the problem the authors aim to solve \citep[e.g.][]{Author2012}.
+
+%%% NEW MULTI EPOCH SURVEYS ENABLE STUDY AND DETECTION IN CRAZY SCALES
+The study and detection of astronomical variable sources is expected
+to occur on unprecedented scales with the new generation of
+forthcoming multi-epoch and multi-band (synoptic) astronomical
+surveys. 
+For instance, the Large Synoptic Survey Telescope (LSST)
+\citep{0805.2366}, one of the largest synoptic survey telescopes to
+come in the following years, will generate approximately 15 terabytes
+of data every night \citep{1512.07914}.  
+%Such telescope is expected to detect and alert about 10 million possible transients too. 
+Other surveys including the Square Kilometer Array (SKA) are also expected
+to generate exuberant daily data-streams. 
+
+%%% HISTORICALLY IT HAS BEEN DONE MANUALLY, NOW IT ISN"T POSSIBLE
+This observational leap renders manual classification techniques
+unfeasible.   
+Traditionally, such objects have been classified by visual inspection
+by experts or through crowd-sourcing
+\citep{1011.2199,0708.2750}. 
+This is approach is slow and expensive.
+Another concern is the possible biases and difficulty to standardize among 
+astronomers \citep{1104.3142}. 
+Alternatively, transient detection can be executed much faster than
+human astronomers through computational techniques using machine
+learning, 
+which are deterministic and calculate the results' degrees of
+certainty. 
+These methods also allow for real-time triggering of follow-up
+observations that optimize the economical and temporal resources. 
+ 
+
+%%% TRANSIENTS EVENTS ARE CHALLENGES (AND WHAT TRANSIENT EVENTS ARE)
+Another challenge in  Time Domain Astronomy is Real-Time Transient classification. 
+Astronomical Transients are events which's luminosity varies in short duration
+relative in the timescale of the universe, from minutes to several
+years. 
+Transients include phenomena such as supernovae, novae, neutron
+stars, blazars, pulsars, cataclysmic variable stars (CV), gamma ray
+bursts (GRB) and active galaxy nucleus (AGN). 
+The time-domain dependency of these objects is one of the reasons why
+they are hard to classify: their data is usually heterogeneous,
+unbalanced, sparse, unevenly sampled and with missing information. 
+Automating the recognition and classification of transient events, a type of such
+variable sources, would reduce costs and speed up this process as well
+as provide scientists information of the universe in various spatial
+scales \citep{2011arXiv1110.4655D}.  
+
+%%% HOW DOES TRANSIENT DETECTION
+Transient detection is generally done through 
+difference imaging \citep{1507.05137,1608.01733,1708.02850}. 
+This algorithm starts by aligning the image of interest on a reference image of the
+same region of sky, processing the former to match its point-spread
+function in all regions with the latter's, and subtracting both
+\citep{astro-ph/9712287}. 
+As a result, variable stars and transient objects which were not
+visible in the reference image will remain in the resulting
+image. 
+Nonetheless, the difference images can also contain bogus
+artifacts due to imperfections in the image processing
+phase, in the telescope or other phenomena. 
+Unfortunately, distinguishing between bogus and real transient objects
+still requires human intervetion, making it expensive and slow
+\citep{2011arXiv1110.4655D}.  
+
+
+%%% STATE OF THE ART I: REAL VS BOGUS
+There are succesful attempts to implement automatic detection
+algorithms and distinguish bogus artifacts from real transient
+objects.  
+For instance, raw images from the  Skymapper Supernova and Transient
+Survey and the High cadence Transient Survey (HiTS) have been used as
+inputs for automatic detection algorithms \citep{1708.08947,1701.00458}.
+Convolutional Neural Networks (CNN) have also achieved
+high accuracy in this binary classification task.
+Other studies have shown that bogus artifacts can be detected using
+features extracted from raw images. 
+\cite{1601.06151} and \cite{1601.06320}, achieved reliable
+classification by transforming transient data from the OGLE-IV
+data-reduction pipeline and training it with machine learning
+algorithms such as Artificial Neural Networks, Support Vector
+Machines, Random Forests, Naive Bayes, K-Nearest Neighbors and Linear
+Discriminant Analysis.  
+Similarly, \cite{1501.05470} used images from Pan-STARS1 Medium Deep
+Surveys, and \cite{1407.4118} processed single-epoch multi-band images
+from the SDSS supernova survey for the same purpose.  
+
+
+%%% STATE OF THE ART II: DIRECT
+
+Some alternative approaches classify astronomical transient
+events skipping the difference imaging process. 
+This is usually done by extracting relevant features (e.g. periodic,
+non-periodic) from the astronomical object light-curves, and using
+machine learning algorithms for classification. 
+For instance, in \cite{1401.3211} and \cite{1601.03931}, light curves
+of objects six or more transient classes from the Catalina Real Time
+Transient Survey and the Downes set (\cite{d05}) were
+classified using this approach. 
+Other studies which research a similar approach
+\cite{1603.00882} used the same approach to finf 
+where supernovas from the Supernova Photometric Classification
+Challenge.
+Recurrent Neural Networks (RNNs) have also been proven succesful to
+classify transient events, \cite{1606.07442} and \cite{1710.06804}
+showed that  modern algorithms can also learn from time-series data
+without expensive image processing.    
+
+% PROPOSAL
+In this paper we follow this approach and test different machine
+learning algorithms to classify transient events using light curves as
+an input.  
+We start by extracting several statistical descriptors from the light
+curves.
+These descriptors are the input of three different machine learning
+models with several hyper-parameter variations: Support Vector
+Machines, Neural Networks and Random Forests, which automatically
+learn to detect and classify between different types of transient
+objects. 
+We present the results of extensive testing and multiple experiments 
+executed in order to find the best training parameters. 
+
+% STRUCTURE
+The paper is structured as it follows. In Section \ref{section_data}
+we present the dataset used for this project. 
+Section \ref{section_method} describes the methodology.
+Section \ref{section_experimentation} explains the experiments
+performed to classify transient objects with mach ine
+learning. 
+Finally, the results are presented and discussed in
+Section \ref{section_results}.  
 
 \section{Data} \label{section_data}
-\import{./chapters/}{2.data.tex}
+%\import{./chapters/}{2.data.tex}
+%%% Overview
+
+We use public data from the Catalina Real-Time Transient Survey
+(CRTS) \citep{1111.2566}, an astronomical survey searching transient
+and highly variable objects.   
+It covered 33000 squared degrees of sky and took data since 2007.
+Three telescopes were used: Mt. Lemmon Survey (MLS), Catalina Sky
+Survey (CSS), and Siding Spring Survey (SSS). So far, CRTS has
+discovered more than $15000$ transient events.
+We use light curves as measured with the CSS telescope of the CRTS, which is
+an f/1.8 Schmidt telescope located in the Santa Catalina Mountains, north of Tucson,
+Arizona and is equipped with a 111-megapixel  detector, and covered
+4000 square degrees per night, with a limiting magnitude of 19.5 in
+the V band.  
+The public CRTS data base reports the source flux and its
+corresponding uncertainty \citep{1996PASP..108..851S}.
+
+
+All transient objects were classified in the CRTS data-set according to
+their type. 
+The most relevant classes found are: supernovae (SN),
+cataclysmic variable stars (CV), blazars, flares, asteroids, active
+galactic nuclei (AGN), and high-proper-motion stars (HPM). 
+Though most objects in the transient object catalogue belong to a single class,
+there is some uncertainty in the categorization of some of
+them. 
+In this case, an interrogation sign is used when a class is not clear
+e.g. SN? or sometimes multiple possible classes are found for a single
+event e.g. SN/CV)
+Table \ref{Top-Transient-Classes} summarized The number of objects in each class.
+
+
+We use the light curves of $4269$ unique transient events that
+contain at least 5 observations.
+We also use  $15193$ non-transient sources with at least 5 observations each. 
+Sources in this data-set were selected by sampling light curves
+of objects within a 0.006 degree radius from CRTS detected transients,
+and removing known transient light curves from that set. 
+Though this process should return only non-transient sources, it is
+possible that non-detected transients were captured and catalogued
+incorrectly as 'non-transients'.  
+Table \ref{Transient-Observation-Count} and
+Table \ref{Non-Transient-Observation-Count} summarize some statitics
+on the number of observations available for each light curve for the
+transient and non-transient data-sets, respectively.  
+
+
+
+\import{./figures/ObjCount/}{5.tex}
+
 
 \section{Methodology} \label{section_method}
-\import{./chapters/}{3.method.tex}
+%\import{./chapters/}{3.method.tex}
+
+Our methodology has six stages: 
+filtering out irrelevant light curves, oversampling light curves, extracting
+descriptive features from the curves, processing them into feature
+vectors, re-scaling those resulting feature vectors, and 
+classification with machine learning algorithms. 
+The details of each step are in the following subsections.
+
+\subsection{Data Filtering} \label{subsection_filtering}
+
+We discard light curves with few observations as they may not contain
+enough information to be classified correctly by machine learning
+algorithms.  
+The nominal cut is 5 observations per light curve, but we also test a
+higher cut by filterig out light curves with less than 10 observations.
+
+\subsection{Oversampling Transient Light Curves} \label{subsection_oversampling}
+
+The number light curves per class is unbalanced. 
+In order to have the same amount elements for each class we implement an
+oversampling step by artificially generating multiple mock light curves,
+each based on an observed one. 
+
+We generate a mock light curve from the observed light curve and 
+then sample the observed magnitude from a Gaussian distribution
+centered on the observational apparent magnitude with the magnitude's
+error as the  standard deviation. 
+
+{\bf Y entonces se generaron al final 1293 curvas para todos las
+  clases para tener el mismo numero de elementos que la clase SN?}
+
+\subsection{Feature Extraction} \label{subsection_extraction}
+
+Light curves are sampled at irregular time intervals and have
+different numbers of data points.
+This makes it challenging to directly use the time-series data for
+classification with traditional methods. 
+We circumvent this problem by extracting a set of features for each
+light curve.
+These features are scalars dereive from statistical and model-specific
+fitting techniques.
+Some of these features were  were formally introduced in
+\cite{1101.1959}, and have been used in other studies
+\citep{1603.00882,1601.03931}.  
+
+In total, 30 features were used in this project. These features were computed for all light curves, and can be classified according to their origin in four groups: moment-based, magnitude-based, percentile-based and fitting-based. The groups are presented next.
+
+\begin{enumerate}
+    
+    \item Moment-based features use the magnitude for each light curve.
+    \begin{itemize}
+        \item \underline{Beyond1std} (\textit{beyond1std}): 
+        Percentage of observations which are over or under one standard deviation from the weighted average. Each weight is calculated as the inverse of the corresponding observation's photometric error.
+        \item \underline{Kurtosis} (\textit{kurtosis}): 
+        The fourth moment of the data distribution. Used to measure the heaviness or lightness in the tails of the statistical data.
+        \item \underline{Skewness} (\textit{skew}): 
+        A measurement of the level of asymmetry from the normal distribution in a data distribution. Negative skewness is the property of a more pronounced left tail, while positive skewness is a characteristic that implies a more pronounced right tail.
+        \item \underline{Small Kurtosis} (\textit{sk}):
+        Small sample kurtosis.
+        \item \underline{Standard deviation} (\textit{std}):
+        The standard deviation of the magnitudes..
+        \item \underline{Stetson J} (\textit{stetson\textunderscore j}):
+        The Welch-Stetson J variability index \cite{1996PASP..108..851S}. A robust standard deviation.
+        \item \underline{Stetson K} (\textit{stetson\textunderscore k}): 
+        The Welch-Stetson K variability index \cite{1996PASP..108..851S}. A robust kurtosis measure.
+    \end{itemize}
+    
+    \item Magnitude-based use the magnitude for each source.
+    \begin{itemize}
+        \item \underline{Amplitude} (\textit{amp}): 
+        The difference between the maximum and minimum magnitudes.
+        \item \underline{Max Slope} (\textit{max\textunderscore slope}): 
+        Maximum absolute slope between two consecutive observations.
+        \item \underline{Median Absolute Deviation} (\textit{mad}): 
+        The median of the difference between magnitudes and the median magnitude.
+        \item \underline{Median Buffer Range Percentage} (\textit{mbrp}): 
+        The percentage of points within 10\% of the median magnitude.
+        \item \underline{Pair Slope Trend} (\textit{pst}): 
+        Percentage of all pairs of consecutive magnitude measurements that have positive slope.
+        \item \underline{Pair Slope Trend 30} (\textit{pst\textunderscore last30}): 
+        Percentage of the last 30 pairs of consecutive magnitudes that have a positive slope, minus percentage of the last 30 pairs of consecutive magnitudes with a negative slope.
+    \end{itemize}
+    
+    \item Percentile-based features use the sorted flux distribution for each source. Flux is calculated as $F = 10^{0.4mag}$. Defining $F_{a,b}$ as the difference between the $b$ and $a$ flux percentiles.
+    \begin{itemize}
+        \item \underline{Percent Amplitude} (\textit{p \textunderscore amp}): 
+        Largest percentage difference between the absolute maximum magnitude and the median.
+        \item \underline{Percent Difference Flux Percentile} (\textit{pdfp}): 
+        Ratio between $F_{5,95}$ and the median flux.
+        \item \underline{Flux Percentile Ratio Mid20} (\textit{fpr20}): 
+        Ratio $F_{40,60} / F_{5,95}$
+        \item \underline{Flux Percentile Ratio Mid35} (\textit{fpr35}):
+        Ratio $F_{32.5,67.5} / F_{5,95}$
+        \item \underline{Flux Percentile Ratio Mid50} (\textit{fpr50}): 
+        Ratio $F_{25,75} / F_{5,95}$
+        \item \underline{Flux Percentile Ratio Mid65} (\textit{fpr65}): 
+        Ratio $F_{17.5,82.5} / F_{5,95}$
+        \item \underline{Flux Percentile Ratio Mid80} (\textit{fpr80}): 
+        Ratio $F_{10,90} / F_{5,95}$
+    \end{itemize}
+    
+    \item Polynomial Fitting-based features are the coefficients of multi-level terms in polynomial curve fitting. These is a new set of features proposed in this paper. They use the magnitude for each source.
+    \begin{itemize}
+        \item \underline{Poly1 T1}: Linear term coeff. in monomial curve fitting.
+        \item \underline{Poly2 T1}: Linear term coeff. in quadratic curve fitting.
+        \item \underline{Poly2 T2}: Quadratic term coeff. in quadratic curve fitting.
+        \item \underline{Poly3 T1}: Linear term coeff. in cubic curve fitting.
+        \item \underline{Poly3 T2}: Quadratic term coeff. in cubic curve fitting.
+        \item \underline{Poly3 T3}: Cubic term coeff. in cubic curve fitting.
+        \item \underline{Poly4 T1}: Linear term coeff. in quartic curve fitting.
+        \item \underline{Poly4 T2}: Quadratic term coeff. in quartic curve fitting.
+        \item \underline{Poly4 T3}: Cubic term coeff. in quartic curve fitting.
+        \item \underline{Poly4 T4}: Quartic term coeff. in quartic curve fitting.
+    \end{itemize}
+
+\end{enumerate}
+
+The computed features were grouped in the following sets for experimentation:
+
+\begin{enumerate}
+    \item \underline{20 feats:} This sub-set includes all moment-based, magnitude-based and percentile-based features.
+    \item \underline{26 feats:} This sub-set includes all features, except quartic curve fitting parameters (poly4).
+    \item \underline{30 feats:} This sub-set includes all moment-based, magnitude-based, percentile-based and fitting-based features.
+\end{enumerate}
+
+
+\subsection{Feature Scaling} \label{subsection_scaling}
+Two feature scaling procedures were used in this project, in order to weight equally each feature when training machine learning algorithms. This process was applied independently to every single light curve feature. The first re-scaling procedure, named standardization, recalculates the values such that their updated mean is zero and they have unit variance. The second re-scaling feature used was normalization, which transforms features by re-scaling them to the range $[0,1]$. Note that these techniques were used exclusively in distinct experiments as explained in the experimentation section (Section \ref{section_experimentation}).
+
+\subsection{Classification} \label{subsection_classification}
+
+Five classification tasks were performed with the homogeneous computed feature vectors.
+
+\begin{enumerate}
+    \item \textbf{Binary Classification}: 
+    Distinguish transients from non-transients. A balanced number of events from both classes is used to investigate the capability of distinguishing between these different types.
+    \item \textbf{6-Transient Classification}: Recognize objects as belonging to one of the more common transient types in the dataset, namely: AGN, Blazar, CV, Flare, HPM and Supernovae. The purpose of this task was to test how well did classification algorithms perform when distinguishing only the main transient event types in the dataset.
+    \item \textbf{7-Transient Classification}: Recognize objects as belonging to one of the more common transient types in the dataset or as a different transient, namely: AGN, Blazar, CV, Flare, HPM, Other and Supernovae. The Other class was created by using objects from ambiguous and under-represented classes such as the ones described in Section \ref{section_data}. In this scenario we wanted to understand how well these Other classes were detected when grouped together, and how the performance of the 6-Transient Classification Task was altered with the addition this new class.
+    \item \textbf{7-Class Classification}: Recognize objects as belonging to one of the more common transient types in the dataset or as a Non-Transient object. The classes used were: AGN, Blazar, CV, Flare, HPM, Non-Transient and Supernovae. This task was developed with the purpose of understanding if classifiers could classify correctly the main transient types when the non-transient events were present.
+    \item \textbf{8-Class Classification}: Recognize objects as belonging to any of the the following classes: AGN, Blazar, CV, Flare, HPM, Other, Non-Transient and Supernovae. The Other class was created by using objects from ambiguous and under-represented classes. This task was done to search how well was classification executed when testing together all the main classes that were present in the previous tasks.
+\end{enumerate}
+
+Three different algorithms were used for classification: neural networks, random forests and support vector machines. These algorithms were chosen because they were found to be popular in existing studies. Moreover, these three algorithms can perform quickly classification under the low dimensional feature data used, which means that their use in production pipelines may be studied too. Details on the inner workings of these machine learning models can be found in \cite{9780387848570}
+
+To train machine learning models, it is required to define the training and testing processes. In our project, we made sure that the training data did not contain oversampled light curves based on any other present in the test samples, since this could suppose a bias. We also made sure that the test samples did not contain oversampled light curves, for the same reason. Additionally, since the number of objects in the class sub-sets was small we used 2-fold cross validation during training for result validation. Moreover, grid search was used during training to test multiple hyper-parameter configurations for each one of the possible algorithms. The evaluation metrics used to assess the performance of the model was the F1-Score. Finally, a test set was initially set aside for each task, and final scores were based on the prediction performance of the trained algorithms with these data subsets.
+
+
+\subsection{Feature Importance} \label{subsection_importances}
+
+Once the tasks were run and the best classifiers were obtained, we generated a list of the most relevant features. This was done using the best Random Forest classifier for each task. The goal behind this proposal was to understand which features contributed the most to the classification task. Doing this is critical in a machine learning context, since finding optimal feature sets enable lower computation times by sacrificing a little performance.
+
 
 \section{Experiments} \label{section_experimentation}
 \import{./chapters/}{4.exp.tex}
@@ -129,7 +490,91 @@ methods: data analysis, statistical
 \import{./chapters/}{5.res.tex} 
 
 \section{Conclusions}
-\import{./chapters/}{6.conc.tex}
+%\import{./chapters/}{6.conc.tex}
+
+The scope of forthcoming of large astronomical synaptic surveys such
+as the LSST \citep{0805.2366} motivates the development and
+exploration of authomatized ways to detect transient sources.
+In this paper we presented an approach for the automatic recognition
+of transient events with machine learning techniques.   
+
+The method we present is based on the study of light curves. 
+We extracted its characteristic features to use them as inputs
+to train three different machine learning algorithms: Random Forests,
+Neural Networks and Support Vector Machines.
+The features extracted from light curves were either statistical
+descriptors of the observ ations, or polynomial curve fitting
+coefficients applied to the light curves.   
+
+The machine learning algorithms performed a variety of classification tasks.
+Namely, binary classification among transients and non-transients, and
+multi-class classification of various transient classes, sometimes
+including non-transients too. Detailed description of these tasks can
+be found in Section \ref{section_method}.  
+Overall, the best classifier for all tasks was the Random Forest,
+followed by Neural Networks and then Support Vector Machines. 
+
+State of the art results were obtained when testing the trained models
+to unseen sets of data, specifically in binary and transient
+multi-class classification. 
+Recall scores obtained from the best classifier for each task, are
+comparable to those results found in \cite{1401.3211}
+and \cite{1601.03931}.   
+
+
+We also investigated the parameters that produced the best results.
+Training with light curves which contained 10 observations minimum
+generally outperformed those with minimum 5. 
+Overall, the best results were also achieved using all 30 features per
+light curve, while using 20 features performed worst. 
+Such phenomena may be explained due to the lower noise that curves
+with more observations provide.  
+Since light-curves with higher observation counts may be better
+defined, they could generate a more precise higher rank polynomial
+fitting than non-transients, which were the newly proposed features
+found in the 26 and 30 feature sets. 
+
+In general, training with unbalanced-class data sets resulted in the
+highest values. 
+Contrary to what was expected, the usage of oversampled light-curves
+may be a factor that biases the model during training. 
+This could be explained if such artificial light curves were too
+similar to the original ones, and thus the algorithms over-fitted
+during training.  
+
+We studied feature importance using Random Forests. 
+The most importante feature was always stetson\textunderscore j, followed by:
+amplitude, standard deviation, skewness and median absolute
+deviation. 
+Conversely, 4th level polynomial fitting coefficients were
+the ones which provided the least relevance, though using them was
+still better, since the highest scores were a result of using all 30
+features. 
+Furthermore, lower polynomial fitting features like
+poly2\textunderscore t1 and poly1\textunderscore t1 were proven to be
+beneficial for classification, scoring much a higher importance. 
+
+The above mentioned results demonstrate that the methodology works well.
+Nevertheless, the final scores are similar to already published results.
+This highlights the need to explore new directions to construct better
+classifiers which are usable in next-generation astronomical surveys.   
+As usual, a critical improvement can come from better observational
+data.
+An improved transient recognition could be achieved by training on
+data with lower  amount of duplicates and errors, i.e. a more reliable
+non-transient data-set.    
+Expanding the methodology presented may be beneficial too. 
+Using additional features could also increase the classifiers
+performance. 
+Moreover, different classification algorithms can also be tested for a
+better detection of transient objects.  
+Finally, testing with other more reliable oversampling types would be
+beneficial for the purpose of working with limited data-sets. 
+While the oversampled/balanced inputs increased the performance of some of
+the algorithms, different alternatives could improve upon the results
+shown in this document. 
+
+
 
 % \section*{Acknowledgements}
 
