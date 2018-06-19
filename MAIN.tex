@@ -555,11 +555,53 @@ algorithms with these data subsets.
 
 \subsection{Feature Importance} \label{subsection_importances}
 
-Once the tasks were run and the best classifiers were obtained, we generated a list of the most relevant features. This was done using the best Random Forest classifier for each task. The goal behind this proposal was to understand which features contributed the most to the classification task. Doing this is critical in a machine learning context, since finding optimal feature sets enable lower computation times by sacrificing a little performance.
-
+After finding the best classifiers we generate  a list of the most
+relevant features. 
+We do this with  the best Random Forest classifier for each task. 
+This approach quantifies  which features contributed the most to the
+classification task.  
 
 \section{Experiments} \label{section_experimentation}
-\import{./chapters/}{4.exp.tex}
+
+%\import{./chapters/}{4.exp.tex}
+We test all classification tasks described earlier with multiple
+parameter variations.  
+We run multiple times each task with different criteria 
+(dataset inputs, pre-processing steps and algorithms), 
+to find out  what configuration worked the best for each case. 
+
+We use five different parameters in our experiments.
+Each expriment includes at least two possible values for each
+parameter.
+We try all possible combinations of all parameter variations for the
+five classification tasks. 
+These five parameters are the following. 
+
+\begin{description}
+    \item \textbf{Minimum Observations} 
+      This quantifies how       different amounts of observations
+      per light curve impact  transient classification.
+      We use two values for this parameter: 5 and 10 (Section \ref{subsection_filtering}). 
+    \item \textbf{Balancing Classes} 
+      The performance of classification algorithms performance may differ if the number
+      of elements for each class is not equal during training. 
+      We experiment with two different scenarios.
+      scenarios. 
+      First, we use the original CRTS light curves, with unbalanced transient classes (Table
+      \ref{Top-Transient-Classes}).
+      Second, we use a sub-set of light curves with balanced classes. 
+      To obtain balanced classes, those with a smaller count than the
+      biggest class are incremented with synthetic light curves
+      generated as  described Section \ref{subsection_oversampling}.              
+      Note that the Binary Classification task described in Section
+      \ref{section_method} has by construction balanced classes only.
+    
+    \item \textbf{Number of Features} In order to test how much our classification results varied when using different feature subsets, three different subsets were tested for each task: 20, 26 or 30 features as defined in Section \ref{subsection_extraction}.
+    \item \textbf{Feature Scaling} As described in Section \ref{subsection_scaling}, we tested independently scaling the features using either min-max scaling or standardization, since different feature scaling methods may result in distinct results.
+    \item \textbf{Model Used} Three substantially different algorithms were tested, in order to investigate which learned the better from the data. Namely, they were Neural Networks, Random Forests or Support Vector Machines (Section \ref{subsection_classification}).
+\end{description}
+
+
 
 \section{Results} \label{section_results}
 \import{./chapters/}{5.res.tex} 
