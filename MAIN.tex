@@ -429,8 +429,8 @@ These features are.
 
 
   \item Percentile-based features use the sorted flux distribution for
-    each source. Flux is calculated as $F = 10^{0.4mag}$. Defining
-    $F_{a,b}$ as the difference between the $b$ and $a$ flux
+    each source. The flux is computed as $F = 10^{0.4 \mathrm{mag}}$. 
+    We define $F_{n,m}$ as the difference between the $m$-th and $n$-the flux
     percentiles. 
     \begin{itemize}
     \item \underline{Percent Amplitude} (\textit{p \textunderscore amp}): 
@@ -478,24 +478,79 @@ We group these features into three sets for experimentation:
 
 
 \subsection{Feature Scaling} \label{subsection_scaling}
-Two feature scaling procedures were used in this project, in order to weight equally each feature when training machine learning algorithms. This process was applied independently to every single light curve feature. The first re-scaling procedure, named standardization, recalculates the values such that their updated mean is zero and they have unit variance. The second re-scaling feature used was normalization, which transforms features by re-scaling them to the range $[0,1]$. Note that these techniques were used exclusively in distinct experiments as explained in the experimentation section (Section \ref{section_experimentation}).
+
+We use two feature scaling procedures to weight equally each input
+in the machine learning training process.
+These procedures are applied to the magnitudes for each light curve.
+The first is standardization, where the re-scaled values have zero mean and unit variance. 
+The second is normalization, were the magnitudes are re-scaled  to the
+range $[0,1]$. 
+These procedures are part of the modules that are switched on/off as
+part of the experimentation explained in Section \ref{section_experimentation}.
+
 
 \subsection{Classification} \label{subsection_classification}
 
-Five classification tasks were performed with the homogeneous computed feature vectors.
+We perform five classification tasks.
 
 \begin{enumerate}
-    \item \textbf{Binary Classification}: 
-    Distinguish transients from non-transients. A balanced number of events from both classes is used to investigate the capability of distinguishing between these different types.
-    \item \textbf{6-Transient Classification}: Recognize objects as belonging to one of the more common transient types in the dataset, namely: AGN, Blazar, CV, Flare, HPM and Supernovae. The purpose of this task was to test how well did classification algorithms perform when distinguishing only the main transient event types in the dataset.
-    \item \textbf{7-Transient Classification}: Recognize objects as belonging to one of the more common transient types in the dataset or as a different transient, namely: AGN, Blazar, CV, Flare, HPM, Other and Supernovae. The Other class was created by using objects from ambiguous and under-represented classes such as the ones described in Section \ref{section_data}. In this scenario we wanted to understand how well these Other classes were detected when grouped together, and how the performance of the 6-Transient Classification Task was altered with the addition this new class.
-    \item \textbf{7-Class Classification}: Recognize objects as belonging to one of the more common transient types in the dataset or as a Non-Transient object. The classes used were: AGN, Blazar, CV, Flare, HPM, Non-Transient and Supernovae. This task was developed with the purpose of understanding if classifiers could classify correctly the main transient types when the non-transient events were present.
-    \item \textbf{8-Class Classification}: Recognize objects as belonging to any of the the following classes: AGN, Blazar, CV, Flare, HPM, Other, Non-Transient and Supernovae. The Other class was created by using objects from ambiguous and under-represented classes. This task was done to search how well was classification executed when testing together all the main classes that were present in the previous tasks.
+\item \textbf{Binary Classification}: 
+  Distinguish transients from non-transients. A balanced number of
+  events from both classes is used to investigate the capability of
+  distinguishing between these different types. 
+\item \textbf{6-Transient Classification}: Recognize objects as
+  belonging to one of the more common transient types in the dataset,
+  namely: AGN, Blazar, CV, Flare, HPM and Supernovae. The purpose of
+  this task was to test how well does classification algorithms perform
+  when distinguishing only the main transient event types in the
+  dataset. 
+\item \textbf{7-Transient Classification}: Recognize objects as
+  belonging to one of the more common transient types in the dataset
+  or as a different transient, namely: AGN, Blazar, CV, Flare, HPM,
+  Other and Supernovae. The Other class was created by using objects
+  from ambiguous and under-represented classes such as the ones
+  described in Section \ref{section_data}. In this scenario we wanted
+  to understand how well these Other classes are detected when
+  grouped together, and how the performance of the 6-Transient
+  Classification Task changes with the addition this new class. 
+    \item \textbf{7-Class Classification}: Recognize objects as
+      belonging to one of the more common transient types in the
+      dataset or as a Non-Transient object. We use the classes:
+      AGN, Blazar, CV, Flare, HPM, Non-Transient and Supernovae. 
+      The purpose is understanding whether classifiers could classify
+      correctly the main transient types when the non-transient events
+      are present.  
+    \item \textbf{8-Class Classification}: Recognize objects as
+      belonging to any of the the following classes: AGN, Blazar, CV,
+      Flare, HPM, Other, Non-Transient and Supernovae. 
+      The Other classs is built using objects from ambiguous and
+      under-represented classes. 
+      This task quantifies how good is the classification when testing
+      together all the main classes in the previous tasks.
 \end{enumerate}
 
-Three different algorithms were used for classification: neural networks, random forests and support vector machines. These algorithms were chosen because they were found to be popular in existing studies. Moreover, these three algorithms can perform quickly classification under the low dimensional feature data used, which means that their use in production pipelines may be studied too. Details on the inner workings of these machine learning models can be found in \cite{9780387848570}
+We use three classification algorithms: Neural Networks, Random
+Forests and Support Vector Machines. 
+These algorithms are popular in published studies and are efficient 
+for low dimensional feature datasets as is our case. 
+Details on the inner workings of these machine learning models can be
+found in \cite{9780387848570}.  
 
-To train machine learning models, it is required to define the training and testing processes. In our project, we made sure that the training data did not contain oversampled light curves based on any other present in the test samples, since this could suppose a bias. We also made sure that the test samples did not contain oversampled light curves, for the same reason. Additionally, since the number of objects in the class sub-sets was small we used 2-fold cross validation during training for result validation. Moreover, grid search was used during training to test multiple hyper-parameter configurations for each one of the possible algorithms. The evaluation metrics used to assess the performance of the model was the F1-Score. Finally, a test set was initially set aside for each task, and final scores were based on the prediction performance of the trained algorithms with these data subsets.
+We also make sure that the training data does not contain oversampled
+light curves based on any other present in the test samples, since
+this could introduce a bias.  
+The test samples do not contain not contain oversampled light
+curves, for the same reason. 
+Additionally, since the number of objects in the class sub-sets was
+small we used 2-fold cross validation during training for result
+validation. 
+Moreover, grid search was used during training to test multiple
+hyper-parameter configurations for each one  of the possible
+algorithms. 
+We use the F1-Score to assess the performance of a given model.
+We initially define a test set aside for each task and compute 
+the final scores based on the prediction performance of the trained
+algorithms with these data subsets.  
 
 
 \subsection{Feature Importance} \label{subsection_importances}
