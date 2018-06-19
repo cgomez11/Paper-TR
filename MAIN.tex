@@ -578,13 +578,11 @@ five classification tasks.
 These five parameters are the following. 
 
 \begin{description}
-    \item \textbf{Minimum Observations} 
-      This quantifies how       different amounts of observations
-      per light curve impact  transient classification.
+    \item \textbf{Minimum Observations}. 
+      This quantifies how  different amounts of observations
+      per light curve impact transient classification.
       We use two values for this parameter: 5 and 10 (Section \ref{subsection_filtering}). 
-    \item \textbf{Balancing Classes} 
-      The performance of classification algorithms performance may differ if the number
-      of elements for each class is not equal during training. 
+    \item \textbf{Balancing Classes}. 
       We experiment with two different scenarios.
       scenarios. 
       First, we use the original CRTS light curves, with unbalanced transient classes (Table
@@ -596,9 +594,19 @@ These five parameters are the following.
       Note that the Binary Classification task described in Section
       \ref{section_method} has by construction balanced classes only.
     
-    \item \textbf{Number of Features} In order to test how much our classification results varied when using different feature subsets, three different subsets were tested for each task: 20, 26 or 30 features as defined in Section \ref{subsection_extraction}.
-    \item \textbf{Feature Scaling} As described in Section \ref{subsection_scaling}, we tested independently scaling the features using either min-max scaling or standardization, since different feature scaling methods may result in distinct results.
-    \item \textbf{Model Used} Three substantially different algorithms were tested, in order to investigate which learned the better from the data. Namely, they were Neural Networks, Random Forests or Support Vector Machines (Section \ref{subsection_classification}).
+    \item \textbf{Number of Features}. 
+      We use different feature subsets. 
+      The three different subsets have 20, 26 or 30 features as
+      defined in Section \ref{subsection_extraction}. 
+    \item \textbf{Feature Scaling}. 
+      We test two different feature scaling procedures: min-max
+      scaling and standarization as defined in Section
+      \ref{subsection_scaling}. 
+    \item \textbf{Model Used}. 
+      These correspond to the three classification algorithms. 
+      described in Section \ref{subsection_classification}:    
+      Neural Networks, Random Forests or Support Vector
+      Machines 
 \end{description}
 
 
