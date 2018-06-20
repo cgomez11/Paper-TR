@@ -687,32 +687,47 @@ Using light curves with at least 10 observations minimum
 in unbalanced data also shows a small improvement.
 
 % NN
-NN rank second in this task, scoring a maximum f1-score of 73.01\%. 
+NN ranks second in this task, scoring a maximum f1-score of 73.01\%. 
 Using unbalanced inputs with this model improves performance.
-Havinf more than 20 features show a moderate increase in
-performance.
-Using light light-curves with 10 observations minimum correlates with a
-higher score on unbalanced inputs, whereas in balanced inputs does not
-show a clear trend. 
+Havinf more than 20 features show a moderate increase in performance. 
+Using light light-curves with 10 observations minimum correlates with
+a higher score on unbalanced inputs, whereas in balanced inputs does
+not show a clear trend.
 
 % SVM
-Last in this rank were SVMs, achieving a maximum f1-score of 69.65\%. Their scores were very similar those of Neural Networks. A significant increase in performance was obtained with this model when using more than 20 features, though the difference between using 26 and 30 features was very small. On the other hand, there was a small score increase when using training on unbalanced inputs. Finally, using 20 features only achieved better results when using light curves with minimum 5 observations.
+SVM are last in this ranking with a maximum f1-score of 69.65\% and
+scores very similar to those of NN. 
+A significant increase in performance was obtained with this model when
+using more than 20 features, though the difference between using 26
+and 30 features was very small. 
+On the other hand, there is a small score increase when using training
+on unbalanced inputs, using 20 features only achieves better results
+when using light curves with minimum 5 observations. 
 
 % Confusion Matrix
-The confusion matrix of the best performing algorithm shows the percentage of true samples classified as each possible class. 
-Table \ref{Confusion-6-Transient} shows the confusion matrix for the 6-classes in this task. There, HPM was the best performing class with a recall of 94.32\%, followed by SN and AGN, with a recall of 86.67\% and 80.31\% respectively. On the contrary, Blazar and Flare were the two classes with the lowest recall (42.86\% and 55.36\% respectively). The confusion matrix shows that most of the incorrectly classified AGN, Blazar, CV and Flare instances were identified as SN. A big proportion of Blazar light curves were also incorrectly classified as AGNs and CVs, though this amount is low compared to the false SN samples.
+Table \ref{Confusion-6-Transient} shows the confusion matrix for RF. 
+There, HPM is the best performing class with a recall of 94.32\%, 
+followed by SN and AGN, with a recall of 86.67\% and 80.31\%
+respectively. 
+Blazar and Flare are the two classes with the lowest recall; 42.86\%
+and 55.36\%, respectively. 
+The confusion matrix shows that most of the incorrectly
+classified AGN, Blazar, CV and Flare instances were identified as
+SN. A big proportion of Blazar light curves were also incorrectly
+classified as AGNs and CVs, though this amount is low compared to the
+false SN samples. 
 
-% Scores
-% In the class scores table for this task, it is shown that both the averaged Precision and Recall were very similar (Table \ref{Overall-Scores-6-Transient-Oversampled}). On the other hand, Blazar precision is found to be much higher than its initial recall discussed previously. Something similar happens with Flares, and the opposite with SN.
 
 % Importances
-\import{./figures/6-Transient/}{importances.tex}
-Figure \ref{Importances-6-Transient} displays the feature importance rank in descending order, based on the best classifier for this task. 
-Highest importance features for this task are the
-stetson\textunderscore j, std, amp, mad, and sk, all of which have an importance above 6\%. 
-Remaining features have not-too-distant importance values, except for the highest level polynomial coefficients which were ranked last; in specific: 
-poly4\textunderscore t1, poly4\textunderscore t2, poly3\textunderscore t3, poly4\textunderscore t3 and poly4\textunderscore t4. 
-This list presents a slightly more balanced importance among classes, compared to the results in the Binary Classification Task (Section \ref{Results-Binary}).
+\import{./figures/6-Transient/}{importances.tex} Figure
+\ref{Importances-6-Transient} displays the feature importance rank in
+descending order for the RF classifier.
+Stetson\textunderscore j, std, amp, mad, and sk, have an importance above 6\%. 
+The remaining features have not-too-distant importance values, except
+for the highest level polynomial coefficients which were ranked last.
+This list presents a slightly more balanced importance among features,
+compared to the results in the Binary Classification Task in the
+previous sub-section.
 
 % Refer to Light-Curve Visualizations
 
