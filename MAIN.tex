@@ -980,10 +980,7 @@ poly4\textunderscore t3 and poly4\textunderscore t4.
 
 \subsection{Summary}
 
-Among the different feature re-scaling techniques, Standardization
-primes over MinMax in obtaining the highest f1-scores. 
-For every single combination of parameters possible, the highest
-scores are found with Standardization. 
+
 
 Regarding the algorithms used, RF always achieves the highest scores,
 followed by NN,  and finally SVM. 
@@ -995,40 +992,48 @@ curves with at least 10 observations.
 Finally, training with the unbalanced dataset frequently provides the
 highest scores.  
 
-In detail, machine learning algorithms behave similarly in some
-cases: 
+Among the different feature re-scaling techniques, Standardization
+primes over MinMax in obtaining the highest f1-scores. 
+For every single combination of parameters possible, the highest
+scores are found with Standardization. 
+
+
+For each classification algorithm we highlight the following trends.
 
 \begin{itemize}
-    \item \textbf{Random forests} worked best when using all 30
-      features. Light-curves with 10 observations provided the best
+    \item \textbf{Random forests} work best when using all 30
+      features. Light-curves with at least 10 observations provided the best
       results, except in binary classification where the highest
       results were obtained using 5 observations only. Finally, using
-      balanced inputs worked the best only in the 7-Transient
+      balanced inputs is useful only in the 7-Transient
       classification task.  
-    \item \textbf{Neural Networks} scored their highest scores using
-      26 or 30 features. Also, their highest scores were always
-      obtained using light curves with at least 10 observations and
+    \item \textbf{Neural Networks} gets its highest scores using
+      26 or 30 features, including light curves with at least 10 observations and
       unbalanced inputs. 
-    \item \textbf{SVMs} frequently scored their highest scores when
+    \item \textbf{SVMs} frequently gets highest scores 
       using more than 20 features and 10 observations minimum per
       light curve. Nonetheless, both unbalanced and balanced inputs
-      were useful to obtain their highest scores. 
+      are useful to obtain their highest scores. 
 \end{itemize}
 
 Each class behaves differently. 
 In binary classification,
-the best algorithm achieved a higher f1-score for Non-Transients,
-followed closely by Transients. Furthermore, in multi-class
-classification the best identified classes were by far: HPM and
-Non-Transients. They were followed by AGN, CV and SN instances which
-had lower performance, and followed at last by Blazars, Flares and
+the best algorithm achieves a higher f1-score for Non-Transients,
+followed closely by Transients. 
+Furthermore, in multi-class
+classification the best identified classes clearly are: HPM and
+Non-Transients. They are followed by AGN, CV and SN instances which
+have lower performance, and followed at last by Blazars, Flares and
 Other instances, with the worst classification performance.  
 
 % An important majority of incorrectly classified instances were identified as either Supernovae or Non-Transients. A smaller amount was incorrectly classified as AGN and Other. 
 
-Finally, a clear pattern regarding feature importance was found. In non-binary classification tasks, the best features were always: stetson\textunderscore j, sk, std, mad and amp. Those features obtained scores in the range 6 - 9, and stetson\textunderscore j always achieved the highest value. On the other hand, feature importance list show that high-level polynomial curve fitting features always obtained the lowest importance in those same tasks. Namely: poly4\textunderscore t1, poly4\textunderscore t2, poly3\textunderscore t3, poly4\textunderscore t3 and poly4\textunderscore t4, in that order.
-
-Detailed results for each experiment are found in the following sub-sections.
+We also find a clear pattern regarding feature importance. 
+In non-binary classification tasks, the best features are always:
+stetson\textunderscore j, sk, std, mad and amp. 
+Stetson\textunderscore j always achieved the highest value. 
+On the other hand, featur high-level polynomial curve fitting features
+are always the least important in those same tasks. 
 
 
 \section{Conclusions}
