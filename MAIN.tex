@@ -673,7 +673,8 @@ coefficients that contributed less than 1\% each.
 
 % Best Clf.
 The best algorithm is RF with a top f1-score of 77.54\% achieved with 
-unbalanced inputs, 30 features and light curves with a minimum of 10 observations
+unbalanced inputs, 30 features and light curves with a minimum of 10
+observations. 
 Table \ref{Classifier-Scores-6-Transient-unbalanced} and Table
 \ref{Classifier-Scores-6-Transient-balanced} summarize all the
 results. 
@@ -738,10 +739,20 @@ previous sub-section.
 \import{./figures/7-Transient/}{class_bal.tex}
 
 % Best Clf.
-Top f1-Score of 66.39\% was achieved in this task using RF, min\textunderscore obs = 10, 30 features and balanced inputs (Table \ref{Classifier-Scores-7-Transient-unbalanced} \& Table \ref{Classifier-Scores-7-Transient-balanced}).
+The best algorithm is RF with a top f1-Score of 66.39\% achieved with 
+min\textunderscore obs = 10, 30 features and balanced inputs.
+Table \ref{Classifier-Scores-7-Transient-unbalanced} and Table
+\ref{Classifier-Scores-7-Transient-balanced} summarize the f1-scores
+for unbalanced and balanced inputs, respectively. 
 
 % RF
-In general, Random Forests outperformed all other models in their respective parameter combinations. A significant increase in performance was found when using more than 20 features. Additionally, using balanced inputs proved to yield better overall performance except when using 20 features. A slightly increase was also achieved by using light curves with minimum 10 observations, rather than their 5 observations minimum counterpart.
+RF outperform all other models in their respective parameter
+combinations. 
+We find a significant increase in performance when using more than 20
+features. 
+Balanced inputs yield a better overall performance except when using 20 features. 
+Using light curves with minimum 10 observations, rather than 5
+observations, represents a slights improvement.
 
 % NN
 Neural Networks are positioned second in this task, achieving a top score of 61.28\%. Overall, this algorithm achieved better results when using light curves that contained minimum 10 observations. Moreover, there tended to be a better performance when using 30 features. Unfortunately, a clear correlation between performance and the number of features used wasn't found.
