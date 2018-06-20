@@ -680,7 +680,7 @@ Table \ref{Classifier-Scores-6-Transient-unbalanced} and Table
 results. 
  
 % RF
-On avarega, RF is the the best-performing models for this
+On average, RF is the the best-performing models for this
 task. 
 The performance improves with more than 20 features; using 30 features rather than 26
 is marginally better for the unbalanced dataset. 
@@ -724,8 +724,8 @@ false SN samples.
 \ref{Importances-6-Transient} displays the feature importance rank in
 descending order for the RF classifier.
 Stetson\textunderscore j, std, amp, mad, and sk, have an importance above 6\%. 
-The remaining features have not-too-distant importance values, except
-for the highest level polynomial coefficients which were ranked last.
+The remaining features have similarimportance values, except
+for the highest level polynomial coefficients which rank last.
 This list presents a slightly more balanced importance among features,
 compared to the results in the Binary Classification Task in the
 previous sub-section.
@@ -755,13 +755,41 @@ Using light curves with minimum 10 observations, rather than 5
 observations, represents a slights improvement.
 
 % NN
-Neural Networks are positioned second in this task, achieving a top score of 61.28\%. Overall, this algorithm achieved better results when using light curves that contained minimum 10 observations. Moreover, there tended to be a better performance when using 30 features. Unfortunately, a clear correlation between performance and the number of features used wasn't found.
+NN are second in this task, achieving a top score of 61.28\%.  
+NN achieve better results when using light curves that contained a
+minimum 10 observations. 
+We do not find a clear correlation between performance and the number
+of features used. 
+
 
 % SVM
-From other stand point SVMs ranked third, obtaining a maximum f1-score of 58.62\%. These classifiers had slightly worse scores Neural Networks. In general, the best results were obtained when using light curves with a minimum of 10 observations each. Moreover, by using balanced inputs higher average results were achieved always, except when using balanced inputs and min\textunderscore obs = 5, where the generated scores were very similar. Finally, the number of features used didn't affect much in the final result in most cases, though when it did, higher number of features was correlated with better scores.
+SVMs ranked third with a maximum f1-score of 58.62\%. 
+These classifiers have a slightly worse scores than NN.
+The best results are obtained using light curves with a minimum of 10
+observations.
+Moreover, by using
+balanced inputs higher average results were achieved always, except
+when using balanced inputs and min\textunderscore obs = 5, where the
+generated scores were very similar. 
+Finally, the number of features does not strongly influence the final
+result in most cases.
 
 % Confusion Matrix
-Table \ref{Confusion-7-Transient} shows the confusion matrix for thist task's best model. From this table it is clear that HPM was by a ~20\% difference the class with the most correctly classified instances. The worst performing classes in this context were Blazar and Other, achieving a recall close to 48.5\%. All other classes obtained a recall between 60\% and 80\%. According to that table, most incorrectly classified AGNs were identified as belonging to the Other class. Additionally, most incorrectly classified light-curves belonging to Blazar, CV, Flare and Other classes were identified as SN. It is clear, based on the 6-Transient Classification Task confusion matrix (Table \ref{Confusion-6-Transient}), that the inclusion of the Other class resulted in a performance deterioration for various classes including AGN and SN.
+Table \ref{Confusion-7-Transient} shows the confusion matrix for the
+best model. 
+HPM is by a ~20\% difference the class with the most correctly
+classified instances.  
+The worst performing classes are Blazar and Other, achieving a recall
+close to 48.5\%. 
+All other classes have a recall between 60\% and 80\%. 
+The most incorrectly classification were AGNs identified as belonging
+to the Other class. 
+Additionally, most incorrectly classified light-curves belong to Blazar, CV, Flare and
+Other classes are identified as SN. 
+Comparing this Table against the  6-Transient Classification Task confusion matrix (Table
+\ref{Confusion-6-Transient}) we conclude that the inclusion of the
+Other class results in a performance deterioration for various classes
+including AGN and SN.   
 
 % Scores
 % In the class scores table for this task, it is shown that both the averaged Precision and Recall were very similar (Table \ref{Overall-Scores-7-Transient-Oversampled}). It is clear too that precision-recall individual class values were very similar, resulting in a difference of at most 7\% for each class, except in the case of Flares where it is much higher.
@@ -770,7 +798,13 @@ Table \ref{Confusion-7-Transient} shows the confusion matrix for thist task's be
 % Importances
 \import{./figures/7-Transient/}{importances.tex}
 
-Figure \ref{Importances-7-Transient} displays the feature importance rank in descending order, based on the best classifier for this task. This graph presents a similar trend as Figure \ref{Importances-6-Transient}. The most relevant features for this task were stetson\textunderscore j, sk, std, mad, and amp which achieved an importance of over 6\% each (Figure \ref{Importances-7-Transient}). Contrarily, the least important features were poly4\textunderscore t2, poly3\textunderscore t3, poly4\textunderscore t3 and poly4\textunderscore t4, each of which achieved an importance below 1\%. For this task, the most important polynomial coefficient features were the coefficients up to the 2nd-degree polynomial. 
+Figure \ref{Importances-7-Transient} displays the feature importance
+ranking for the best classifier.
+This raking follows a similar trend as Figure \ref{Importances-6-Transient}. 
+The most relevant features for this task are stetson\textunderscore j,
+sk, std, mad, and amp which achieved an importance of over 6\% each. 
+The least important features are the highest level polynomial
+coefficients.
 
 
 %%%%%%  SEVEN-CLASS  %%%%%%
@@ -780,101 +814,188 @@ Figure \ref{Importances-7-Transient} displays the feature importance rank in des
 \import{./figures/7-Class/}{class_bal.tex}
 
 % Best Clf
-The best performing parameter combination for this task achieved an f1-score of 75.05\%. It was generated using Random Forests with light curves containing 10 observations minimum, 30 features and unbalanced inputs. 
+The best algorithsm is RF with an f1-score of 75.05\% achieved with 
+curves containing at least 10 observations, using 30 features and
+unbalanced inputs.   
 
 % RF
-Overall, Random Forests performed best in this task. The worst results were obtained using 20 features only, and using 30 features tended to generate better scores. On the other hand, this model performed better when using unbalanced inputs. Finally, using light curves with a minimum of 10 observations resulted in better scores when using more than 20 features; the opposite was true when using 5 observations minimum.
+Overall, RF is alway the best model, always performing better with unbalanced
+inputs.  
+The worst results are obtained using 20 features only.
+Finally, using light curves with a minimum of 5 minimum of 10
+observations resulted in better scores when using more than 20
+features;  the opposite is true when using 5 observations minimum.   
 
 % NN
-Neural Networks were the second-best performing algorithms in this task. A maximum f1-score of 69.14\% was obtained with these algorithms. In general, the use of min\textunderscore obs = 10 generated higher scores. Moreover, training with a higher amount of features was correlated with a higher performance, except only when using min\textunderscore obs = 10 and unbalanced inputs, where the results were very similar. Finally, using unbalanced inputs generated significantly higher scores.
+NN is the second-best performing algorithm with a maximum f1-score of
+69.14\%. 
+In general, the use of min\textunderscore obs = 10 generates higher
+scores. 
+Moreover, training with a higher amount of features correlates with a
+higher performance, except only when using min\textunderscore obs = 10
+and unbalanced inputs, where the results are very similar. 
+Finally, using unbalanced inputs gives significantly higher scores.  
 
 % SVM
-SVMs were the the worst performing algorithms in this task, getting a maximum f1-score of 65.85\%. In general, higher scores were obtained when using light curves with a minimum of 10 observations. Additionally, using balanced inputs resulted in slightly higher results. Finally, training with 26 features tended to result in the highest scores, though those were very similar to the ones obtained with 31 features.
+SVM is the the worst algorithm with a maximum f1-score of 65.85\%. 
+In general, higher scores are obtained from light curves with a
+minimum of 10 observations.  
+Using balanced inputs also results in slightly bettwe results. 
+Finally, training with 26 features tends to give the best scores,
+although those are very similar to the results with 31 features.  
 
 % Confusion Matrix
-Table \ref{Confusion-7-Class} shows the confusion matrix for the best model in this task, described above. In it, HPMs and Non-Transient samples acquired the most correctly classified elements, with 84.09\% and 87.62\% recall respectively. Other classes such as AGN, CV and SN followed, obtaining a recall in the 74\% - 78\% range. Blazars and Flares on the other hand obtained the lowest scores (below 40\%). It's important to notice that SN was the class with which most other class instances were incorrectly classified, except for Flares, where 50\% of the test samples were classified as Non-Transients. Thus, the inclusion of the Non-Transient class in this task reduced slightly the classification performance of transient classes, when compared to the 6-Transient classification task (\ref{Confusion-6-Transient}).
+Table \ref{Confusion-7-Class} shows the confusion matrix for the best
+model. 
+HPMs and Non-Transient samples have the most correctly classified elements, with 84.09\%
+and 87.62\% recall respectively. 
+Other classes such as AGN, CV and SN follow with a recall in the 74\%
+- 78\% range. 
+Blazars and Flares on the other hand have the lowest scores (below
+40\%). 
+SN is the class with which most other class instances incorrectly
+classified, except for Flares, where 50\% of the test samples are
+classified as Non-Transients. 
+We conclude that the inclusion of the Non-Transient class slightly
+reduces the  classification performance of transient classes in
+comparison against the  6-Transient classification task
+(Table \ref{Confusion-6-Transient}).  
 
 % Scores
 % In the class scores table for this task, it is shown that both the averaged Precision and Recall were very similar (Table \ref{Overall-Scores-6-Transient-Oversampled}). On the other hand, individual Blazar precision is found to be much higher than its initial recall discussed previously, just as in the 6-Transient task (Table \ref{Overall-Scores-7-Transient-Oversampled}). 
-Notice that the inclusion of Non-Transients decreases flares f1-score, implying a worse recognition of this class. All other classes f1-scores were also decreased by little with the inclusion of Non-Transients (Table \ref{Overall-Scores-6-Transient-Oversampled}).
+Notice that the inclusion of Non-Transients decreases flares f1-score,
+implying a worse recognition of this class. All other classes
+f1-scores were also decreased by little with the inclusion of
+Non-Transients (Table \ref{Overall-Scores-6-Transient-Oversampled}). 
 
 
 % Importances
 \import{./figures/7-Class/}{importances.tex}
 
-Figure \ref{Importances-7-Class} displays the feature importance rank in descending order, based on the best classifier for this task. 
-According to it, the highest importance features for this task are the
-stetson\textunderscore j index with a ~9\% importance, amp, std, sk, and mad, all of which have an importance close to 6\%. Contrarily, five of the highest level polynomial coefficients are found last: poly4\textunderscore t1, poly4\textunderscore t2, poly3\textunderscore t3, poly4\textunderscore t3 and poly4\textunderscore t4; note that poly4\textunderscore t1 scored a much higher importance. To conclude, a similar almost-linear trend is found in general, just as it was the case with Binary and 6-Transient classification importance lists (Figure \ref{Importances-Binary} \& Figure \ref{Importances-7-Class}).
+Figure \ref{Importances-7-Class} displays the feature importance
+ranking. 
+The general trend is similar to 6-Transient classification in Figure
+\ref{Importances-7-Class}. 
+The highest importance features for this task are the
+stetson\textunderscore j index with a ~9\% importance, followed by
+amp, std, sk, and mad, with an importance close to 6\%. 
+Give of the highest level polynomial coefficients are the least
+important: poly4\textunderscore t1, poly4\textunderscore t2,
+poly3\textunderscore t3, poly4\textunderscore t3 and
+poly4\textunderscore t4; note that poly4\textunderscore t1 scores a
+much higher importance.  
+
 
 % Refer to Light-Curve Visualizations
 
 
 
 %%%%%%  EIGHT-CLASS  %%%%%%
-\subsection{Seven-Class Classification}
+\subsection{Eight-Class Classification}
 
 \import{./figures/8-Class/}{class_reg.tex}
 \import{./figures/8-Class/}{class_bal.tex}
 
 
 % Best Clf.
-This task's best classifier was obtained when using Random Forest, 30 features, unbalanced inputs and light curves containing minimum 10 observations. The best f1-score achieved with this model was 66.05\%.
+RF is the best classifier. The best f1-score is 66.05\% achieved with
+30 features, unbalanced inputs and light curves containing minimum 10
+observations.  
+
 
 % RF
-For this task, the best performing model was Random Forest. This algorithm's performance substantially increased for this model when using 26 - 30 features, compared to 20 features. In specific, 30 features worked better overall. Moreover, a slightly improvement was found when using non-balanced inputs, in contrast to balanced inputs. Finally, using light-curves with min\textunderscore obs = 10 resulted in higher scores.
+RF is the overall best performing model.
+The  algorithm's performance substantially increases when using 26 -
+30 features, compared to 20 features.
+There is a marginal improvement when using non-balanced inputs. 
+Using light-curves with min\textunderscore obs = 10 always results in
+higher scores.  
 
 % NN
-Neural Networks are ranked as the second best models for this task. Their highest f1-score was 60.19\%. For this models, increasing the minimum number of observations per light curve from 5 to 10 resulted in a considerable performance upgrade. Training on unbalanced inputs was another factor that increased the scores obtained. Furthermore, the number of features used for training was directly related with the scores of this model. With unbalanced classes, the higher the number of features, the better. Alternatively, when using balanced inputs, using 26 and 30 features yielded the highest scores. Nonetheless, using 26 features was found to be a tiny bit better.
+NN are the second best. 
+Its highest f1-score was 60.19\%. 
+Increasing  the minimum number of observations per light curve from 5
+to 10 results in a considerable performance upgrade.  
+Training on unbalanced inputs is another factor that increases the
+scores. 
+The number of features used for training is  directly correlated with
+the scores.
+With unbalanced classes, the higher the number of features, the
+better. 
+Alternatively, when using balanced inputs, using 26 and 30 features
+yields the highest scores. 
+Nonetheless, using 26 features is marginally better. 
 
 % SVM
-Lastly, SVMs are ranked as the worst-performing models for this task: they achieved a maximum f1-score of 57.30\%. Using light curves with 10 observations was proven to result in higher scores, except only when using 20 features with balanced inputs. Additionally, using balanced inputs was proven to work best with light curves that had 5 observations minimum, whereas unbalanced inputs resulted in better results with light curves that had 10 observations minimum. Finally, the number of features used didn't affect much the model's performance, unless min \textunderscore obs was 10, in which 26 and 30 features resulted in better scores.
+SVM is the worst-performing model.
+It only achieves a maximum f1-score of 57.30\%.
+Using light curves with 10 observations results in higher scores, except 
+when using 20 features with balanced inputs. 
+Additionally, using balanced inputs works best with light
+curves that had 5 observations minimum, whereas unbalanced inputs
+resulted in better results with light curves that had 10 observations
+minimum.  
+Finally, the number of features used does not affect much the model's
+performance, unless min \textunderscore obs is 10, in which 26 and 30
+features result in better scores. 
 
 % Confusion Matrix
-The two classes with highest recalls are HPM and Non-Transient, with a 86.36\% and 84.13\% respectively (Table \ref{Confusion-8-Class}). On the contrary, worst performing classes are Blazar, Flare and Other, with recall values in the range 36\% - 40\%. It's important to notice that SN was the class with which most other class instances were incorrectly classified. Moreover, Flares had about 50\% of the test samples classified as Non-Transients, AGNs had about 20\% of their samples classified as Other, and Blazars and Other had most of  its samples classified as AGN. Additionally, most incorrectly classified AGNs (~20.5\%) were identified as Other and most Blazar instances were incorrectly categorized as either SN or AGN. Furthermore, a great majority of incorrectly classified items for CVs and Non-Transients were incorrectly classified as SN.
+Table \ref{Confusion-8-Class} presents the confusion matrix.
+The two classes with highest recalls are HPM and Non-Transient, with a
+recall of 86.36\% and 84.13\%, respectively. 
+The worst performing classes are Blazar, Flare and Other, with recall
+values in the range 36\% - 40\%. 
+SN was the class with which most other class instances are
+incorrectly classified. 
+Moreover, Flares had about 50\% of the test samples classified as
+Non-Transients, AGNs had about 20\% of their 
+samples classified as Other, and Blazars and Other had most of  its
+samples classified as AGN. 
+Additionally, most incorrectly classified AGNs (~20.5\%) are
+identified as Other and most Blazar instances are
+incorrectly categorized as either SN or AGN. 
 
 % Scores
 % In the class scores table for this task, it is shown that both the averaged Precision and Recall were very similar (Table \ref{Overall-Scores-8-Class-Oversampled}). 
-Notice that in this task, all 6 transient types found in the
+Table \ref{Overall-Scores-8-Class-Oversampled} summareize the results
+for the f1-scores for all algorithms. 
+We find that all 6 transient types found in the
 6-Transient classification task had a f1-score decrease (Table
-\ref{Overall-Scores-6-Transient-Oversampled}). Even the Other class
-f1-score was lower than in the 7-Transient classification task (Table
-\ref{Overall-Scores-7-Transient-Oversampled}), and the Non-Transient
-f1-score worsened when compared to the 7-Class task (Table
-\ref{Overall-Scores-7-Class-Oversampled}). This resulted in the worst
-overall f1-score achieved from all tasks (Table
-\ref{Overall-Scores-8-Class-Oversampled}). 
+\ref{Overall-Scores-6-Transient-Oversampled}). 
+Even the Other class f1-score is lower than in the 7-Transient classification task (Table
+\ref{Overall-Scores-7-Transient-Oversampled}).
+The Non-Transient f1-score is also worse when compared to the 7-Class
+task (Table \ref{Overall-Scores-7-Class-Oversampled}).  
 
 
 \import{./figures/8-Class/}{importances.tex}
 
-Figure \ref{Importances-8-Class} displays the feature importance rank
-in descending order, based on the best classifier for this task.  
+Figure \ref{Importances-8-Class} displays the feature importance ranking.
 This list ranks first stetson\textunderscore j with an 8\% importance,
-followed by amp, sk, std, mad, with values around 6\%. Ranking last in
-this list five high level polynomial are found: poly4\textunderscore
+followed by amp, sk, std, mad, with values around 6\%. 
+The lowest raking features are the five high level polynomial: poly4\textunderscore
 t1,  poly4\textunderscore t2, poly3\textunderscore t3,
-poly4\textunderscore t3 and poly4\textunderscore t4. A similar
-almost-linear trend is found in general, just as it was the case with
-the previous feature importance lists. 
+poly4\textunderscore t3 and poly4\textunderscore t4. 
 
 
+\subsection{Summary}
 
 Among the different feature re-scaling techniques, Standardization
-primed over MinMax in obtaining the highest f1-scores. For every
-single combination of parameters possible, the highest values were
-found with Standardization. 
+primes over MinMax in obtaining the highest f1-scores. 
+For every single combination of parameters possible, the highest
+scores are found with Standardization. 
 
-Regarding the algorithms used, Random Forests always achieved the
-highest scores, followed by Neural Networks, and finally Support
-Vector Machines. SVMs only outperformed Neural Networks in the Binary
-classification task. Additionally, it was very common to find, using
-these models, that the best classification scores were due to the use
-of more than 20 features. Furthermore, the highest scores were usually
-obtained when using light curves with at least 10
-observations. Finally, training with the unbalanced dataset frequently
-provided the highest scores. 
+Regarding the algorithms used, RF always achieves the highest scores,
+followed by NN,  and finally SVM. 
+SVMs only outperform NN  in the Binary classification task. 
+Additionally,  the best classification scores come from more than 20
+features. 
+Furthermore, the highest scores are usually obtained when using light
+curves with at least 10 observations. 
+Finally, training with the unbalanced dataset frequently provides the
+highest scores.  
 
-In detail, machine learning algorithms behaved similarly in some
+In detail, machine learning algorithms behave similarly in some
 cases: 
 
 \begin{itemize}
@@ -894,7 +1015,8 @@ cases:
       were useful to obtain their highest scores. 
 \end{itemize}
 
-Each astronomical class behaved differently. In binary classification,
+Each class behaves differently. 
+In binary classification,
 the best algorithm achieved a higher f1-score for Non-Transients,
 followed closely by Transients. Furthermore, in multi-class
 classification the best identified classes were by far: HPM and
