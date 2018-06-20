@@ -577,7 +577,7 @@ We try all possible combinations of all parameter variations for the
 five classification tasks. 
 These five parameters are the following. 
 
-\begin{description}
+\begin{enumerate}
     \item \textbf{Minimum Observations}. 
       This quantifies how  different amounts of observations
       per light curve impact transient classification.
@@ -607,13 +607,11 @@ These five parameters are the following.
       described in Section \ref{subsection_classification}:    
       Neural Networks, Random Forests or Support Vector
       Machines 
-\end{description}
+\end{enumerate}
 
 
 \section{Results} 
 \label{section_results}
-%\import{./chapters/}{5.res.tex} 
-
 
 %%%%%%  BINARY  %%%%%%
 \subsection{Binary Classification} 
@@ -621,13 +619,16 @@ These five parameters are the following.
 
 \import{./figures/Binary/}{class_reg.tex} 
 
+
 % Best Clf.
 The best algorithm in this task is RF with a  maximum f1-score of
 87.69\%.   
-This score is achieved  with light curves containing minimum 5 observations,
-and 30 features (Table \ref{Classifier-Scores-Binary-balanced}).  
-Using more than 20 features represents a significant increase in performance.
-Using 30 features rather than 26 is marginally better.
+This score is achieved  with light curves containing minimum 5
+observations, and 30 features (Table
+\ref{Classifier-Scores-Binary-balanced}).
+Using more than 20 features represents a significant increase in
+performance.
+Using 30 features rather than 26 is marginally better. 
 
 % SVM
 SVMs are the second best-performing model with the  f1-score of 85.36\%. 
@@ -645,19 +646,23 @@ We do not find a clear correlation between score values and other
 parameters.  
 
 % Confusion Matrix
-The confusion matrix of the best performing algorithm shows a ~6\% higher recall obtained by non-transient light-curves, compared to transients (Table \ref{Confusion-Binary}). In such matrix, a high amount of transients (15\%) were incorrectly classified as non-transients.
+Table \ref{Confusion-Binary} shows the confusion matrix of the best
+performing algorithm and Table \ref{Overaall-Scores-Binary} summarizes
+the scores.
+These results imply that non-transients are better classified overall.  
 
-% Scores
-Precision results for both classes were close to their respective recalls (Table \ref{Overall-Scores-Binary}). Transients scored a higher precision, though overall the best f1-score was the one achieved by non-transients. This implies that non-transients were better classified overall.
 
 % Importances
 \import{./figures/Binary/}{importances.tex}
 
-Figure \ref{Importances-Binary} displays the decreasing features importance according to this task's best classifier described earlier. The top five inputs for classification were
-stetson\textunderscore j, std, mad, poly1\textunderscore t1 and poly2\textunderscore t1. The former achieved the highest importance with over 21\%, compared to the following with values in the range 6\% - 8\%. Contrarily, the least relevant features contributed less than 1\% each. These were all polynomial curve-fitting coefficients: 
-poly3\textunderscore t1, poly4\textunderscore t3, poly4\textunderscore t2, poly4\textunderscore t1, poly3\textunderscore t3 and poly4\textunderscore t4. Remaining polynomial curve fitting features ranked too among the ones with the lowest importance.
-
-% Contrast with Images
+Figure \ref{Importances-Binary} displays the most important features
+for the RF classifier.
+The top five inputs for classification are stetson\textunderscore j,
+std, mad, poly1\textunderscore t1 and poly2\textunderscore t1.  
+The former achieved the highest importance with over 21\%, compared to
+the following with values in the range 6\% - 8\%. 
+The least relevant features are the polynomial curve-fitting
+coefficients that contributed less than 1\% each.
 
 
 %%%%%%  SIX-TRANSIENT  %%%%%%
@@ -667,13 +672,28 @@ poly3\textunderscore t1, poly4\textunderscore t3, poly4\textunderscore t2, poly4
 \import{./figures/6-Transient/}{class_bal.tex}
 
 % Best Clf.
-A top f1-score of 77.54\% was obtained when using RF with unbalanced inputs, 30 features and light curves with a minimum of 10 observations (Table \ref{Classifier-Scores-6-Transient-unbalanced} \& Table \ref{Classifier-Scores-6-Transient-balanced}).
-
+The best algorithm is RF with a top f1-score of 77.54\% achieved with 
+unbalanced inputs, 30 features and light curves with a minimum of 10 observations
+Table \ref{Classifier-Scores-6-Transient-unbalanced} and Table
+\ref{Classifier-Scores-6-Transient-balanced} summarize all the
+results. 
+ 
 % RF
-In average, Random Forests were the best-performing models for this task. In general, a significant increase in performance was obtained when using more than 20 features, and using 30 features rather than 26 was somewhat even better for the unbalanced dataset. Additionally, a small additional overall increase resulted when using light curves containing 10 observations minimum, and also when using unbalanced data.
+On avarega, RF is the the best-performing models for this
+task. 
+The performance improves with more than 20 features; using 30 features rather than 26
+is marginally better for the unbalanced dataset. 
+Using light curves with at least 10 observations minimum
+in unbalanced data also shows a small improvement.
 
 % NN
-Neural Networks were ranked second in this task, scoring a maximum f1-score of 73.01\%. Performance was better with this model when using the unbalanced inputs. Additionally, a moderate increase in performance was obtained when using more than 20 features. Finally, using light light-curves with 10 observations minimum was related to a higher score on unbalanced inputs, whereas in balanced inputs there wasn't a clear trend.
+NN rank second in this task, scoring a maximum f1-score of 73.01\%. 
+Using unbalanced inputs with this model improves performance.
+Havinf more than 20 features show a moderate increase in
+performance.
+Using light light-curves with 10 observations minimum correlates with a
+higher score on unbalanced inputs, whereas in balanced inputs does not
+show a clear trend. 
 
 % SVM
 Last in this rank were SVMs, achieving a maximum f1-score of 69.65\%. Their scores were very similar those of Neural Networks. A significant increase in performance was obtained with this model when using more than 20 features, though the difference between using 26 and 30 features was very small. On the other hand, there was a small score increase when using training on unbalanced inputs. Finally, using 20 features only achieved better results when using light curves with minimum 5 observations.
