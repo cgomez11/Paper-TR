@@ -28,6 +28,8 @@
 % out the following line
 %\usepackage{newtxtext,newtxmath}
 \usepackage{import}
+\usepackage{hyperref}
+
 % Depending on your LaTeX fonts installation, you might get better results with one of these:
 %\usepackage{mathptmx}
 %\usepackage{txfonts}
@@ -112,7 +114,7 @@ study and detection of transient astronomical sources.
 In this work we characterize various machine learning algorithms to
 recognize and classify such events.
 We use light-curves from the Catalina Real Time Transient Survey
-(CRTS) to classifity thousands of unique transient and non-transient
+(CRTS) to classify thousands of unique transient and non-transient
 event light-curves.
 We experiment  with multiple data pre-processing methods,
 feature selection techniques and self-learning models. 
@@ -164,7 +166,7 @@ unfeasible.
 Traditionally, such objects have been classified by visual inspection
 by experts or through crowd-sourcing
 \citep{1011.2199,0708.2750}. 
-This is approach is slow and expensive.
+This approach is slow and expensive.
 Another concern is the possible biases and difficulty to standardize among 
 astronomers \citep{1104.3142}. 
 Alternatively, transient detection can be executed much faster than
@@ -178,12 +180,12 @@ observations that optimize the economical and temporal resources.
 
 %%% TRANSIENTS EVENTS ARE CHALLENGES (AND WHAT TRANSIENT EVENTS ARE)
 Another challenge in  Time Domain Astronomy is Real-Time Transient classification. 
-Astronomical Transients are events which's luminosity varies in short duration
+Astronomical Transients are events whose luminosity varies in short duration
 relative in the timescale of the universe, from minutes to several
 years. 
 Transients include phenomena such as supernovae, novae, neutron
 stars, blazars, pulsars, cataclysmic variable stars (CV), gamma ray
-bursts (GRB) and active galaxy nucleus (AGN). 
+bursts (GRB) and active galaxy nuclei (AGN). 
 The time-domain dependency of these objects is one of the reasons why
 they are hard to classify: their data is usually heterogeneous,
 unbalanced, sparse, unevenly sampled and with missing information. 
@@ -202,24 +204,24 @@ function in all regions with the latter's, and subtracting both
 As a result, variable stars and transient objects which were not
 visible in the reference image will remain in the resulting
 image. 
-Nonetheless, the difference images can also contain bogus
+Nonetheless, the difference images can also contain
 artifacts due to imperfections in the image processing
 phase, in the telescope or other phenomena. 
 Unfortunately, distinguishing between bogus and real transient objects
-still requires human intervetion, making it expensive and slow
+still requires human intervention, making it expensive and slow
 \citep{2011arXiv1110.4655D}.  
 
 
 %%% STATE OF THE ART I: REAL VS BOGUS
-There are succesful attempts to implement automatic detection
-algorithms and distinguish bogus artifacts from real transient
+There have been successful attempts to implement automatic detection
+algorithms and distinguish artifacts from real transient
 objects.  
-For instance, raw images from the  Skymapper Supernova and Transient
+For instance, raw images from the  SkyMapper Supernova and Transient
 Survey and the High cadence Transient Survey (HiTS) have been used as
-inputs for automatic detection algorithms \citep{1708.08947,1701.00458}.
+inputs to automatic detection algorithms \citep{1708.08947,1701.00458}.
 Convolutional Neural Networks (CNN) have also achieved
 high accuracy in this binary classification task.
-Other studies have shown that bogus artifacts can be detected using
+Other studies have shown that artifacts can be detected using
 features extracted from raw images. 
 \cite{1601.06151} and \cite{1601.06320}, achieved reliable
 classification by transforming transient data from the OGLE-IV
@@ -235,19 +237,18 @@ from the SDSS supernova survey for the same purpose.
 %%% STATE OF THE ART II: DIRECT
 
 Some alternative approaches classify astronomical transient
-events skipping the difference imaging process. 
+events without image subtraction.
 This is usually done by extracting relevant features (e.g. periodic,
 non-periodic) from the astronomical object light-curves, and using
 machine learning algorithms for classification. 
 For instance, in \cite{1401.3211} and \cite{1601.03931}, light curves
 of objects six or more transient classes from the Catalina Real Time
 Transient Survey and the Downes set (\cite{d05}) were
-classified using this approach. 
-Other studies which research a similar approach
-\cite{1603.00882} used the same approach to finf 
+classified using this approach.
+\cite{1603.00882} used the same approach to find
 where supernovas from the Supernova Photometric Classification
 Challenge.
-Recurrent Neural Networks (RNNs) have also been proven succesful to
+Recurrent Neural Networks (RNNs) have also been proven successful to
 classify transient events, \cite{1606.07442} and \cite{1710.06804}
 showed that  modern algorithms can also learn from time-series data
 without expensive image processing.    
@@ -266,12 +267,15 @@ objects.
 We present the results of extensive testing and multiple experiments 
 executed in order to find the best training parameters. 
 
+This project is a compiled study that unifies techniques used in previous studies, in a structured way. We provide openly the curated datasets used and the code used for this project, so that others may replicate the results and expand upon them (Section \ref{section_code}). Thus, with this paper we provide an experimental framework that can be used as a baseline for future research.
+
+
 % STRUCTURE
 The paper is structured as it follows. In Section \ref{section_data}
 we present the dataset used for this project. 
 Section \ref{section_method} describes the methodology.
 Section \ref{section_experimentation} explains the experiments
-performed to classify transient objects with mach ine
+performed to classify transient objects with machine
 learning. 
 Finally, the results are presented and discussed in
 Section \ref{section_results}.  
@@ -296,9 +300,9 @@ The public CRTS data base reports the source flux and its
 corresponding uncertainty \citep{1996PASP..108..851S}.
 
 
-All transient objects were classified in the CRTS data-set according to
+All transient objects were classified in the CRTS dataset according to
 their type. 
-The most relevant classes found are: supernovae (SN),
+The most relevant classes are: supernovae (SN),
 cataclysmic variable stars (CV), blazars, flares, asteroids, active
 galactic nuclei (AGN), and high-proper-motion stars (HPM). 
 Though most objects in the transient object catalogue belong to a single class,
@@ -306,23 +310,24 @@ there is some uncertainty in the categorization of some of
 them. 
 In this case, an interrogation sign is used when a class is not clear
 e.g. SN? or sometimes multiple possible classes are found for a single
-event e.g. SN/CV)
+event e.g. SN/CV.
 Table \ref{Top-Transient-Classes} summarized The number of objects in each class.
 
 
 We use the light curves of $4269$ unique transient events that
 contain at least 5 observations.
-We also use  $15193$ non-transient sources with at least 5 observations each. 
-Sources in this data-set were selected by sampling light curves
-of objects within a 0.006 degree radius from CRTS detected transients,
-and removing known transient light curves from that set. 
+We also use $15193$ non-transient sources with at least 5 observations each. 
+We obtained sources from the transient dataset directly from researchers of the CRTS project. Alternatively, we retrieved sources in the dataset from the
+CRTS online catalogue, by sampling light curves of objects within a 0.006 
+degree radius from CRTS detected transients, and removing known transient 
+light curves from that set. 
 Though this process should return only non-transient sources, it is
 possible that non-detected transients were captured and catalogued
 incorrectly as 'non-transients'.  
 Table \ref{Transient-Observation-Count} and
-Table \ref{Non-Transient-Observation-Count} summarize some statitics
+Table \ref{Non-Transient-Observation-Count} summarize some statistics
 on the number of observations available for each light curve for the
-transient and non-transient data-sets, respectively.  
+transient and non-transient datasets, respectively.  
 
 
 
@@ -336,7 +341,7 @@ Our methodology has six stages:
 filtering out irrelevant light curves, oversampling light curves, extracting
 descriptive features from the curves, processing them into feature
 vectors, re-scaling those resulting feature vectors, and 
-classification with machine learning algorithms. 
+classifying them with machine learning algorithms. 
 The details of each step are in the following subsections.
 
 \subsection{Data Filtering} \label{subsection_filtering}
@@ -345,7 +350,7 @@ We discard light curves with few observations as they may not contain
 enough information to be classified correctly by machine learning
 algorithms.  
 The nominal cut is 5 observations per light curve, but we also test a
-higher cut by filterig out light curves with less than 10 observations.
+higher cut by filtering out light curves with less than 10 observations.
 
 \subsection{Oversampling Transient Light Curves} \label{subsection_oversampling}
 
@@ -359,30 +364,29 @@ then sample the observed magnitude from a Gaussian distribution
 centered on the observational apparent magnitude with the magnitude's
 error as the  standard deviation. 
 
-{\bf Y entonces se generaron al final 1293 curvas para todos las
-  clases para tener el mismo numero de elementos que la clase SN?}
 
 \subsection{Feature Extraction} \label{subsection_extraction}
 
 Light curves are sampled at irregular time intervals and have
 different numbers of data points.
-This makes it challenging to directly use the time-series data for
-classification with traditional methods. 
+Thus, it is challenging to directly use the time-series data for
+classification with traditional methods.
 We circumvent this problem by extracting a set of features for each
 light curve.
-These features are scalars dereive from statistical and model-specific
+These features are scalars derive from statistical and model-specific
 fitting techniques.
-Some of these features were  were formally introduced in
+Some of these features were formally introduced in
 \cite{1101.1959}, and have been used in other studies
 \citep{1603.00882,1601.03931}.  
 
-We use 30 features in total which can be classified in four groups:
+We use 30 features in total that can be classified into four groups:
 moment-based, magnitude-based, percentile-based and fitting-based. 
-These features are.
+In this project we propose the fitting-based features.
+These groups are:
 
 \begin{enumerate}
     
-\item Moment-based features use the magnitude for each light curve.
+\item Moment-based features, which use the magnitude for each light curve.
   \begin{itemize}
   \item \underline{Beyond1std} (\textit{beyond1std}): 
     Percentage of observations which are over or under one standard
@@ -410,7 +414,7 @@ These features are.
         \cite{1996PASP..108..851S}. A robust kurtosis measure. 
     \end{itemize}
     
-    \item Magnitude-based use the magnitude for each source.
+    \item Magnitude-based features, which relies on the magnitude for each source.
     \begin{itemize}
     \item \underline{Amplitude} (\textit{amp}): 
       The difference between the maximum and minimum magnitudes.
@@ -480,10 +484,11 @@ We group these features into three sets for experimentation:
 \subsection{Feature Scaling} \label{subsection_scaling}
 
 We use two feature scaling procedures to weight equally each input
-in the machine learning training process.
+for the machine learning training process.
 These procedures are applied to the magnitudes for each light curve.
-The first is standardization, where the re-scaled values have zero mean and unit variance. 
-The second is normalization, were the magnitudes are re-scaled  to the
+The first one is standardization, where the re-scaled values have zero mean 
+and unit variance. 
+The second one is normalization, were the magnitudes are re-scaled  to the
 range $[0,1]$. 
 These procedures are part of the modules that are switched on/off as
 part of the experimentation explained in Section \ref{section_experimentation}.
@@ -491,106 +496,134 @@ part of the experimentation explained in Section \ref{section_experimentation}.
 
 \subsection{Classification} \label{subsection_classification}
 
-We perform five classification tasks.
+We study five classification tasks of varying complexity.
 
 \begin{enumerate}
-\item \textbf{Binary Classification}: 
-  Distinguish transients from non-transients. A balanced number of
-  events from both classes is used to investigate the capability of
-  distinguishing between these different types. 
-\item \textbf{6-Transient Classification}: Recognize objects as
-  belonging to one of the more common transient types in the dataset,
-  namely: AGN, Blazar, CV, Flare, HPM and Supernovae. The purpose of
-  this task was to test how well does classification algorithms perform
-  when distinguishing only the main transient event types in the
-  dataset. 
-\item \textbf{7-Transient Classification}: Recognize objects as
-  belonging to one of the more common transient types in the dataset
-  or as a different transient, namely: AGN, Blazar, CV, Flare, HPM,
-  Other and Supernovae. The Other class was created by using objects
-  from ambiguous and under-represented classes such as the ones
-  described in Section \ref{section_data}. In this scenario we wanted
-  to understand how well these Other classes are detected when
-  grouped together, and how the performance of the 6-Transient
-  Classification Task changes with the addition this new class. 
-    \item \textbf{7-Class Classification}: Recognize objects as
+    \item \textbf{Binary Classification}: 
+      We use a balanced number of events from both classes is used 
+      to investigate the capability of distinguishing between Transients
+      and Non-Transients.
+    \item \textbf{6-Transient Classification}: To recognize objects as
+      belonging to one of the more common transient types in the dataset,
+      namely: AGN, Blazar, CV, Flare, HPM and Supernovae. The purpose of
+      this task is to test the accuracy of classification algorithms
+      when distinguishing only the main transient event types in the
+      dataset. 
+    \item \textbf{7-Transient Classification}: To recognize objects as
+      belonging to one of the more common transient types in the dataset
+      or as a different transient, namely: AGN, Blazar, CV, Flare, HPM,
+      Other and Supernovae. The Other class was created by using objects
+      from ambiguous and under-represented classes such as the ones
+      described in Section \ref{section_data}. In this scenario we wanted
+      to understand how well these Other classes are detected when
+      grouped together, and how the performance of the 6-Transient
+      Classification Task changes with the addition of this new class. 
+    \item \textbf{7-Class Classification}: To recognize objects as
       belonging to one of the more common transient types in the
       dataset or as a Non-Transient object. We use the classes:
       AGN, Blazar, CV, Flare, HPM, Non-Transient and Supernovae. 
-      The purpose is understanding whether classifiers could classify
-      correctly the main transient types when the non-transient events
-      are present.  
-    \item \textbf{8-Class Classification}: Recognize objects as
+      The purpose of this experiment is understanding whether classifiers 
+      could recognize correctly the main transient types when the 
+      non-transient events are present.  
+    \item \textbf{8-Class Classification}: To recognize objects as
       belonging to any of the the following classes: AGN, Blazar, CV,
       Flare, HPM, Other, Non-Transient and Supernovae. 
-      The Other classs is built using objects from ambiguous and
+      The Other class is built using objects from ambiguous and
       under-represented classes. 
-      This task quantifies how good is the classification when testing
-      together all the main classes in the previous tasks.
+      The goal of this task is to assess the quality of classification when
+      testing together all the main classes in the previous tasks.
 \end{enumerate}
 
-We use three classification algorithms: Neural Networks, Random
-Forests and Support Vector Machines. 
+We conduct experiments with three widely used families of classification 
+algorithms: Neural Networks, Random Forests and Support Vector Machines.
 These algorithms are popular in published studies and are efficient 
 for low dimensional feature datasets as is our case. 
+We use SciKit Learn's \citep{1201.0490} Python's implementation of these algorithms.
 Details on the inner workings of these machine learning models can be
 found in \cite{9780387848570}.  
+
+We test NNs with all the combinations of the following hyper-parameter values:
+\begin{itemize}
+    \item Learning Rate: Either constant vs adaptive.
+    \item Hidden Layer Sizes: Single Layer with $100$ nodes vs Two layers with
+    $100$ nodes each.
+    \item L2 Penalty (\textit{alpha}): $1e-1$ vs $1e-2$ vs $1e-3$ vs $1e-4$.
+    \item Activation Function: Logistic vs Relu.
+\end{itemize}
+
+Similarly, we test RFs with all the combinations of the following 
+hyper-parameter values:
+\begin{itemize}
+    \item Number of Estimators: $200$ or $700$.
+    \item Number of features Considered: Square Root or the Logarithm 
+    base 2 of the total number of features.
+\end{itemize}
+
+We also test RFs with all the combinations of the following hyper-parameter values:
+\begin{itemize}
+    \item Kernel: Radial Basis Function (RBF).
+    \item Kernel Coefficient (\textit{gamma}): 1e-1 vs 1e-2 vs 1e-3 vs 1e-4 vs 1e-5.
+    \item Error Penalty (\textit{C}): 1 vs 10 vs 100 vs 1000. 
+\end{itemize}
 
 We also make sure that the training data does not contain oversampled
 light curves based on any other present in the test samples, since
 this could introduce a bias.  
-The test samples do not contain not contain oversampled light
-curves, for the same reason. 
+Similarly, the test samples contain not contain oversampled light
+curves.
 Additionally, since the number of objects in the class sub-sets was
-small we used 2-fold cross validation during training for result
-validation. 
-Moreover, grid search was used during training to test multiple
+small, we used 2-fold cross-validation during training for as evaluation
+protocol. 
+Moreover, we used grid search during training to test multiple
 hyper-parameter configurations for each one  of the possible
 algorithms. 
 We use the F1-Score to assess the performance of a given model.
-We initially define a test set aside for each task and compute 
-the final scores based on the prediction performance of the trained
-algorithms with these data subsets.  
+We evaluate each task on the held-out test sets described above.
 
 
 \subsection{Feature Importance} \label{subsection_importances}
 
-After finding the best classifiers we generate  a list of the most
+After finding the best classifiers we generate a list of the most
 relevant features. 
-We do this with  the best Random Forest classifier for each task. 
-This approach quantifies  which features contributed the most to the
+We do this with the best Random Forest classifier for each task.
+We calculate feature importance using the Python library 
+SciKit-Learn \citep{1201.0490}. We used the mean decrease impurity, 
+which is calculated as the total decrease in node impurity averaged over all the trees belonging to
+the ensemble.
+We normalized the resulting scores, so that the sum of all features
+importance is equal to 1.
+This approach quantifies which features contributed the most to the
 classification task.  
 
 \section{Experiments} \label{section_experimentation}
 
 %\import{./chapters/}{4.exp.tex}
-We test all classification tasks described earlier with multiple
+We perform all classification tasks described earlier with multiple
 parameter variations.  
 We run multiple times each task with different criteria 
 (dataset inputs, pre-processing steps and algorithms), 
-to find out  what configuration worked the best for each case. 
+to find out the best configuration for each case.
 
-We use five different parameters in our experiments.
-Each expriment includes at least two possible values for each
-parameter.
-We try all possible combinations of all parameter variations for the
-five classification tasks. 
+We vary five different hyper-parameters in our experiments.
+Each experiment includes at least two possible values for each
+hyper-parameter.
+We try all possible combinations of all hyper-parameter variations 
+for the five classification tasks. 
 These five parameters are the following. 
 
 \begin{enumerate}
-    \item \textbf{Minimum Observations}. 
+    \item \textbf{Minimum number of Observations}. 
       This quantifies how  different amounts of observations
       per light curve impact transient classification.
       We use two values for this parameter: 5 and 10 (Section \ref{subsection_filtering}). 
     \item \textbf{Balancing Classes}. 
       We experiment with two different scenarios.
-      scenarios. 
       First, we use the original CRTS light curves, with unbalanced transient classes (Table
       \ref{Top-Transient-Classes}).
       Second, we use a sub-set of light curves with balanced classes. 
-      To obtain balanced classes, those with a smaller count than the
-      biggest class are incremented with synthetic light curves
-      generated as  described Section \ref{subsection_oversampling}.              
+      We balanced the classes by increasing the number of light 
+      curves with synthetic ones, for classes with smaller count than the biggest class (Section
+      \ref{subsection_oversampling}).
       Note that the Binary Classification task described in Section
       \ref{section_method} has by construction balanced classes only.
     
@@ -599,14 +632,13 @@ These five parameters are the following.
       The three different subsets have 20, 26 or 30 features as
       defined in Section \ref{subsection_extraction}. 
     \item \textbf{Feature Scaling}. 
-      We test two different feature scaling procedures: min-max
-      scaling and standarization as defined in Section
+      We test two different feature scaling procedures: normalization
+      scaling and standardization as defined in Section
       \ref{subsection_scaling}. 
-    \item \textbf{Model Used}. 
-      These correspond to the three classification algorithms. 
-      described in Section \ref{subsection_classification}:    
-      Neural Networks, Random Forests or Support Vector
-      Machines 
+    \item \textbf{Classifier}. 
+      The three classification algorithms described in Section 
+      \ref{subsection_classification}: Neural Networks, 
+      Random Forests and Support Vector Machines 
 \end{enumerate}
 
 
@@ -617,37 +649,40 @@ These five parameters are the following.
 \subsection{Binary Classification} 
 \label{Results-Binary} 
 
-\import{./figures/Binary/}{class_reg.tex} 
+\import{./figures/Binary/}{class_5.tex}
+\import{./figures/Binary/}{class_10.tex}
 
 
 % Best Clf.
-The best algorithm in this task is RF with a  maximum f1-score of
+The best algorithm in this task is RF with a maximum f1-score of
 87.69\%.   
-This score is achieved  with light curves containing minimum 5
-observations, and 30 features (Table
-\ref{Classifier-Scores-Binary-balanced}).
+This score is achieved with light curves containing minimum 5
+observations, and 30 features.
 Using more than 20 features represents a significant increase in
 performance.
 Using 30 features rather than 26 is marginally better. 
+Table \ref{Classifier-Scores-Binary-5} and Table 
+\ref{Classifier-Scores-Binary-10} summarize all the results.
+
 
 % SVM
-SVMs are the second best-performing model with the  f1-score of 85.36\%. 
-Changing the number of features does not affect significantly the score
-However, using light curves with minimum 10 observations results in
-slightly better results. 
+SVMs are the second best-performing model with the f1-score of 85.36\%. 
+Changing the number of features does not affect significantly the score.
+%However, using light curves with more than 10 observations results in
+%slightly better results. 
 
 % NN
 NN is ranked third, although its scores are very similar to SVMs. 
 The highest achieved score for NN is 85.03\%.
-Scores for min\textunderscore obs = 5 are higher than the ones
-obtained with SVMs, but the opposite occurrs when min\textunderscore
-obs = 10.  
+%Scores for min\textunderscore obs = 5 are higher than the ones
+%obtained with SVMs, but the opposite occurs when min\textunderscore
+%obs = 10.  
 We do not find a clear correlation between score values and other
 parameters.  
 
 % Confusion Matrix
 Table \ref{Confusion-Binary} shows the confusion matrix of the best
-performing algorithm and Table \ref{Overaall-Scores-Binary} summarizes
+performing algorithm and Table \ref{Overall-Scores-Binary} summarizes
 the scores.
 These results imply that non-transients are better classified overall.  
 
@@ -668,42 +703,39 @@ coefficients that contributed less than 1\% each.
 %%%%%%  SIX-TRANSIENT  %%%%%%
 \subsection{Six-Transient Classification}
 
-\import{./figures/6-Transient/}{class_reg.tex}
-\import{./figures/6-Transient/}{class_bal.tex}
+\import{./figures/6-Transient/}{class_5.tex}
+\import{./figures/6-Transient/}{class_10.tex}
 
 % Best Clf.
 The best algorithm is RF with a top f1-score of 77.54\% achieved with 
 unbalanced inputs, 30 features and light curves with a minimum of 10
 observations. 
-Table \ref{Classifier-Scores-6-Transient-unbalanced} and Table
-\ref{Classifier-Scores-6-Transient-balanced} summarize all the
+Table \ref{Classifier-Scores-6-Transient-5} and Table
+\ref{Classifier-Scores-6-Transient-10} summarize all the
 results. 
  
 % RF
-On average, RF is the the best-performing models for this
-task. 
-The performance improves with more than 20 features; using 30 features rather than 26
-is marginally better for the unbalanced dataset. 
-Using light curves with at least 10 observations minimum
-in unbalanced data also shows a small improvement.
+On average, RF is the best-performing model for this task. 
+The performance improves with more than 20 features; using 30 features 
+rather than 26 is marginally better for the unbalanced dataset. 
+Using unbalanced light curves tend to work best.
 
 % NN
 NN ranks second in this task, scoring a maximum f1-score of 73.01\%. 
 Using unbalanced inputs with this model improves performance.
-Havinf more than 20 features show a moderate increase in performance. 
-Using light light-curves with 10 observations minimum correlates with
-a higher score on unbalanced inputs, whereas in balanced inputs does
+Having more than 20 features show a moderate increase in performance. 
+Using unbalanced light-curves correlates to a higher score with 10 
+observations minimum, whereas in balanced inputs does
 not show a clear trend.
 
 % SVM
-SVM are last in this ranking with a maximum f1-score of 69.65\% and
+SVMs are last in this ranking with a maximum f1-score of 69.65\% and
 scores very similar to those of NN. 
-A significant increase in performance was obtained with this model when
+A significant increase in performance is obtained with this model when
 using more than 20 features, though the difference between using 26
-and 30 features was very small. 
-On the other hand, there is a small score increase when using training
-on unbalanced inputs, using 20 features only achieves better results
-when using light curves with minimum 5 observations. 
+and 30 features is very small. 
+On the other hand, there is a small score increase when training
+on unbalanced inputs.
 
 % Confusion Matrix
 Table \ref{Confusion-6-Transient} shows the confusion matrix for RF. 
@@ -724,7 +756,7 @@ false SN samples.
 \ref{Importances-6-Transient} displays the feature importance rank in
 descending order for the RF classifier.
 Stetson\textunderscore j, std, amp, mad, and sk, have an importance above 6\%. 
-The remaining features have similarimportance values, except
+The remaining features have similar importance values, except
 for the highest level polynomial coefficients which rank last.
 This list presents a slightly more balanced importance among features,
 compared to the results in the Binary Classification Task in the
@@ -735,14 +767,14 @@ previous sub-section.
 %%%%%%  SEVEN-TRANSIENT  %%%%%%
 \subsection{Seven-Transient Classification}
 
-\import{./figures/7-Transient/}{class_reg.tex}
-\import{./figures/7-Transient/}{class_bal.tex}
+\import{./figures/7-Transient/}{class_5.tex}
+\import{./figures/7-Transient/}{class_10.tex}
 
 % Best Clf.
 The best algorithm is RF with a top f1-Score of 66.39\% achieved with 
 min\textunderscore obs = 10, 30 features and balanced inputs.
-Table \ref{Classifier-Scores-7-Transient-unbalanced} and Table
-\ref{Classifier-Scores-7-Transient-balanced} summarize the f1-scores
+Table \ref{Classifier-Scores-7-Transient-5} and Table
+\ref{Classifier-Scores-7-Transient-10} summarize the f1-scores
 for unbalanced and balanced inputs, respectively. 
 
 % RF
@@ -750,14 +782,15 @@ RF outperform all other models in their respective parameter
 combinations. 
 We find a significant increase in performance when using more than 20
 features. 
-Balanced inputs yield a better overall performance except when using 20 features. 
-Using light curves with minimum 10 observations, rather than 5
-observations, represents a slights improvement.
+Balanced inputs yield a better overall performance except when using 20 
+features. 
+%Using light curves with minimum 10 observations, rather than 5
+%observations, represents a slights improvement.
 
 % NN
 NN are second in this task, achieving a top score of 61.28\%.  
-NN achieve better results when using light curves that contained a
-minimum 10 observations. 
+%NN achieve better results when using light curves that contained a
+%minimum 10 observations. 
 We do not find a clear correlation between performance and the number
 of features used. 
 
@@ -765,19 +798,17 @@ of features used.
 % SVM
 SVMs ranked third with a maximum f1-score of 58.62\%. 
 These classifiers have a slightly worse scores than NN.
-The best results are obtained using light curves with a minimum of 10
-observations.
-Moreover, by using
-balanced inputs higher average results were achieved always, except
-when using balanced inputs and min\textunderscore obs = 5, where the
-generated scores were very similar. 
+%The best results are obtained using light curves with a minimum of 10
+%observations.
+Moreover, we obtained higher average results when using balanced inputs,
+except when using balanced inputs and min\textunderscore obs = 5.
 Finally, the number of features does not strongly influence the final
 result in most cases.
 
 % Confusion Matrix
 Table \ref{Confusion-7-Transient} shows the confusion matrix for the
 best model. 
-HPM is by a ~20\% difference the class with the most correctly
+HPM is by a $\sim$20\% difference the class with the most correctly
 classified instances.  
 The worst performing classes are Blazar and Other, achieving a recall
 close to 48.5\%. 
@@ -810,27 +841,26 @@ coefficients.
 %%%%%%  SEVEN-CLASS  %%%%%%
 \subsection{Seven-Class Classification}
 
-\import{./figures/7-Class/}{class_reg.tex}
-\import{./figures/7-Class/}{class_bal.tex}
+\import{./figures/7-Class/}{class_5.tex}
+\import{./figures/7-Class/}{class_10.tex}
 
 % Best Clf
-The best algorithsm is RF with an f1-score of 75.05\% achieved with 
+The best algorithms is RF with an f1-score of 75.05\% achieved with 
 curves containing at least 10 observations, using 30 features and
 unbalanced inputs.   
 
 % RF
-Overall, RF is alway the best model, always performing better with unbalanced
+Overall, RF is the best model, always performing better with unbalanced
 inputs.  
 The worst results are obtained using 20 features only.
-Finally, using light curves with a minimum of 5 minimum of 10
-observations resulted in better scores when using more than 20
-features;  the opposite is true when using 5 observations minimum.   
+Finally, using light curves with more than 20 features resulted in
+better scores.
 
 % NN
 NN is the second-best performing algorithm with a maximum f1-score of
 69.14\%. 
-In general, the use of min\textunderscore obs = 10 generates higher
-scores. 
+%In general, the use of min\textunderscore obs = 10 generates higher
+%scores. 
 Moreover, training with a higher amount of features correlates with a
 higher performance, except only when using min\textunderscore obs = 10
 and unbalanced inputs, where the results are very similar. 
@@ -838,9 +868,9 @@ Finally, using unbalanced inputs gives significantly higher scores.
 
 % SVM
 SVM is the the worst algorithm with a maximum f1-score of 65.85\%. 
-In general, higher scores are obtained from light curves with a
-minimum of 10 observations.  
-Using balanced inputs also results in slightly bettwe results. 
+%In general, higher scores are obtained from light curves with a
+%minimum of 10 observations.  
+Using balanced inputs also results in slightly better results. 
 Finally, training with 26 features tends to give the best scores,
 although those are very similar to the results with 31 features.  
 
@@ -866,7 +896,7 @@ comparison against the  6-Transient classification task
 Notice that the inclusion of Non-Transients decreases flares f1-score,
 implying a worse recognition of this class. All other classes
 f1-scores were also decreased by little with the inclusion of
-Non-Transients (Table \ref{Overall-Scores-6-Transient-Oversampled}). 
+Non-Transients (Table \ref{Overall-Scores-7-Class-Regular}). 
 
 
 % Importances
@@ -877,7 +907,7 @@ ranking.
 The general trend is similar to 6-Transient classification in Figure
 \ref{Importances-7-Class}. 
 The highest importance features for this task are the
-stetson\textunderscore j index with a ~9\% importance, followed by
+stetson\textunderscore j index with a $\sim$9\% importance, followed by
 amp, std, sk, and mad, with an importance close to 6\%. 
 Give of the highest level polynomial coefficients are the least
 important: poly4\textunderscore t1, poly4\textunderscore t2,
@@ -893,8 +923,8 @@ much higher importance.
 %%%%%%  EIGHT-CLASS  %%%%%%
 \subsection{Eight-Class Classification}
 
-\import{./figures/8-Class/}{class_reg.tex}
-\import{./figures/8-Class/}{class_bal.tex}
+\import{./figures/8-Class/}{class_5.tex}
+\import{./figures/8-Class/}{class_10.tex}
 
 
 % Best Clf.
@@ -905,20 +935,20 @@ observations.
 
 % RF
 RF is the overall best performing model.
-The  algorithm's performance substantially increases when using 26 -
+The algorithm's performance substantially increases when using 26 -
 30 features, compared to 20 features.
 There is a marginal improvement when using non-balanced inputs. 
-Using light-curves with min\textunderscore obs = 10 always results in
-higher scores.  
+%Using light-curves with min\textunderscore obs = 10 always results in
+%higher scores.  
 
 % NN
 NN are the second best. 
 Its highest f1-score was 60.19\%. 
-Increasing  the minimum number of observations per light curve from 5
-to 10 results in a considerable performance upgrade.  
+%Increasing  the minimum number of observations per light curve from 5
+%to 10 results in a considerable performance upgrade.  
 Training on unbalanced inputs is another factor that increases the
 scores. 
-The number of features used for training is  directly correlated with
+The number of features used for training is directly correlated with
 the scores.
 With unbalanced classes, the higher the number of features, the
 better. 
@@ -929,15 +959,15 @@ Nonetheless, using 26 features is marginally better.
 % SVM
 SVM is the worst-performing model.
 It only achieves a maximum f1-score of 57.30\%.
-Using light curves with 10 observations results in higher scores, except 
-when using 20 features with balanced inputs. 
-Additionally, using balanced inputs works best with light
-curves that had 5 observations minimum, whereas unbalanced inputs
+%Using light curves with 10 observations results in higher scores, except 
+%when using 20 features with balanced inputs. 
+Using balanced inputs works best with light curves that have 5 
+observations minimum, whereas unbalanced inputs
 resulted in better results with light curves that had 10 observations
 minimum.  
 Finally, the number of features used does not affect much the model's
-performance, unless min \textunderscore obs is 10, in which 26 and 30
-features result in better scores. 
+performance.%, unless min \textunderscore obs is 10, in which 26 and 30
+%features result in better scores. 
 
 % Confusion Matrix
 Table \ref{Confusion-8-Class} presents the confusion matrix.
@@ -951,21 +981,21 @@ Moreover, Flares had about 50\% of the test samples classified as
 Non-Transients, AGNs had about 20\% of their 
 samples classified as Other, and Blazars and Other had most of  its
 samples classified as AGN. 
-Additionally, most incorrectly classified AGNs (~20.5\%) are
+Additionally, most incorrectly classified AGNs ($\sim$20.5\%) are
 identified as Other and most Blazar instances are
 incorrectly categorized as either SN or AGN. 
 
 % Scores
 % In the class scores table for this task, it is shown that both the averaged Precision and Recall were very similar (Table \ref{Overall-Scores-8-Class-Oversampled}). 
-Table \ref{Overall-Scores-8-Class-Oversampled} summareize the results
+Table \ref{Overall-Scores-8-Class-Regular} summarizes the results
 for the f1-scores for all algorithms. 
 We find that all 6 transient types found in the
 6-Transient classification task had a f1-score decrease (Table
-\ref{Overall-Scores-6-Transient-Oversampled}). 
+\ref{Overall-Scores-6-Transient-Regular}). 
 Even the Other class f1-score is lower than in the 7-Transient classification task (Table
-\ref{Overall-Scores-7-Transient-Oversampled}).
+\ref{Overall-Scores-7-Transient-Regular}).
 The Non-Transient f1-score is also worse when compared to the 7-Class
-task (Table \ref{Overall-Scores-7-Class-Oversampled}).  
+task (Table \ref{Overall-Scores-7-Class-Regular}).  
 
 
 \import{./figures/8-Class/}{importances.tex}
@@ -980,7 +1010,14 @@ poly4\textunderscore t3 and poly4\textunderscore t4.
 
 \subsection{Summary}
 
+<<<<<<< HEAD
 
+=======
+Among the different feature re-scaling techniques, Standardization
+primes over Normalization in obtaining the highest f1-scores. 
+For every single combination of parameters possible, the highest
+scores are found with Standardization. 
+>>>>>>> 4d690a5d3828722f78f3a5b7cd278d6383b4dd6a
 
 Regarding the algorithms used, RF always achieves the highest scores,
 followed by NN,  and finally SVM. 
@@ -1041,7 +1078,7 @@ are always the least important in those same tasks.
 
 The scope of forthcoming of large astronomical synaptic surveys such
 as the LSST \citep{0805.2366} motivates the development and
-exploration of authomatized ways to detect transient sources.
+exploration of automatized ways to detect transient sources.
 In this paper we presented an approach for the automatic recognition
 of transient events with machine learning techniques.   
 
@@ -1050,7 +1087,7 @@ We extracted its characteristic features to use them as inputs
 to train three different machine learning algorithms: Random Forests,
 Neural Networks and Support Vector Machines.
 The features extracted from light curves were either statistical
-descriptors of the observ ations, or polynomial curve fitting
+descriptors of the observations, or polynomial curve fitting
 coefficients applied to the light curves.   
 
 The machine learning algorithms performed a variety of classification tasks.
@@ -1090,7 +1127,7 @@ similar to the original ones, and thus the algorithms over-fitted
 during training.  
 
 We studied feature importance using Random Forests. 
-The most importante feature was always stetson\textunderscore j, followed by:
+The most important feature was always stetson\textunderscore j, followed by:
 amplitude, standard deviation, skewness and median absolute
 deviation. 
 Conversely, 4th level polynomial fitting coefficients were
@@ -1109,25 +1146,33 @@ As usual, a critical improvement can come from better observational
 data.
 An improved transient recognition could be achieved by training on
 data with lower  amount of duplicates and errors, i.e. a more reliable
-non-transient data-set.    
+non-transient dataset.    
 Expanding the methodology presented may be beneficial too. 
 Using additional features could also increase the classifiers
 performance. 
 Moreover, different classification algorithms can also be tested for a
 better detection of transient objects.  
 Finally, testing with other more reliable oversampling types would be
-beneficial for the purpose of working with limited data-sets. 
+beneficial for the purpose of working with limited datasets. 
 While the oversampled/balanced inputs increased the performance of some of
 the algorithms, different alternatives could improve upon the results
-shown in this document. 
+shown in this document.
+
+We provide the code and the datasets that were used in this project.
+The repository containing all this data may be found in the website \url{https://github.com/diegoalejogm/crts-transient-recognitionSection}. Additionally, Appendix \ref{section_code} contains a description of the
+repository's structure.
 
 
 
-% \section*{Acknowledgements}
+
+
+\section*{Acknowledgements}
 
 % The Acknowledgements section is not numbered. Here you can thank helpful
 % colleagues, acknowledge funding agencies, telescopes and facilities used etc.
 % Try to keep it short.
+We thank Universidad de los Andes' call for project finalization for their economic support.
+We also thank contributors and collaborators of the SciKit-Learn, Jupiter Notebooks and Pandas' Python libraries.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1154,7 +1199,38 @@ shown in this document.
 %%%%%%%%%%%%%%%%% APPENDICES %%%%%%%%%%%%%%%%%%%%%
 
 \appendix
-\import{./chapters/}{7.appendix.tex}
+\section{Repository Description} \label{section_code}
+
+The repository that contains the code, data and trained models we used in this project is found in the website \url{https://github.com/diegoalejogm/crts-transient-recognition}. For this project we used various python libraries: \texttt{jupyter} (1.0.0), \texttt{numpy} (1.14.3), \texttt{pandas} (0.22.0) and \texttt{scikit-learn} (0.19.1). Details other dependencies can be found in the included file \texttt{requirements.txt}.
+
+We organized the repository in three main folders. The first one is \texttt{data}, and it contains the data we used in this project. We split data in three directories: \texttt{lightcurves}, \texttt{features} and \texttt{inputs}. The former contains pandas dataframes for raw and curated light-curves. The \texttt{features} subfolder contains the resulting features of pre-processing the light-curves, for both transients and non-transients. Finally, the \texttt{inputs} subfolder contains the already split training and testing inputs for the following hyper-parameter combinations: classification task, number of features, minimum number of observations, and balanced/unbalanced data. Each one of the input files contains a numpy tuple with the structure: \textit{(train features, train labels, test features, test labels)}
+
+The second main folder in the repository is \texttt{notebooks}. It contains all the code used for this project. The jupyter notebooks contain the pipeline of our proposed experimental framework, and they are numbered in sequential order. Moreover, each notebook is documented within itself. Two additional non-numbered notebooks are used for exploration purposes. Conversely, the \texttt{.py} files are used to contain the python code which is used in the notebooks. They're separated by task type.
+
+Finally, the \texttt{results} directory contains the products of running the code. One result type is named dataframes, which contains a pandas dataframe for each task. Each dataframe contains the testing and training results, including scores and confusion matrices.  On the other hand, the results sub-folder contains the feature importance list figures presented in this document.
+
+For more information on the repository, make sure to read the README file included, or email us directly.
+
+\section{Data-set's Statistics}
+\section{Task Experimentation Results}
+
+\newpage
+\pagebreak
+
+\import{./figures/ObsCount/}{transient.tex}
+\import{./figures/ObsCount/}{nontransient.tex}
+
+\import{./figures/Binary/}{scores_reg.tex}
+\import{./figures/6-Transient/}{scores_reg.tex}
+\import{./figures/7-Transient/}{scores_reg.tex}
+\import{./figures/7-Class/}{scores_reg.tex}
+\import{./figures/8-Class/}{scores_reg.tex}
+
+\import{./figures/Binary/}{cnf_matrix.tex}
+\import{./figures/6-Transient/}{cnf_matrix.tex}
+\import{./figures/7-Transient/}{cnf_matrix.tex}
+\import{./figures/7-Class/}{cnf_matrix.tex}
+\import{./figures/8-Class/}{cnf_matrix.tex}
 % \section{Some extra material}
 
 % If you want to present additional material which would interrupt the flow of the main paper,
