@@ -1,0 +1,16 @@
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{Classifier}     & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Data\\ \end{tabular}} & \multicolumn{3}{c|}{F1-Score}           \\ \cline{3-5}
+                                &                                                                              & 20 feat.    & 26 feat.    & 30 feat.       \\ \hline \hline
+\multirow{2}{*}{SVM}            & Unbal.                                                                            & 67.89   & 69.57   & 69.44      \\ \cline{2-5}
+                                & Bal.                                                                           & 66.86  & 69.24  & 69.10     \\ \hline
+\multirow{2}{*}{Random Forest}  & Unbal.                                                                            & 72.88    & 76.84    & 77.54       \\ \cline{2-5}
+                                & Bal.                                                                           & 69.71   & 76.73   & 76.66      \\ \hline
+\multirow{2}{*}{Neural Network} & Unbal.                                                                            & 71.54   & 72.23   & 73.01      \\ \cline{2-5}
+                                & Bal.                                                                           & 67.94  & 70.09  & 68.77     \\ \hline
+\end{tabular}
+\caption{F1-Score for the 6-Transient Classification Task using light-curves with 10 observations minimum.}
+\label{Classifier-Scores-6-Transient-10}
+\end{table}

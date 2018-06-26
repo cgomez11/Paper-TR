@@ -1,0 +1,16 @@
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{Classifier}     & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Data\\ \end{tabular}} & \multicolumn{3}{c|}{F1-Score}           \\ \cline{3-5}
+                                &                                                                              & 20 feat.    & 26 feat.    & 30 feat.       \\ \hline \hline
+\multirow{2}{*}{SVM}            & Unbal.                                                                            & 64.27   & 65.22   & 65.03      \\ \cline{2-5}
+                                & Bal.                                                                           & 64.24  & 65.85  & 65.53     \\ \hline
+\multirow{2}{*}{Random Forest}  & Unbal.                                                                            & 69.56    & 74.76    & 75.05       \\ \cline{2-5}
+                                & Bal.                                                                           & 65.49   & 73.46   & 73.79      \\ \hline
+\multirow{2}{*}{Neural Network} & Unbal.                                                                            & 69.14   & 69.05   & 68.03      \\ \cline{2-5}
+                                & Bal.                                                                           & 62.99  & 67.11  & 68.07     \\ \hline
+\end{tabular}
+\caption{F1-Score for the 7-Class Classification Task using light-curves with 10 observations minimum.}
+\label{Classifier-Scores-7-Class-10}
+\end{table}
