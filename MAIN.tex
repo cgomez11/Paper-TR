@@ -69,7 +69,7 @@
 
 % Title of the paper, and the short title which is used in the headers.
 % Keep the title short and informative.
-\title[Transient Event Recognition using Machine Learning]{Transient Event Recognition using Machine Learning}
+\title[Comparing machine learning algorithms for astronomical transient event recognition]{Comparing machine learning algorithms for astronomical transient event recognition}
 
 % The list of authors, and the short list which is used in the headers.
 % If you need two or more lines of authors, add an extra line using \newauthor
@@ -111,22 +111,25 @@ $^{3}$Departamento de Ingenier\'ia Biom\'edica, Universidad de los Andes, Cra. 1
 The arrival of massive multi-epoch and multi-band astronomical surveys
 demands the development of computational techniques to automate the
 study and detection of transient astronomical sources. 
-In this work we characterize various machine learning algorithms to
-recognize and classify such events.
+This paper describes an evaluation framework that allows for a standardized quantitative comparison of astronomical transient event recognition algorithms. 
+We do this by characterizing various machine learning algorithms to
+recognize and classify astronomical transient events.
 We use light-curves from the Catalina Real Time Transient Survey
 (CRTS) to classify thousands of unique transient and non-transient
 event light-curves.
-We experiment  with multiple data pre-processing methods,
+We present this annotated dataset, which contains more than $10.000$ transient and non-transient object light curves.
+We experiment with multiple data pre-processing methods,
 feature selection techniques and self-learning models. 
 We obtain new results in five classification tasks, paying particular
 attention to a binary and a four multi-class classifications task.  
 We conclude that the best performing algorithm was
 a Random Forest with an f1-score of 87.27\% on binary
 (transient \& non-transient) classification. 
-Six-class transient classification achieved a 77.54\% f1-score, and a
+Six-class transient classification achieved a 77.54\% f1-score, and a 
 66.39\% f1-score when including an ambiguous sources class.
 Multi-class transient classifications including non-transient sources,
-resulted in a 75.05\% f1-score and a 66.05\% f1-score respectively.  
+resulted in a 75.05\% f1-score and a 66.05\% f1-score respectively.
+We provide the curated datasets, code and trained models used in this project.
 
 \end{abstract}
 
@@ -254,9 +257,11 @@ showed that  modern algorithms can also learn from time-series data
 without expensive image processing.    
 
 % PROPOSAL
-In this paper we follow this approach and test different machine
-learning algorithms to classify transient events using light curves as
-an input.  
+This project is a compiled study that unifies techniques used in previous studies, in a structured way. We openly provide the curated datasets and the code used in this project, so that others may replicate the results and expand upon them (Section \ref{section_code}). Thus, with this paper we provide an experimental framework that can be used as a baseline for future research.
+
+In this paper we follow the mentioned approach and test 
+different machine
+learning algorithms to classify transient events using light curves as an input.  
 We start by extracting several statistical descriptors from the light
 curves.
 These descriptors are the input of three different machine learning
@@ -264,10 +269,9 @@ models with several hyper-parameter variations: Support Vector
 Machines (SVM), Neural Networks (NN) and Random Forests (RF), which automatically
 learn to detect and classify between different types of transient
 objects. 
-We present the results of extensive testing and multiple experiments 
+We present the results of extensive testing and multiple experiments
 executed in order to find the best training parameters. 
 
-This project is a compiled study that unifies techniques used in previous studies, in a structured way. We provide openly the curated datasets used and the code used for this project, so that others may replicate the results and expand upon them (Section \ref{section_code}). Thus, with this paper we provide an experimental framework that can be used as a baseline for future research.
 
 
 % STRUCTURE
@@ -774,8 +778,7 @@ previous sub-section.
 The best algorithm is RF with a top f1-Score of 66.39\% achieved with 
 min\textunderscore obs = 10, 30 features and balanced inputs.
 Table \ref{Classifier-Scores-7-Transient-5} and Table
-\ref{Classifier-Scores-7-Transient-10} summarize the f1-scores
-for unbalanced and balanced inputs, respectively. 
+\ref{Classifier-Scores-7-Transient-10} summarize the results.
 
 % RF
 RF outperform all other models in their respective parameter
@@ -847,7 +850,9 @@ coefficients.
 % Best Clf
 The best algorithms is RF with an f1-score of 75.05\% achieved with 
 curves containing at least 10 observations, using 30 features and
-unbalanced inputs.   
+unbalanced inputs. 
+Table \ref{Classifier-Scores-7-Class-5} and Table
+\ref{Classifier-Scores-7-Class-10} summarize the results.
 
 % RF
 Overall, RF is the best model, always performing better with unbalanced
@@ -931,7 +936,8 @@ much higher importance.
 RF is the best classifier. The best f1-score is 66.05\% achieved with
 30 features, unbalanced inputs and light curves containing minimum 10
 observations.  
-
+Table \ref{Classifier-Scores-8-Class-5} and Table
+\ref{Classifier-Scores-8-Class-10} summarize the results.
 
 % RF
 RF is the overall best performing model.
@@ -1173,7 +1179,14 @@ repository's structure.
 % Try to keep it short.
 We thank Universidad de los Andes' call for project finalization for their economic support.
 We also thank contributors and collaborators of the SciKit-Learn, Jupiter Notebooks and Pandas' Python libraries.
+We thank Juan Pablo Reyes and Dominique Fouchez for helping with the research.
+Finally, we want thank Dr. Andrew Drake for sharing with us the CRTS Transient dataset used in this project.
 
+CRTS and CSDR2 are supported by the U.S.~National Science 
+Foundation under grant NSF grants AST-1313422, AST-1413600, and 
+AST-1518308.  The CSS survey is funded by the National Aeronautics
+and Space Administration under Grant No. NNG05GF22G issued through
+the Science Mission Directorate Near-Earth Objects Observations Program.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%
@@ -1212,13 +1225,29 @@ Finally, the \texttt{results} directory contains the products of running the cod
 For more information on the repository, make sure to read the README file included, or email us directly.
 
 \section{Data-set's Statistics}
-\section{Task Experimentation Results}
+
+The tables \ref{Transient-Observation-Count} and \ref{Non-Transient-Observation-Count} in this annex contain statistical descriptors of the light curves' observation count, for transient and non-transient curves that contain at least 5 observations.
+Table \ref{Transient-Observation-Count} makes reference to transient events, whereas table \ref{Non-Transient-Observation-Count} refers to non-transient objects. 
+Each of these tables present the mean, standard deviation, percentiles (25, 50 and 75) and maximum number of observations per light curve found in each dataset.
 
 \newpage
 \pagebreak
 
 \import{./figures/ObsCount/}{transient.tex}
 \import{./figures/ObsCount/}{nontransient.tex}
+
+\section{Task Experimentation Results}
+
+The group of tables in this section contain the quantitative results of experimenting with the classification tasks. 
+
+Tables \ref{Overall-Scores-Binary}, \ref{Overall-Scores-6-Transient-Regular}, \ref{Overall-Scores-7-Transient-Regular}, \ref{Overall-Scores-7-Class-Regular}, and  \ref{Overall-Scores-8-Class-Regular} describe the Precision, Recall and F1 Score, of every class, that the best performing algorithm achieved for each classification task. It also presents the number of test elements that were used in each class used to calculate such tables. 
+
+Tables \ref{Confusion-Binary}, \ref{Confusion-6-Transient}, \ref{Confusion-7-Transient} \ref{Confusion-7-Class}, and  \ref{Confusion-8-Class} present the confusion matrix obtained when running the best performing algorithm on test data. 
+
+\newpage
+\pagebreak
+
+
 
 \import{./figures/Binary/}{scores_reg.tex}
 \import{./figures/6-Transient/}{scores_reg.tex}
