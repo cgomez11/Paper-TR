@@ -73,14 +73,14 @@
 
 % The list of authors, and the short list which is used in the headers.
 % If you need two or more lines of authors, add an extra line using \newauthor
-\author[Diego. A. Gomez et al.]{
-Diego A. Gomez,$^{1}$\thanks{E-mail: da.gomez11@uniandes.edu.co}
-Marcela Hernandez$^{1}$   
+\author[Diego. A. G\'omez et al.]{
+Diego A. G\'omez,$^{1}$\thanks{E-mail: da.gomez11@uniandes.edu.co}
+Marcela Hern\'andez Hoyos$^{1}$   
 Jaime Forero-Romero$^{2}$
-and Pablo Arbelaez$^{3}$
+and Pablo Arbel\'aez$^{3}$
 \\
 % List of institutions
-$^{1}$Departamento de Ingenier\'ia de Sistemas y Computaci\'on, Universidad de los Andes, Cra. 1 No. 18A-10, Bogot\'a, Colombia\\
+$^{1}$Systems and Computing Engineering Department, Universidad de los Andes, Cra. 1 No. 18A-10, Bogot\'a, Colombia\\
 $^{2}$Departamento de F\'isica, Universidad de los Andes, Cra. 1 No. 18A-10, Bogot\'a, Colombia\\
 $^{3}$Departamento de Ingenier\'ia Biom\'edica, Universidad de los Andes, Cra. 1 No. 18A-10, Bogot\'a, Colombia
 }
@@ -119,9 +119,9 @@ We use light-curves from the Catalina Real Time Transient Survey
 event light-curves.
 We present this annotated dataset, which contains more than $10.000$ transient and non-transient object light curves.
 We experiment with multiple data pre-processing methods,
-feature selection techniques and self-learning models. 
-We obtain new results in five classification tasks, paying particular
-attention to a binary and a four multi-class classifications task.  
+feature selection techniques and machine learning models. 
+We assess quantitative performance in five classification tasks, paying particular
+attention to a binary and a four multi-class classifications tasks.  
 We conclude that the best performing algorithm was
 a Random Forest with an f1-score of 87.27\% on binary
 (transient \& non-transient) classification. 
@@ -129,7 +129,7 @@ Six-class transient classification achieved a 77.54\% f1-score, and a
 66.39\% f1-score when including an ambiguous sources class.
 Multi-class transient classifications including non-transient sources,
 resulted in a 75.05\% f1-score and a 66.05\% f1-score respectively.
-We provide the curated datasets, code and trained models used in this project.
+We will publicly release the curated datasets, code and trained models used in this project.
 
 \end{abstract}
 
@@ -257,7 +257,7 @@ showed that  modern algorithms can also learn from time-series data
 without expensive image processing.    
 
 % PROPOSAL
-This project is a compiled study that unifies techniques used in previous studies, in a structured way. We openly provide the curated datasets and the code used in this project, so that others may replicate the results and expand upon them (Section \ref{section_code}). Thus, with this paper we provide an experimental framework that can be used as a baseline for future research.
+This project is a compiled study that unifies techniques used in previous studies, in a structured way. We openly provide the curated datasets and the code used in this project, so that others may replicate the results and expand upon them (Section \ref{section_code}). Thus, with this paper we provide an experimental framework that can be used as a baseline for future research on automated transient object recognition.
 
 In this paper we follow the mentioned approach and test 
 different machine
@@ -266,7 +266,7 @@ We start by extracting several statistical descriptors from the light
 curves.
 These descriptors are the input of three different machine learning
 models with several hyper-parameter variations: Support Vector
-Machines (SVM), Neural Networks (NN) and Random Forests (RF), which automatically
+Machines (SVMs), Neural Networks (NNs) and Random Forests (RFs), which automatically
 learn to detect and classify between different types of transient
 objects. 
 We present the results of extensive testing and multiple experiments
@@ -315,7 +315,7 @@ them.
 In this case, an interrogation sign is used when a class is not clear
 e.g. SN? or sometimes multiple possible classes are found for a single
 event e.g. SN/CV.
-Table \ref{Top-Transient-Classes} summarized The number of objects in each class.
+Table \ref{Top-Transient-Classes} summarized the number of objects in each class.
 
 
 We use the light curves of $4269$ unique transient events that
@@ -350,7 +350,7 @@ The details of each step are in the following subsections.
 
 \subsection{Data Filtering} \label{subsection_filtering}
 
-We discard light curves with few observations as they may not contain
+At this step, we discard light curves with few observations as they may not contain
 enough information to be classified correctly by machine learning
 algorithms.  
 The nominal cut is 5 observations per light curve, but we also test a
@@ -358,7 +358,7 @@ higher cut by filtering out light curves with less than 10 observations.
 
 \subsection{Oversampling Transient Light Curves} \label{subsection_oversampling}
 
-The number light curves per class is unbalanced. 
+The number of light curves per class is unbalanced. 
 In order to have the same amount elements for each class we implement an
 oversampling step by artificially generating multiple mock light curves,
 each based on an observed one. 
@@ -385,7 +385,7 @@ Some of these features were formally introduced in
 
 We use 30 features in total that can be classified into four groups:
 moment-based, magnitude-based, percentile-based and fitting-based. 
-In this project we propose the fitting-based features.
+The first three groups have been used in previous work and, in this project, we propose to include fitting-based features.
 These groups are:
 
 \begin{enumerate}
@@ -409,7 +409,7 @@ These groups are:
         \item \underline{Small Kurtosis} (\textit{sk}):
         Small sample kurtosis.
         \item \underline{Standard deviation} (\textit{std}):
-        The standard deviation of the magnitudes..
+        The standard deviation of the magnitudes.
         \item \underline{Stetson J} (\textit{stetson\textunderscore j}):
         The Welch-Stetson J variability index
         \cite{1996PASP..108..851S}. A robust standard deviation. 
@@ -418,7 +418,7 @@ These groups are:
         \cite{1996PASP..108..851S}. A robust kurtosis measure. 
     \end{itemize}
     
-    \item Magnitude-based features, which relies on the magnitude for each source.
+    \item Magnitude-based features, which rely on the magnitude for each source.
     \begin{itemize}
     \item \underline{Amplitude} (\textit{amp}): 
       The difference between the maximum and minimum magnitudes.
@@ -436,7 +436,7 @@ These groups are:
     \end{itemize}
 
 
-  \item Percentile-based features use the sorted flux distribution for
+  \item Percentile-based features, which use the sorted flux distribution for
     each source. The flux is computed as $F = 10^{0.4 \mathrm{mag}}$. 
     We define $F_{n,m}$ as the difference between the $m$-th and $n$-the flux
     percentiles. 
@@ -457,8 +457,8 @@ These groups are:
         Ratio $F_{10,90} / F_{5,95}$
     \end{itemize}
     
-  \item Polynomial Fitting-based features are the coefficients of
-    multi-level terms in polynomial curve fitting. This is new set
+  \item Polynomial Fitting-based features, which are the coefficients of
+    multi-level terms in a polynomial curve fitting. This is new set
     of features proposed in this paper. 
     \begin{itemize}
         \item \underline{Poly1 T1}: Linear term coeff. in monomial curve fitting.
@@ -489,10 +489,10 @@ We group these features into three sets for experimentation:
 
 We use two feature scaling procedures to weight equally each input
 for the machine learning training process.
-These procedures are applied to the magnitudes for each light curve.
+These procedures are applied to the magnitudes of each light curve.
 The first one is standardization, where the re-scaled values have zero mean 
 and unit variance. 
-The second one is normalization, were the magnitudes are re-scaled  to the
+The second one is normalization, were the magnitudes are linearly re-scaled  to the
 range $[0,1]$. 
 These procedures are part of the modules that are switched on/off as
 part of the experimentation explained in Section \ref{section_experimentation}.
@@ -504,42 +504,33 @@ We study five classification tasks of varying complexity.
 
 \begin{enumerate}
     \item \textbf{Binary Classification}: 
-      We use a balanced number of events from both classes is used 
+      We use a balanced number of events from both classes in order 
       to investigate the capability of distinguishing between Transients
       and Non-Transients.
-    \item \textbf{6-Transient Classification}: To recognize objects as
+    \item \textbf{6-Transient Classification}: We recognize objects as
       belonging to one of the more common transient types in the dataset,
       namely: AGN, Blazar, CV, Flare, HPM and Supernovae. The purpose of
       this task is to test the accuracy of classification algorithms
       when distinguishing only the main transient event types in the
       dataset. 
-    \item \textbf{7-Transient Classification}: To recognize objects as
-      belonging to one of the more common transient types in the dataset
-      or as a different transient, namely: AGN, Blazar, CV, Flare, HPM,
-      Other and Supernovae. The Other class was created by using objects
+    \item \textbf{7-Transient Classification}: We include a seventh type 
+      of transcient labeled ``Other'' by considering objects
       from ambiguous and under-represented classes such as the ones
-      described in Section \ref{section_data}. In this scenario we wanted
-      to understand how well these Other classes are detected when
-      grouped together, and how the performance of the 6-Transient
+      described in Section \ref{section_data}. In this scenario, the goal is
+      to understand how well these Other class is detected when
+      grouping dissimilar objects, and how the performance of the 6-Transient
       Classification Task changes with the addition of this new class. 
-    \item \textbf{7-Class Classification}: To recognize objects as
+    \item \textbf{7-Class Classification}: We also consider a setup in which we recognize objects as
       belonging to one of the more common transient types in the
       dataset or as a Non-Transient object. We use the classes:
       AGN, Blazar, CV, Flare, HPM, Non-Transient and Supernovae. 
-      The purpose of this experiment is understanding whether classifiers 
-      could recognize correctly the main transient types when the 
-      non-transient events are present.  
-    \item \textbf{8-Class Classification}: To recognize objects as
-      belonging to any of the the following classes: AGN, Blazar, CV,
+    \item \textbf{8-Class Classification}: Finally, the most general task we consider is to recognize objects as
+      belonging to one of the seven transcient types or to non-transcients. Thus, in this case we have the following categories: AGN, Blazar, CV,
       Flare, HPM, Other, Non-Transient and Supernovae. 
-      The Other class is built using objects from ambiguous and
-      under-represented classes. 
-      The goal of this task is to assess the quality of classification when
-      testing together all the main classes in the previous tasks.
 \end{enumerate}
 
-We conduct experiments with three widely used families of classification 
-algorithms: Neural Networks, Random Forests and Support Vector Machines.
+We conduct experiments with three widely used families of supervised classification 
+algorithms: Neural Networks (NNs), Random Forests (RFs) and Support Vector Machines (SVMs).
 These algorithms are popular in published studies and are efficient 
 for low dimensional feature datasets as is our case. 
 We use SciKit Learn's \citep{1201.0490} Python's implementation of these algorithms.
@@ -547,6 +538,8 @@ Details on the inner workings of these machine learning models can be
 found in \cite{9780387848570}.  
 
 We test NNs with all the combinations of the following hyper-parameter values:
+In order to compare the different classifiers, we search exhaustively for and optimal set of hyper-parameters for each of them. Below are the ranges and values we considered.
+Neural Networks:
 \begin{itemize}
     \item Learning Rate: Either constant vs adaptive.
     \item Hidden Layer Sizes: Single Layer with $100$ nodes vs Two layers with
@@ -555,46 +548,44 @@ We test NNs with all the combinations of the following hyper-parameter values:
     \item Activation Function: Logistic vs Relu.
 \end{itemize}
 
-Similarly, we test RFs with all the combinations of the following 
-hyper-parameter values:
+Random Forests:
 \begin{itemize}
     \item Number of Estimators: $200$ or $700$.
     \item Number of features Considered: Square Root or the Logarithm 
     base 2 of the total number of features.
 \end{itemize}
 
-We also test RFs with all the combinations of the following hyper-parameter values:
+Support Vector Machines:
 \begin{itemize}
     \item Kernel: Radial Basis Function (RBF).
     \item Kernel Coefficient (\textit{gamma}): 1e-1 vs 1e-2 vs 1e-3 vs 1e-4 vs 1e-5.
     \item Error Penalty (\textit{C}): 1 vs 10 vs 100 vs 1000. 
 \end{itemize}
 
-We also make sure that the training data does not contain oversampled
-light curves based on any other present in the test samples, since
+We make sure that the training data does not contain oversampled
+light curves based on the test samples, since
 this could introduce a bias.  
-Similarly, the test samples contain not contain oversampled light
-curves.
-Additionally, since the number of objects in the class sub-sets was
-small, we used 2-fold cross-validation during training for as evaluation
+Similarly, the test contains only original light curves, without any oversampling.
+Since the number of objects in the class sub-sets was
+small, we use 2-fold cross-validation during training as evaluation
 protocol. 
-Moreover, we used grid search during training to test multiple
+Moreover, we use grid search during training to test multiple
 hyper-parameter configurations for each one  of the possible
 algorithms. 
-We use the F1-Score to assess the performance of a given model.
-We evaluate each task on the held-out test sets described above.
+We use the F1-Score to assess the performance of a given model and 
+we evaluate each task on the held-out test sets described above.
 
 
 \subsection{Feature Importance} \label{subsection_importances}
 
 After finding the best classifiers we generate a list of the most
 relevant features. 
-We do this with the best Random Forest classifier for each task.
+We do this with the best RFs classifier for each task.
 We calculate feature importance using the Python library 
-SciKit-Learn \citep{1201.0490}. We used the mean decrease impurity, 
+SciKit-Learn \citep{1201.0490}. We use the mean decrease impurity, 
 which is calculated as the total decrease in node impurity averaged over all the trees belonging to
 the ensemble.
-We normalized the resulting scores, so that the sum of all features
+We normalize the resulting scores, so that the sum of all features
 importance is equal to 1.
 This approach quantifies which features contributed the most to the
 classification task.  
@@ -604,7 +595,7 @@ classification task.
 %\import{./chapters/}{4.exp.tex}
 We perform all classification tasks described earlier with multiple
 parameter variations.  
-We run multiple times each task with different criteria 
+We run several times each task with different criteria 
 (dataset inputs, pre-processing steps and algorithms), 
 to find out the best configuration for each case.
 
@@ -616,11 +607,11 @@ for the five classification tasks.
 These five parameters are the following. 
 
 \begin{enumerate}
-    \item \textbf{Minimum number of Observations}. 
+    \item \textbf{Minimum number of observations}. 
       This quantifies how  different amounts of observations
       per light curve impact transient classification.
       We use two values for this parameter: 5 and 10 (Section \ref{subsection_filtering}). 
-    \item \textbf{Balancing Classes}. 
+    \item \textbf{Balancing classes}. 
       We experiment with two different scenarios.
       First, we use the original CRTS light curves, with unbalanced transient classes (Table
       \ref{Top-Transient-Classes}).
@@ -631,16 +622,16 @@ These five parameters are the following.
       Note that the Binary Classification task described in Section
       \ref{section_method} has by construction balanced classes only.
     
-    \item \textbf{Number of Features}. 
+    \item \textbf{Number of features}. 
       We use different feature subsets. 
       The three different subsets have 20, 26 or 30 features as
       defined in Section \ref{subsection_extraction}. 
-    \item \textbf{Feature Scaling}. 
+    \item \textbf{Feature scaling}. 
       We test two different feature scaling procedures: normalization
       scaling and standardization as defined in Section
       \ref{subsection_scaling}. 
     \item \textbf{Classifier}. 
-      The three classification algorithms described in Section 
+      We evaluate the three classification algorithms described in Section 
       \ref{subsection_classification}: Neural Networks, 
       Random Forests and Support Vector Machines 
 \end{enumerate}
@@ -658,7 +649,7 @@ These five parameters are the following.
 
 
 % Best Clf.
-The best algorithm in this task is RF with a maximum f1-score of
+The best algorithm in this task is RFs with a maximum f1-score of
 87.69\%.   
 This score is achieved with light curves containing minimum 5
 observations, and 30 features.
@@ -669,15 +660,15 @@ Table \ref{Classifier-Scores-Binary-5} and Table
 \ref{Classifier-Scores-Binary-10} summarize all the results.
 
 
-% SVM
+% SVMs
 SVMs are the second best-performing model with the f1-score of 85.36\%. 
 Changing the number of features does not affect significantly the score.
 %However, using light curves with more than 10 observations results in
 %slightly better results. 
 
-% NN
-NN is ranked third, although its scores are very similar to SVMs. 
-The highest achieved score for NN is 85.03\%.
+% NNs
+NNs are ranked third, although their scores are very similar to those of SVMs. 
+The highest achieved score for NNs is 85.03\%.
 %Scores for min\textunderscore obs = 5 are higher than the ones
 %obtained with SVMs, but the opposite occurs when min\textunderscore
 %obs = 10.  
@@ -695,7 +686,7 @@ These results imply that non-transients are better classified overall.
 \import{./figures/Binary/}{importances.tex}
 
 Figure \ref{Importances-Binary} displays the most important features
-for the RF classifier.
+for the RFs classifier.
 The top five inputs for classification are stetson\textunderscore j,
 std, mad, poly1\textunderscore t1 and poly2\textunderscore t1.  
 The former achieved the highest importance with over 21\%, compared to
@@ -711,30 +702,30 @@ coefficients that contributed less than 1\% each.
 \import{./figures/6-Transient/}{class_10.tex}
 
 % Best Clf.
-The best algorithm is RF with a top f1-score of 77.54\% achieved with 
+The best algorithm is RFs with a top f1-score of 77.54\% achieved with 
 unbalanced inputs, 30 features and light curves with a minimum of 10
 observations. 
 Table \ref{Classifier-Scores-6-Transient-5} and Table
 \ref{Classifier-Scores-6-Transient-10} summarize all the
 results. 
  
-% RF
-On average, RF is the best-performing model for this task. 
+% RFs
+On average, RFs are the best-performing model for this task. 
 The performance improves with more than 20 features; using 30 features 
 rather than 26 is marginally better for the unbalanced dataset. 
-Using unbalanced light curves tend to work best.
+Using unbalanced light curves tends to work best.
 
-% NN
-NN ranks second in this task, scoring a maximum f1-score of 73.01\%. 
+% NNs
+NNs rank second in this task, scoring a maximum f1-score of 73.01\%. 
 Using unbalanced inputs with this model improves performance.
-Having more than 20 features show a moderate increase in performance. 
+Having more than 20 features shows a moderate increase in performance. 
 Using unbalanced light-curves correlates to a higher score with 10 
-observations minimum, whereas in balanced inputs does
+observations minimum, whereas balanced inputs do
 not show a clear trend.
 
-% SVM
-SVMs are last in this ranking with a maximum f1-score of 69.65\% and
-scores very similar to those of NN. 
+% SVMs
+SVMs are last in this ranking with a maximum f1-score of 69.65\% and their
+scores are very similar to those of NNs. 
 A significant increase in performance is obtained with this model when
 using more than 20 features, though the difference between using 26
 and 30 features is very small. 
@@ -742,15 +733,15 @@ On the other hand, there is a small score increase when training
 on unbalanced inputs.
 
 % Confusion Matrix
-Table \ref{Confusion-6-Transient} shows the confusion matrix for RF. 
+Table \ref{Confusion-6-Transient} shows the confusion matrix for RFs. 
 There, HPM is the best performing class with a recall of 94.32\%, 
 followed by SN and AGN, with a recall of 86.67\% and 80.31\%
 respectively. 
 Blazar and Flare are the two classes with the lowest recall; 42.86\%
 and 55.36\%, respectively. 
 The confusion matrix shows that most of the incorrectly
-classified AGN, Blazar, CV and Flare instances were identified as
-SN. A big proportion of Blazar light curves were also incorrectly
+classified AGN, Blazar, CV and Flare instances are identified as
+SN. A big proportion of Blazar light curves are also incorrectly
 classified as AGNs and CVs, though this amount is low compared to the
 false SN samples. 
 
@@ -758,7 +749,7 @@ false SN samples.
 % Importances
 \import{./figures/6-Transient/}{importances.tex} Figure
 \ref{Importances-6-Transient} displays the feature importance rank in
-descending order for the RF classifier.
+descending order for the RFs classifier.
 Stetson\textunderscore j, std, amp, mad, and sk, have an importance above 6\%. 
 The remaining features have similar importance values, except
 for the highest level polynomial coefficients which rank last.
@@ -775,13 +766,13 @@ previous sub-section.
 \import{./figures/7-Transient/}{class_10.tex}
 
 % Best Clf.
-The best algorithm is RF with a top f1-Score of 66.39\% achieved with 
+The best algorithm is RFs with a top f1-Score of 66.39\% achieved with 
 min\textunderscore obs = 10, 30 features and balanced inputs.
 Table \ref{Classifier-Scores-7-Transient-5} and Table
 \ref{Classifier-Scores-7-Transient-10} summarize the results.
 
-% RF
-RF outperform all other models in their respective parameter
+% RFs
+RFs outperform all other models in their respective parameter
 combinations. 
 We find a significant increase in performance when using more than 20
 features. 
@@ -790,20 +781,20 @@ features.
 %Using light curves with minimum 10 observations, rather than 5
 %observations, represents a slights improvement.
 
-% NN
-NN are second in this task, achieving a top score of 61.28\%.  
-%NN achieve better results when using light curves that contained a
+% NNs
+NNs are second in this task, achieving a top score of 61.28\%.  
+%NNs achieve better results when using light curves that contained a
 %minimum 10 observations. 
 We do not find a clear correlation between performance and the number
 of features used. 
 
 
-% SVM
-SVMs ranked third with a maximum f1-score of 58.62\%. 
-These classifiers have a slightly worse scores than NN.
+% SVMs
+SVMs rank third with a maximum f1-score of 58.62\%. 
+These classifiers have a slightly worse scores than NNs.
 %The best results are obtained using light curves with a minimum of 10
 %observations.
-Moreover, we obtained higher average results when using balanced inputs,
+Moreover, we obtain higher average results when using balanced inputs,
 except when using balanced inputs and min\textunderscore obs = 5.
 Finally, the number of features does not strongly influence the final
 result in most cases.
@@ -848,21 +839,21 @@ coefficients.
 \import{./figures/7-Class/}{class_10.tex}
 
 % Best Clf
-The best algorithms is RF with an f1-score of 75.05\% achieved with 
+The best algorithm is RFs with an f1-score of 75.05\% achieved with 
 curves containing at least 10 observations, using 30 features and
 unbalanced inputs. 
 Table \ref{Classifier-Scores-7-Class-5} and Table
 \ref{Classifier-Scores-7-Class-10} summarize the results.
 
-% RF
-Overall, RF is the best model, always performing better with unbalanced
+% RFs
+Overall, RFs are the best model, always performing better with unbalanced
 inputs.  
 The worst results are obtained using 20 features only.
 Finally, using light curves with more than 20 features resulted in
 better scores.
 
-% NN
-NN is the second-best performing algorithm with a maximum f1-score of
+% NNs
+NNs are the second-best performing algorithm with a maximum f1-score of
 69.14\%. 
 %In general, the use of min\textunderscore obs = 10 generates higher
 %scores. 
@@ -871,8 +862,8 @@ higher performance, except only when using min\textunderscore obs = 10
 and unbalanced inputs, where the results are very similar. 
 Finally, using unbalanced inputs gives significantly higher scores.  
 
-% SVM
-SVM is the the worst algorithm with a maximum f1-score of 65.85\%. 
+% SVMs
+SVMs algorithm is the the worst with a maximum f1-score of 65.85\%. 
 %In general, higher scores are obtained from light curves with a
 %minimum of 10 observations.  
 Using balanced inputs also results in slightly better results. 
@@ -933,23 +924,23 @@ much higher importance.
 
 
 % Best Clf.
-RF is the best classifier. The best f1-score is 66.05\% achieved with
+RFs are the best classifier. The best f1-score is 66.05\% achieved with
 30 features, unbalanced inputs and light curves containing minimum 10
 observations.  
 Table \ref{Classifier-Scores-8-Class-5} and Table
 \ref{Classifier-Scores-8-Class-10} summarize the results.
 
-% RF
-RF is the overall best performing model.
+% RFs
+RFs are the overall best performing model.
 The algorithm's performance substantially increases when using 26 -
 30 features, compared to 20 features.
 There is a marginal improvement when using non-balanced inputs. 
 %Using light-curves with min\textunderscore obs = 10 always results in
 %higher scores.  
 
-% NN
-NN are the second best. 
-Its highest f1-score was 60.19\%. 
+% NNs
+NNs are the second best. 
+Its highest f1-score is 60.19\%. 
 %Increasing  the minimum number of observations per light curve from 5
 %to 10 results in a considerable performance upgrade.  
 Training on unbalanced inputs is another factor that increases the
@@ -962,14 +953,14 @@ Alternatively, when using balanced inputs, using 26 and 30 features
 yields the highest scores. 
 Nonetheless, using 26 features is marginally better. 
 
-% SVM
-SVM is the worst-performing model.
+% SVMs
+SVMs are the worst-performing model.
 It only achieves a maximum f1-score of 57.30\%.
 %Using light curves with 10 observations results in higher scores, except 
 %when using 20 features with balanced inputs. 
 Using balanced inputs works best with light curves that have 5 
 observations minimum, whereas unbalanced inputs
-resulted in better results with light curves that had 10 observations
+results in better accuracy with light curves that have 10 observations
 minimum.  
 Finally, the number of features used does not affect much the model's
 performance.%, unless min \textunderscore obs is 10, in which 26 and 30
@@ -977,14 +968,14 @@ performance.%, unless min \textunderscore obs is 10, in which 26 and 30
 
 % Confusion Matrix
 Table \ref{Confusion-8-Class} presents the confusion matrix.
-The two classes with highest recalls are HPM and Non-Transient, with a
+The two classes with highest recall are HPM and Non-Transient, with a
 recall of 86.36\% and 84.13\%, respectively. 
 The worst performing classes are Blazar, Flare and Other, with recall
 values in the range 36\% - 40\%. 
-SN was the class with which most other class instances are
+SN is the class with which most other class instances are
 incorrectly classified. 
-Moreover, Flares had about 50\% of the test samples classified as
-Non-Transients, AGNs had about 20\% of their 
+Moreover, Flares have about 50\% of the test samples classified as
+Non-Transients, AGNs have about 20\% of their 
 samples classified as Other, and Blazars and Other had most of  its
 samples classified as AGN. 
 Additionally, most incorrectly classified AGNs ($\sim$20.5\%) are
@@ -1016,19 +1007,15 @@ poly4\textunderscore t3 and poly4\textunderscore t4.
 
 \subsection{Summary}
 
-<<<<<<< HEAD
-
-=======
 Among the different feature re-scaling techniques, Standardization
 primes over Normalization in obtaining the highest f1-scores. 
 For every single combination of parameters possible, the highest
 scores are found with Standardization. 
->>>>>>> 4d690a5d3828722f78f3a5b7cd278d6383b4dd6a
 
-Regarding the algorithms used, RF always achieves the highest scores,
-followed by NN,  and finally SVM. 
-SVMs only outperform NN  in the Binary classification task. 
-Additionally,  the best classification scores come from more than 20
+Regarding the algorithms used, RFs always achieve the highest scores,
+followed by NNs, and finally SVMs. 
+SVMs only outperform NNs in the Binary classification task. 
+Additionally, the best classification scores come from more than 20
 features. 
 Furthermore, the highest scores are usually obtained when using light
 curves with at least 10 observations. 
@@ -1044,16 +1031,16 @@ scores are found with Standardization.
 For each classification algorithm we highlight the following trends.
 
 \begin{itemize}
-    \item \textbf{Random forests} work best when using all 30
-      features. Light-curves with at least 10 observations provided the best
+    \item \textbf{RFs} work best when using all 30
+      features. Light-curves with at least 10 observations provide the best
       results, except in binary classification where the highest
-      results were obtained using 5 observations only. Finally, using
+      results are obtained using 5 observations only. Finally, using
       balanced inputs is useful only in the 7-Transient
       classification task.  
-    \item \textbf{Neural Networks} gets its highest scores using
+    \item \textbf{NNs} get their highest scores using
       26 or 30 features, including light curves with at least 10 observations and
       unbalanced inputs. 
-    \item \textbf{SVMs} frequently gets highest scores 
+    \item \textbf{SVMs} frequently get highest scores 
       using more than 20 features and 10 observations minimum per
       light curve. Nonetheless, both unbalanced and balanced inputs
       are useful to obtain their highest scores. 
@@ -1075,7 +1062,7 @@ We also find a clear pattern regarding feature importance.
 In non-binary classification tasks, the best features are always:
 stetson\textunderscore j, sk, std, mad and amp. 
 Stetson\textunderscore j always achieved the highest value. 
-On the other hand, featur high-level polynomial curve fitting features
+On the other hand, high-level polynomial curve fitting features
 are always the least important in those same tasks. 
 
 
@@ -1179,7 +1166,7 @@ repository's structure.
 % Try to keep it short.
 We thank Universidad de los Andes' call for project finalization for their economic support.
 We also thank contributors and collaborators of the SciKit-Learn, Jupiter Notebooks and Pandas' Python libraries.
-We thank Juan Pablo Reyes and Dominique Fouchez for helping with the research.
+We thank Juan Pablo Reyes, Dominique Fouchez and Catalina G\'omez for helping with the research.
 Finally, we want thank Dr. Andrew Drake for sharing with us the CRTS Transient dataset used in this project.
 
 CRTS and CSDR2 are supported by the U.S.~National Science 
