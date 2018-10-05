@@ -69,14 +69,16 @@
 
 % Title of the paper, and the short title which is used in the headers.
 % Keep the title short and informative.
-\title[Comparing machine learning algorithms for astronomical transient event recognition]{Comparing machine learning algorithms for astronomical transient event recognition}
+\title[A reference transient dataset I: lightcurves]{A reference dataset for astronomical transient event recognition I: lightcurves and classical machine learning algorithms}
+
 
 % The list of authors, and the short list which is used in the headers.
 % If you need two or more lines of authors, add an extra line using \newauthor
 \author[Diego. A. G\'omez et al.]{
-Diego A. G\'omez,$^{1}$\thanks{E-mail: da.gomez11@uniandes.edu.co}
-Marcela Hern\'andez Hoyos$^{1}$   
-Jaime Forero-Romero$^{2}$
+{Diego A. G\'omez,$^{1}$\thanks{E-mail: da.gomez11@uniandes.edu.co}}
+Marcela Hern\'andez Hoyos$^{1}$,   
+Jaime E. Forero-Romero$^{2}$,
+\newauthor
 and Pablo Arbel\'aez$^{3}$
 \\
 % List of institutions
@@ -100,37 +102,26 @@ $^{3}$Departamento de Ingenier\'ia Biom\'edica, Universidad de los Andes, Cra. 1
 % Abstract of the paper
 \begin{abstract}
 
-%\import{./chapters/}{0.abs.tex}
-% This is a simple template for authors to write new MNRAS papers.
-% The abstract should briefly describe the aims, methods, and main results of the paper.
-% It should be a single paragraph not more than 250 words (200 words for Letters).
-% No references should appear in the abstract.
-
-
-
 The arrival of massive multi-epoch and multi-band astronomical surveys
 demands the development of computational techniques to automate the
 study and detection of transient astronomical sources. 
-This paper describes an evaluation framework that allows for a standardized quantitative comparison of astronomical transient event recognition algorithms. 
-We do this by characterizing various machine learning algorithms to
-recognize and classify astronomical transient events.
-We use light-curves from the Catalina Real Time Transient Survey
-(CRTS) to classify thousands of unique transient and non-transient
-event light-curves.
-We present this annotated dataset, which contains more than $10.000$ transient and non-transient object light curves.
-We experiment with multiple data pre-processing methods,
-feature selection techniques and machine learning models. 
+In this paper we put together an annotated dataset of more than
+$10000$ transient and non-transient object light-curves from the Catalina Real
+Time Transient Survey (CRTS).
+This dataset provides a baseline to facilitate standarized
+quantitative comparison of astronomical transient event recognition
+algorithms.   
+The classes included in the dataset are: supernovae, cataclismic
+variable, active galactic nuclei, high proper motion stars, blazars
+and flares.
+As an example on how to use the dataset we experiment with multiple data pre-processing methods,
+feature selection techniques and classic machine learning algorithms. 
 We assess quantitative performance in five classification tasks, paying particular
 attention to a binary and a four multi-class classifications tasks.  
-We conclude that the best performing algorithm was
-a Random Forest with an f1-score of 87.27\% on binary
-(transient \& non-transient) classification. 
-Six-class transient classification achieved a 77.54\% f1-score, and a 
-66.39\% f1-score when including an ambiguous sources class.
-Multi-class transient classifications including non-transient sources,
-resulted in a 75.05\% f1-score and a 66.05\% f1-score respectively.
-We will publicly release the curated datasets, code and trained models used in this project.
-
+The best performing algorithm is a Random Forest Classifier across all
+these classification experiments. 
+The next release of this reference database will include images and
+benchmarks with deep learning models.
 \end{abstract}
 
 % Select between one and six entries from the list of approved keywords.
