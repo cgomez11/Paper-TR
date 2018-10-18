@@ -326,7 +326,90 @@ transient and non-transient datasets, respectively.
 
 
 
-\import{./figures/ObjCount/}{5.tex}
+% Number of transients per transient class
+\begin{table}
+\centering
+\begin{tabular}{c|c}
+    \hline
+    Class &  Object Count \\
+    \hline
+    SN & 1293 \\
+    CV & 862 \\
+    AGN & 425 \\
+    HPM & 306 \\
+    Blazar & 237 \\
+    SN? & 236 \\
+    Flare & 207 \\
+    AGN? & 130 \\
+    Unknown & 114 \\
+    CV? & 55 \\
+    \hline
+\end{tabular}
+\caption{Top 10 transient classes, with their respective event count.}
+\label{Top-Transient-Classes}
+\end{table}
+
+\section{Repository Description} \label{section_code}
+
+The repository that contains the code, data and trained models we used in this project is found in the website \url{https://github.com/diegoalejogm/crts-transient-recognition}. For this project we used various python libraries: \texttt{jupyter} (1.0.0), \texttt{numpy} (1.14.3), \texttt{pandas} (0.22.0) and \texttt{scikit-learn} (0.19.1). Details other dependencies can be found in the included file \texttt{requirements.txt}.
+
+We organized the repository in three main folders. The first one is \texttt{data}, and it contains the data we used in this project. We split data in three directories: \texttt{lightcurves}, \texttt{features} and \texttt{inputs}. The former contains pandas dataframes for raw and curated light-curves. The \texttt{features} subfolder contains the resulting features of pre-processing the light-curves, for both transients and non-transients. Finally, the \texttt{inputs} subfolder contains the already split training and testing inputs for the following hyper-parameter combinations: classification task, number of features, minimum number of observations, and balanced/unbalanced data. Each one of the input files contains a numpy tuple with the structure: \textit{(train features, train labels, test features, test labels)}
+
+The second main folder in the repository is \texttt{notebooks}. It contains all the code used for this project. The jupyter notebooks contain the pipeline of our proposed experimental framework, and they are numbered in sequential order. Moreover, each notebook is documented within itself. Two additional non-numbered notebooks are used for exploration purposes. Conversely, the \texttt{.py} files are used to contain the python code which is used in the notebooks. They're separated by task type.
+
+Finally, the \texttt{results} directory contains the products of running the code. One result type is named dataframes, which contains a pandas dataframe for each task. Each dataframe contains the testing and training results, including scores and confusion matrices.  On the other hand, the results sub-folder contains the feature importance list figures presented in this document.
+
+For more information on the repository, make sure to read the README file included, or email us directly.
+
+\section{Data-set's Statistics}
+
+The tables \ref{Transient-Observation-Count} and \ref{Non-Transient-Observation-Count} in this annex contain statistical descriptors of the light curves' observation count, for transient and non-transient curves that contain at least 5 observations.
+Table \ref{Transient-Observation-Count} makes reference to transient events, whereas table \ref{Non-Transient-Observation-Count} refers to non-transient objects. 
+Each of these tables present the mean, standard deviation, percentiles (25, 50 and 75) and maximum number of observations per light curve found in each dataset.
+
+\newpage
+\pagebreak
+
+% Number of transients per transient class
+\begin{table}
+\centering
+\begin{tabular}{c|c}
+    \hline
+    Count & 4269 \\
+    \hline
+    Mean & 102.810 \\
+    Std & 113.786 \\
+    Min & 5 \\
+    25\% & 14 \\
+    50\% & 48 \\
+    75\% & 166 \\
+    Max & 564 \\
+    \hline
+\end{tabular}
+\caption{Transient's data-set observation count per object.}
+\label{Transient-Observation-Count}
+\end{table}
+
+% Number of transients per transient class
+\begin{table}
+\centering
+\begin{tabular}{c|c}
+    \hline
+    Count & 15193 \\
+    \hline
+    Mean & 118.37 \\
+    Std & 116.51 \\
+    Min & 5 \\
+    25\% & 26 \\
+    50\% & 72 \\
+    75\% & 185 \\
+    Max & 537 \\
+    \hline
+\end{tabular}
+\caption{Non-Transient's data-set observation count per object.}
+\label{Non-Transient-Observation-Count}
+\end{table}
+
 
 
 \section{Methodology} \label{section_method}
@@ -580,6 +663,8 @@ We normalize the resulting scores, so that the sum of all features
 importance is equal to 1.
 This approach quantifies which features contributed the most to the
 classification task.  
+
+
 
 \section{Experiments} \label{section_experimentation}
 
@@ -1190,29 +1275,6 @@ the Science Mission Directorate Near-Earth Objects Observations Program.
 %%%%%%%%%%%%%%%%% APPENDICES %%%%%%%%%%%%%%%%%%%%%
 
 \appendix
-\section{Repository Description} \label{section_code}
-
-The repository that contains the code, data and trained models we used in this project is found in the website \url{https://github.com/diegoalejogm/crts-transient-recognition}. For this project we used various python libraries: \texttt{jupyter} (1.0.0), \texttt{numpy} (1.14.3), \texttt{pandas} (0.22.0) and \texttt{scikit-learn} (0.19.1). Details other dependencies can be found in the included file \texttt{requirements.txt}.
-
-We organized the repository in three main folders. The first one is \texttt{data}, and it contains the data we used in this project. We split data in three directories: \texttt{lightcurves}, \texttt{features} and \texttt{inputs}. The former contains pandas dataframes for raw and curated light-curves. The \texttt{features} subfolder contains the resulting features of pre-processing the light-curves, for both transients and non-transients. Finally, the \texttt{inputs} subfolder contains the already split training and testing inputs for the following hyper-parameter combinations: classification task, number of features, minimum number of observations, and balanced/unbalanced data. Each one of the input files contains a numpy tuple with the structure: \textit{(train features, train labels, test features, test labels)}
-
-The second main folder in the repository is \texttt{notebooks}. It contains all the code used for this project. The jupyter notebooks contain the pipeline of our proposed experimental framework, and they are numbered in sequential order. Moreover, each notebook is documented within itself. Two additional non-numbered notebooks are used for exploration purposes. Conversely, the \texttt{.py} files are used to contain the python code which is used in the notebooks. They're separated by task type.
-
-Finally, the \texttt{results} directory contains the products of running the code. One result type is named dataframes, which contains a pandas dataframe for each task. Each dataframe contains the testing and training results, including scores and confusion matrices.  On the other hand, the results sub-folder contains the feature importance list figures presented in this document.
-
-For more information on the repository, make sure to read the README file included, or email us directly.
-
-\section{Data-set's Statistics}
-
-The tables \ref{Transient-Observation-Count} and \ref{Non-Transient-Observation-Count} in this annex contain statistical descriptors of the light curves' observation count, for transient and non-transient curves that contain at least 5 observations.
-Table \ref{Transient-Observation-Count} makes reference to transient events, whereas table \ref{Non-Transient-Observation-Count} refers to non-transient objects. 
-Each of these tables present the mean, standard deviation, percentiles (25, 50 and 75) and maximum number of observations per light curve found in each dataset.
-
-\newpage
-\pagebreak
-
-\import{./figures/ObsCount/}{transient.tex}
-\import{./figures/ObsCount/}{nontransient.tex}
 
 \section{Task Experimentation Results}
 
