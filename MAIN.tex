@@ -620,6 +620,18 @@ We use the F1-Score to assess the performance of a given model and
 we evaluate each task on the held-out test dataset.
 
 
+\begin{figure*}
+	\includegraphics[width=\textwidth]{figures/Binary/importances.png}
+    \caption{Feature importance list obtained by the best Random Forest classifier, in this case also the best overall classifier, for the Binary classification task. Feature importance is represented with percentages.}
+    \label{Importances-Binary}
+\end{figure*} 
+
+\begin{figure*}
+	\includegraphics[width=\textwidth]{figures/8-Class/importances.png}
+    \caption{Feature importance list obtained by the best Random Forest classifier, in this case also the best overall classifier, for the 8-Class classification task. Feature importance is represented with percentages.}
+    \label{Importances-8-Class}
+\end{figure*}
+
 \subsection{Results}
 
 %%%%%%  BINARY  %%%%%%
@@ -648,17 +660,6 @@ std, mad, poly1\textunderscore t1 and poly2\textunderscore t1.
 The former achieved the highest importance with over 21\%, compared to
 the following with values in the range 6\% - 8\%. 
 
-\begin{figure*}
-	\includegraphics[width=\textwidth]{figures/Binary/importances.png}
-    \caption{Feature importance list obtained by the best Random Forest classifier, in this case also the best overall classifier, for the Binary classification task. Feature importance is represented with percentages.}
-    \label{Importances-Binary}
-\end{figure*} 
-
-\begin{figure*}
-	\includegraphics[width=\textwidth]{figures/8-Class/importances.png}
-    \caption{Feature importance list obtained by the best Random Forest classifier, in this case also the best overall classifier, for the 8-Class classification task. Feature importance is represented with percentages.}
-    \label{Importances-8-Class}
-\end{figure*}
 
 \begin{table}
 \centering
@@ -714,19 +715,12 @@ identified as Other and most Blazar instances are
 incorrectly categorized as either SN or AGN. 
 
 
-
-
-
 Figure \ref{Importances-8-Class} displays the feature importance ranking.
 This list ranks first stetson\textunderscore j with an 8\% importance,
 followed by amp, sk, std, mad, with values around 6\%. 
 The lowest raking features are the five high level polynomial: poly4\textunderscore
 t1,  poly4\textunderscore t2, poly3\textunderscore t3,
 poly4\textunderscore t3 and poly4\textunderscore t4. 
-
-
-
-
 
 
 \begin{table}
@@ -785,73 +779,15 @@ The features extracted from light curves were either statistical
 descriptors of the observations, or polynomial curve fitting
 coefficients applied to the light curves.   
 
-The machine learning algorithms performed a variety of classification tasks.
-Namely, binary classification among transients and non-transients, and
-multi-class classification of various transient classes, sometimes
-including non-transients too. Detailed description of these tasks can
-be found in Section \ref{section_method}.  
-Overall, the best classifier for all tasks was the Random Forest,
-followed by Neural Networks and then Support Vector Machines. 
-
-State of the art results were obtained when testing the trained models
-to unseen sets of data, specifically in binary and transient
-multi-class classification. 
-Recall scores obtained from the best classifier for each task, are
-comparable to those results found in \cite{1401.3211}
-and \cite{1601.03931}.   
-
-
-We also investigated the parameters that produced the best results.
-Training with light curves which contained 10 observations minimum
-generally outperformed those with minimum 5. 
-Overall, the best results were also achieved using all 30 features per
-light curve, while using 20 features performed worst. 
-Such phenomena may be explained due to the lower noise that curves
-with more observations provide.  
-Since light-curves with higher observation counts may be better
-defined, they could generate a more precise higher rank polynomial
-fitting than non-transients, which were the newly proposed features
-found in the 26 and 30 feature sets. 
-
-In general, training with unbalanced-class data sets resulted in the
-highest values. 
-Contrary to what was expected, the usage of oversampled light-curves
-may be a factor that biases the model during training. 
-This could be explained if such artificial light curves were too
-similar to the original ones, and thus the algorithms over-fitted
-during training.  
-
-We studied feature importance using Random Forests. 
-The most important feature was always stetson\textunderscore j, followed by:
-amplitude, standard deviation, skewness and median absolute
-deviation. 
-Conversely, 4th level polynomial fitting coefficients were
-the ones which provided the least relevance, though using them was
-still better, since the highest scores were a result of using all 30
-features. 
-Furthermore, lower polynomial fitting features like
-poly2\textunderscore t1 and poly1\textunderscore t1 were proven to be
-beneficial for classification, scoring much a higher importance. 
-
-The above mentioned results demonstrate that the methodology works well.
-Nevertheless, the final scores are similar to already published results.
-This highlights the need to explore new directions to construct better
-classifiers which are usable in next-generation astronomical surveys.   
-As usual, a critical improvement can come from better observational
-data.
-An improved transient recognition could be achieved by training on
-data with lower  amount of duplicates and errors, i.e. a more reliable
-non-transient dataset.    
-Expanding the methodology presented may be beneficial too. 
-Using additional features could also increase the classifiers
-performance. 
-Moreover, different classification algorithms can also be tested for a
-better detection of transient objects.  
-Finally, testing with other more reliable oversampling types would be
-beneficial for the purpose of working with limited datasets. 
-While the oversampled/balanced inputs increased the performance of some of
-the algorithms, different alternatives could improve upon the results
-shown in this document.
+The machine learning algorithms performed two classification tasks.
+and multi-class classification of various transient classes including
+non-transients too. 
+Overall, the best classifier for all tasks was the Random Forest.
+We studied the feature importance for this model.
+The most important feature was always stetson\textunderscore j.
+The proposed coefficients corresponding to the linear terms of the
+quadratic and monomial curve fitting are also useful in the
+classification task.
 
 We provide the code and the datasets that were used in this project.
 The repository containing all this data may be found in the website
