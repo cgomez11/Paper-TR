@@ -69,7 +69,9 @@
 
 % Title of the paper, and the short title which is used in the headers.
 % Keep the title short and informative.
-\title[A reference transient dataset I: lightcurves]{A reference dataset for astronomical transient event recognition I: lightcurves and classical machine learning algorithms}
+\title[A reference transient dataset I: lightcurves]{A reference
+  dataset for astronomical transient event recognition I: lightcurves
+  and tests on classical machine learning algorithms}
 
 
 % The list of authors, and the short list which is used in the headers.
@@ -624,11 +626,7 @@ we evaluate each task on the held-out test dataset.
 \subsubsection{Binary Classification} 
 \label{Results-Binary} 
 
-\import{./figures/Binary/}{class_5.tex}
-\import{./figures/Binary/}{class_10.tex}
 
-
-% Best Clf.
 The best algorithm in this task is RFs with a maximum F1-score of
 87.69\%.   
 SVMs are the second best-performing model with the F1-score of 85.36\%. 
@@ -636,16 +634,12 @@ Changing the number of features does not affect significantly the score.
 NNs are ranked third, although their scores are very similar to those of SVMs. 
 The highest achieved score for NNs is 85.03\%.
 
-% Confusion Matrix
+
 Table \ref{Confusion-Binary} shows the confusion matrix of the best
 performing algorithm and Table \ref{Overall-Scores-Binary} summarizes
 the scores.
 These results imply that non-transients are better classified overall.  
 
-
-% Importances
-
-\import{./figures/Binary/}{importances.tex}
 
 Figure \ref{Importances-Binary} displays the most important features
 for the RFs classifier.
@@ -653,63 +647,58 @@ The top five inputs for classification are stetson\textunderscore j,
 std, mad, poly1\textunderscore t1 and poly2\textunderscore t1.  
 The former achieved the highest importance with over 21\%, compared to
 the following with values in the range 6\% - 8\%. 
-The least relevant features are the polynomial curve-fitting
-coefficients that contributed less than 1\% each.
+
+\begin{figure*}
+	\includegraphics[width=\textwidth]{figures/Binary/importances.png}
+    \caption{Feature importance list obtained by the best Random Forest classifier, in this case also the best overall classifier, for the Binary classification task. Feature importance is represented with percentages.}
+    \label{Importances-Binary}
+\end{figure*} 
+
+\begin{figure*}
+	\includegraphics[width=\textwidth]{figures/8-Class/importances.png}
+    \caption{Feature importance list obtained by the best Random Forest classifier, in this case also the best overall classifier, for the 8-Class classification task. Feature importance is represented with percentages.}
+    \label{Importances-8-Class}
+\end{figure*}
+
+\begin{table}
+\centering
+\begin{tabular}{|r|c|c|c|c|}
+\hline
+\multicolumn{1}{|l|}{} & Precision & Recall & f1-Score & Support \\ \hline \hline
+Non-Transient          & 85.41    & 90.94   & 88.09   & 1281 \\ \hline
+Transient              & 90.32       & 84.47      & 87.29      & 1281    \\ \hline
+\end{tabular}
+\caption{Precision, Recall and f1-score for the Binary Classification Task with Regular inputs.}
+\label{Overall-Scores-Binary}
+\end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{|r|c|c|}
+\hline
+\multicolumn{1}{|l|}{} & non-transient    & transient   \\ \hline \hline
+non-transient                & 90.94       & 9.06    \\ \hline
+transient                    & 15.53       & 84.47    \\ \hline
+\end{tabular}
+\caption{Confusion Matrix for the best performing model in the Binary task.}
+\label{Confusion-Binary}
+\end{table}
 
 
 
 %%%%%%  EIGHT-CLASS  %%%%%%
-\subsection{Eight-Class Classification}
-
-\import{./figures/8-Class/}{class_5.tex}
-\import{./figures/8-Class/}{class_10.tex}
+\subsubsection{Eight-Class Classification}
 
 
-% Best Clf.
-RFs are the best classifier. The best f1-score is 66.05\% achieved with
-30 features, unbalanced inputs and light curves containing minimum 10
-observations.  
-Table \ref{Classifier-Scores-8-Class-5} and Table
-\ref{Classifier-Scores-8-Class-10} summarize the results.
-
-% RFs
-RFs are the overall best performing model.
-The algorithm's performance substantially increases when using 26 -
-30 features, compared to 20 features.
-There is a marginal improvement when using non-balanced inputs. 
-%Using light-curves with min\textunderscore obs = 10 always results in
-%higher scores.  
-
-% NNs
+RFs are the best classifier. 
+The best f1-score is 66.05\%. 
 NNs are the second best. 
-Its highest f1-score is 60.19\%. 
-%Increasing  the minimum number of observations per light curve from 5
-%to 10 results in a considerable performance upgrade.  
-Training on unbalanced inputs is another factor that increases the
-scores. 
-The number of features used for training is directly correlated with
-the scores.
-With unbalanced classes, the higher the number of features, the
-better. 
-Alternatively, when using balanced inputs, using 26 and 30 features
-yields the highest scores. 
-Nonetheless, using 26 features is marginally better. 
+Its highest f1-score is 60.19\%, while SVMs are the worst-performing
+model only achieving a maximum f1-score of 57.30\%.
+Table \ref{Classifier-Scores-8-Class-10} summarizes the results. 
 
-% SVMs
-SVMs are the worst-performing model.
-It only achieves a maximum f1-score of 57.30\%.
-%Using light curves with 10 observations results in higher scores, except 
-%when using 20 features with balanced inputs. 
-Using balanced inputs works best with light curves that have 5 
-observations minimum, whereas unbalanced inputs
-results in better accuracy with light curves that have 10 observations
-minimum.  
-Finally, the number of features used does not affect much the model's
-performance.%, unless min \textunderscore obs is 10, in which 26 and 30
-%features result in better scores. 
 
-% Confusion Matrix
-Table \ref{Confusion-8-Class} presents the confusion matrix.
+Table \ref{Confusion-8-Class} presents the confusion matrix for the RF.
 The two classes with highest recall are HPM and Non-Transient, with a
 recall of 86.36\% and 84.13\%, respectively. 
 The worst performing classes are Blazar, Flare and Other, with recall
@@ -724,20 +713,9 @@ Additionally, most incorrectly classified AGNs ($\sim$20.5\%) are
 identified as Other and most Blazar instances are
 incorrectly categorized as either SN or AGN. 
 
-% Scores
-% In the class scores table for this task, it is shown that both the averaged Precision and Recall were very similar (Table \ref{Overall-Scores-8-Class-Oversampled}). 
-Table \ref{Overall-Scores-8-Class-Regular} summarizes the results
-for the f1-scores for all algorithms. 
-We find that all 6 transient types found in the
-6-Transient classification task had a f1-score decrease (Table
-\ref{Overall-Scores-6-Transient-Regular}). 
-Even the Other class f1-score is lower than in the 7-Transient classification task (Table
-\ref{Overall-Scores-7-Transient-Regular}).
-The Non-Transient f1-score is also worse when compared to the 7-Class
-task (Table \ref{Overall-Scores-7-Class-Regular}).  
 
 
-\import{./figures/8-Class/}{importances.tex}
+
 
 Figure \ref{Importances-8-Class} displays the feature importance ranking.
 This list ranks first stetson\textunderscore j with an 8\% importance,
@@ -747,71 +725,53 @@ t1,  poly4\textunderscore t2, poly3\textunderscore t3,
 poly4\textunderscore t3 and poly4\textunderscore t4. 
 
 
-\subsection{Summary}
-
-Among the different feature re-scaling techniques, Standardization
-primes over Normalization in obtaining the highest f1-scores. 
-For every single combination of parameters possible, the highest
-scores are found with Standardization. 
-
-Regarding the algorithms used, RFs always achieve the highest scores,
-followed by NNs, and finally SVMs. 
-SVMs only outperform NNs in the Binary classification task. 
-Additionally, the best classification scores come from more than 20
-features. 
-Furthermore, the highest scores are usually obtained when using light
-curves with at least 10 observations. 
-Finally, training with the unbalanced dataset frequently provides the
-highest scores.  
-
-Among the different feature re-scaling techniques, Standardization
-primes over MinMax in obtaining the highest f1-scores. 
-For every single combination of parameters possible, the highest
-scores are found with Standardization. 
 
 
-For each classification algorithm we highlight the following trends.
 
-\begin{itemize}
-    \item \textbf{RFs} work best when using all 30
-      features. Light-curves with at least 10 observations provide the best
-      results, except in binary classification where the highest
-      results are obtained using 5 observations only. Finally, using
-      balanced inputs is useful only in the 7-Transient
-      classification task.  
-    \item \textbf{NNs} get their highest scores using
-      26 or 30 features, including light curves with at least 10 observations and
-      unbalanced inputs. 
-    \item \textbf{SVMs} frequently get highest scores 
-      using more than 20 features and 10 observations minimum per
-      light curve. Nonetheless, both unbalanced and balanced inputs
-      are useful to obtain their highest scores. 
-\end{itemize}
 
-Each class behaves differently. 
-In binary classification,
-the best algorithm achieves a higher f1-score for Non-Transients,
-followed closely by Transients. 
-Furthermore, in multi-class
-classification the best identified classes clearly are: HPM and
-Non-Transients. They are followed by AGN, CV and SN instances which
-have lower performance, and followed at last by Blazars, Flares and
-Other instances, with the worst classification performance.  
+\begin{table}
+\centering
+\begin{tabular}{|r|c|c|c|c|}
+\hline
+\multicolumn{1}{|l|}{} & Precision & Recall & f1-Score & Support \\ \hline \hline
+AGN                    & 65.62              & 66.14             & 65.88             & 127             \\ \hline
+Blazar                 & 62.79           & 38.57          & 47.79          & 70          \\ \hline
+CV                     & 77.53               & 74.89              & 76.19              & 235              \\ \hline
+Flare                  & 66.67            & 39.29           & 49.44           & 56           \\ \hline
+HPM                    & 90.48              & 86.36             & 88.37             & 88             \\ \hline
+Non-Transient          & 67.77    & 84.13   & 75.07   & 315   \\ \hline
+Other                  & 47.02            & 36.60           & 41.16           & 194           \\ \hline
+SN                     & 62.97               & 68.57              & 65.65              & 315              \\ \hline
+avg/total              & 66.39            & 66.93           & 66.05           & 1400           \\ \hline
+\end{tabular}
+\caption{Precision, Recall and f1-score for the 8-Class Classification Task with Regular inputs.}
+\label{Overall-Scores-8-Class-Regular}
+\end{table}
 
-% An important majority of incorrectly classified instances were identified as either Supernovae or Non-Transients. A smaller amount was incorrectly classified as AGN and Other. 
+\begin{table*}
+\centering
+\begin{tabular}{|r|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{|l|}{} & AGN    & Blazar    & CV   & Flare   & HPM   & Non-Transient   & Other   & SN  \\ \hline \hline
+AGN                & 66.14       & 1.57       & 0.00      & 0.79      & 0.00      & 6.30      & 20.47      & 4.72     \\ \hline
+Blazar                & 14.29       & 38.57       & 10.00      & 0.00      & 0.00      & 0.00      & 10.00      & 27.14     \\ \hline
+CV                & 0.85       & 2.13       & 74.89      & 0.43      & 0.43      & 2.55      & 3.83      & 14.89     \\ \hline
+Flare                & 0.00       & 0.00       & 5.36      & 39.29      & 0.00      & 48.21      & 0.00      & 7.14     \\ \hline
+HPM                & 1.14       & 0.00       & 1.14      & 0.00      & 86.36      & 9.09      & 0.00      & 2.27     \\ \hline
+Non-Transient                & 0.63       & 0.00       & 1.27      & 1.90      & 1.90      & 84.13      & 5.71      & 4.44     \\ \hline
+Other                & 13.92       & 3.61       & 9.79      & 0.00      & 0.52      & 11.34      & 36.60      & 24.23     \\ \hline
+SN                & 0.63       & 0.63       & 5.40      & 0.95      & 0.00      & 17.46      & 6.35      & 68.57     \\ \hline
+\end{tabular}
+\caption{Confusion Matrix for the best performing model in the 8-Class task.}
+\label{Confusion-8-Class}
+\end{table*}
 
-We also find a clear pattern regarding feature importance. 
-In non-binary classification tasks, the best features are always:
-stetson\textunderscore j, sk, std, mad and amp. 
-Stetson\textunderscore j always achieved the highest value. 
-On the other hand, high-level polynomial curve fitting features
-are always the least important in those same tasks. 
 
 
 \section{Conclusions}
 %\import{./chapters/}{6.conc.tex}
 
-The scope of forthcoming of large astronomical synaptic surveys such
+The scope of forthcoming of large astronomical synoptic surveys such
 as the LSST \citep{0805.2366} motivates the development and
 exploration of automatized ways to detect transient sources.
 In this paper we presented an approach for the automatic recognition
@@ -894,8 +854,8 @@ the algorithms, different alternatives could improve upon the results
 shown in this document.
 
 We provide the code and the datasets that were used in this project.
-The repository containing all this data may be found in the website \url{https://github.com/diegoalejogm/crts-transient-recognitionSection}. Additionally, Appendix \ref{section_code} contains a description of the
-repository's structure.
+The repository containing all this data may be found in the website
+\url{https://github.com/diegoalejogm/crts-transient-recognitionSection}. 
 
 
 
@@ -924,59 +884,6 @@ the Science Mission Directorate Near-Earth Objects Observations Program.
 
 \bibliographystyle{mnras}
 \bibliography{bibliography}
-%\bibliography{example} % if your bibtex file is called example.bib
 
-
-% Alternatively you could enter them by hand, like this:
-% This method is tedious and prone to error if you have lots of references
-% \begin{thebibliography}{99}
-% \bibitem[\protect\citeauthoryear{Author}{2012}]{Author2012}
-% Author A.~N., 2013, Journal of Improbable Astronomy, 1, 1
-% \bibitem[\protect\citeauthoryear{Others}{2013}]{Others2013}
-% Others S., 2012, Journal of Interesting Stuff, 17, 198
-% \end{thebibliography}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%% APPENDICES %%%%%%%%%%%%%%%%%%%%%
-
-\appendix
-
-\section{Task Experimentation Results}
-
-The group of tables in this section contain the quantitative results of experimenting with the classification tasks. 
-
-Tables \ref{Overall-Scores-Binary}, \ref{Overall-Scores-6-Transient-Regular}, \ref{Overall-Scores-7-Transient-Regular}, \ref{Overall-Scores-7-Class-Regular}, and  \ref{Overall-Scores-8-Class-Regular} describe the Precision, Recall and F1 Score, of every class, that the best performing algorithm achieved for each classification task. It also presents the number of test elements that were used in each class used to calculate such tables. 
-
-Tables \ref{Confusion-Binary}, \ref{Confusion-6-Transient}, \ref{Confusion-7-Transient} \ref{Confusion-7-Class}, and  \ref{Confusion-8-Class} present the confusion matrix obtained when running the best performing algorithm on test data. 
-
-\newpage
-\pagebreak
-
-
-
-\import{./figures/Binary/}{scores_reg.tex}
-\import{./figures/6-Transient/}{scores_reg.tex}
-\import{./figures/7-Transient/}{scores_reg.tex}
-\import{./figures/7-Class/}{scores_reg.tex}
-\import{./figures/8-Class/}{scores_reg.tex}
-
-\import{./figures/Binary/}{cnf_matrix.tex}
-\import{./figures/6-Transient/}{cnf_matrix.tex}
-\import{./figures/7-Transient/}{cnf_matrix.tex}
-\import{./figures/7-Class/}{cnf_matrix.tex}
-\import{./figures/8-Class/}{cnf_matrix.tex}
-% \section{Some extra material}
-
-% If you want to present additional material which would interrupt the flow of the main paper,
-% it can be placed in an Appendix which appears after the list of references.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-% Don't change these lines
-% \bsp	% typesetting comment
-\label{lastpage}
 \end{document}
 
-% End of mnras_template.tex
