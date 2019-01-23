@@ -149,71 +149,28 @@ The study and detection of astronomical variable sources is expected
 to occur on unprecedented scales with the new generation of
 forthcoming multi-epoch and multi-band (synoptic) astronomical
 surveys. 
-For instance, the Large Synoptic Survey Telescope (LSST)
-\citep{0805.2366}, one of the largest synoptic survey telescopes to
-come in the following years, will generate approximately 15 terabytes
-of data every night \citep{1512.07914}.  
-%Such telescope is expected to detect and alert about 10 million possible transients too. 
-Other surveys including the Square Kilometer Array (SKA) are also expected
-to generate exuberant daily data-streams. 
+For instance, projects like the Large Synoptic Survey Telescope
+(LSST)  \citep{0805.2366,1512.07914} are expected to generate
+exuberant daily data-streams.   
 
-%%% HISTORICALLY IT HAS BEEN DONE MANUALLY, NOW IT ISN"T POSSIBLE
-This observational leap renders manual classification techniques
-unfeasible.   
-Traditionally, such objects have been classified by visual inspection
-by experts or through crowd-sourcing
-\citep{1011.2199,0708.2750}. 
-This approach is slow and expensive.
-Another concern is the possible biases and difficulty to standardize among 
-astronomers \citep{1104.3142}. 
-Alternatively, transient detection can be executed much faster than
-human astronomers through computational techniques using machine
-learning, 
-which are deterministic and calculate the results' degrees of
-certainty. 
-These methods also allow for real-time triggering of follow-up
-observations that optimize the economical and temporal resources. 
- 
 
-%%% TRANSIENTS EVENTS ARE CHALLENGES (AND WHAT TRANSIENT EVENTS ARE)
-Another challenge in  Time Domain Astronomy is Real-Time Transient classification. 
-Astronomical Transients are events whose luminosity varies in short duration
-relative in the timescale of the universe, from minutes to several
-years. 
+One of the main challenges that these datasets want to address is
+Real-Time Transient classification, i.e. flagging astrophysically
+relevant events whose luminosity varies in short duration relative in
+the timescale of the universe, from minutes to several years.  
 Transients include phenomena such as supernovae, novae, neutron
 stars, blazars, pulsars, cataclysmic variable stars (CV), gamma ray
 bursts (GRB) and active galaxy nuclei (AGN). 
 The time-domain dependency of these objects is one of the reasons why
 they are hard to classify: their data is usually heterogeneous,
 unbalanced, sparse, unevenly sampled and with missing information. 
-Automating the recognition and classification of transient events, a type of such
-variable sources, would reduce costs and speed up this process as well
-as provide scientists information of the universe in various spatial
-scales \citep{2011arXiv1110.4655D}.  
-
-%%% HOW DOES TRANSIENT DETECTION
-Transient detection is generally done through 
-difference imaging \citep{1507.05137,1608.01733,1708.02850}. 
-This algorithm starts by aligning the image of interest on a reference image of the
-same region of sky, processing the former to match its point-spread
-function in all regions with the latter's, and subtracting both
-\citep{astro-ph/9712287}. 
-As a result, variable stars and transient objects which were not
-visible in the reference image will remain in the resulting
-image. 
-Nonetheless, the difference images can also contain
-artifacts due to imperfections in the image processing
-phase, in the telescope or other phenomena. 
-Unfortunately, distinguishing between bogus and real transient objects
-still requires human intervention, making it expensive and slow
-\citep{2011arXiv1110.4655D}.  
-
-
+This has motived the use of machine learning algorithms to recognize
+and classify transient events. 
 %%% STATE OF THE ART I: REAL VS BOGUS
-There have been successful attempts to implement automatic detection
-algorithms and distinguish artifacts from real transient
-objects.  
-For instance, raw images from the  SkyMapper Supernova and Transient
+
+There have been successful attempts to implement these algorithms
+using images as an input.
+For instance, data from the SkyMapper Supernova and Transient
 Survey and the High cadence Transient Survey (HiTS) have been used as
 inputs to automatic detection algorithms \citep{1708.08947,1701.00458}.
 Convolutional Neural Networks (CNN) have also achieved
@@ -231,18 +188,12 @@ Surveys, and \cite{1407.4118} processed single-epoch multi-band images
 from the SDSS supernova survey for the same purpose.  
 
 
-%%% STATE OF THE ART II: DIRECT
-
-Some alternative approaches classify astronomical transient
-events without image subtraction.
-This is usually done by extracting relevant features (e.g. periodic,
-non-periodic) from the astronomical object light-curves, and using
-machine learning algorithms for classification. 
-For instance, in \cite{1401.3211} and \cite{1601.03931}, light curves
-of objects six or more transient classes from the Catalina Real Time
-Transient Survey and the Downes set (\cite{d05}) were
-classified using this approach.
-\cite{1603.00882} used the same approach to find
+A complementary approach uses the light curves computed from the
+images to perform the classification task.
+For instance \cite{1601.03931} used classical machine learning
+algorithms such as Random Forest, MultiLayer Perceptron and K-Nearest Neighbours
+light curves to classify transients from the Catalina Real Time
+Transient Survey; \cite{1603.00882} used the same approach to find
 where supernovas from the Supernova Photometric Classification
 Challenge.
 Recurrent Neural Networks (RNNs) have also been proven successful to
