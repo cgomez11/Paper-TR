@@ -76,17 +76,17 @@
 
 % The list of authors, and the short list which is used in the headers.
 % If you need two or more lines of authors, add an extra line using \newauthor
-\author[Diego. A. G\'omez et al.]{
-{Diego A. G\'omez,$^{1}$\thanks{E-mail: da.gomez11@uniandes.edu.co}}
+\author[M. Neira et al.]
+{Mauricio Neira$^{1}$, Catalina G\'omez$^{2}$, Diego A. G\'omez,$^{1}$
 Marcela Hern\'andez Hoyos$^{1}$,   
-Jaime E. Forero-Romero$^{2}$,
 \newauthor
-and Pablo Arbel\'aez$^{3}$
+Jaime E. Forero-Romero$^{3}$,
+Pablo Arbel\'aez$^{2}$
 \\
 % List of institutions
 $^{1}$Systems and Computing Engineering Department, Universidad de los Andes, Cra. 1 No. 18A-10, Bogot\'a, Colombia\\
-$^{2}$Departamento de F\'isica, Universidad de los Andes, Cra. 1 No. 18A-10, Bogot\'a, Colombia\\
-$^{3}$Departamento de Ingenier\'ia Biom\'edica, Universidad de los Andes, Cra. 1 No. 18A-10, Bogot\'a, Colombia
+$^{3}$Departamento de Ingenier\'ia Biom\'edica, Universidad de los Andes, Cra. 1 No. 18A-10, Bogot\'a, Colombia\\
+$^{2}$Departamento de F\'isica, Universidad de los Andes, Cra. 1 No. 18A-10, Bogot\'a, Colombia
 }
 
 % These dates will be filled out by the publisher
@@ -164,7 +164,7 @@ bursts (GRB) and active galaxy nuclei (AGN).
 The time-domain dependency of these objects is one of the reasons why
 they are hard to classify: their data is usually heterogeneous,
 unbalanced, sparse, unevenly sampled and with missing information. 
-This has motived the use of machine learning algorithms to recognize
+This has motived the use of Machine Learning (ML) algorithms to recognize
 and classify transient events. 
 %%% STATE OF THE ART I: REAL VS BOGUS
 
@@ -196,40 +196,38 @@ light curves to classify transients from the Catalina Real Time
 Transient Survey; \cite{1603.00882} used the same approach to find
 where supernovas from the Supernova Photometric Classification
 Challenge.
-Recurrent Neural Networks (RNNs) have also been proven successful to
-classify transient events, \cite{1606.07442} and \cite{1710.06804}
-showed that  modern algorithms can also learn from time-series data
-without expensive image processing.    
 
-% PROPOSAL
-This project is a compiled study that unifies techniques used in previous studies, in a structured way. We openly provide the curated datasets and the code used in this project, so that others may replicate the results and expand upon them (Section \ref{section_code}). Thus, with this paper we provide an experimental framework that can be used as a baseline for future research on automated transient object recognition.
+A crucial element in the developmet of any ML algorithm is the
+compilation of the training dataset. 
+In astronomy this task has been facilitated by the publication of
+large databases from different observational projects. 
+However, the publications that make use of these datasets still make
+extensive use of the internal know-how of the scientific
+collaboration. 
+It is still difficult for another scientists to rebuild a training
+dataset and perform comparisons with published results.
 
-In this paper we follow the mentioned approach and test 
-different machine
-learning algorithms to classify transient events using light curves as an input.  
-We start by extracting several statistical descriptors from the light
-curves.
-These descriptors are the input of three different machine learning
-models with several hyper-parameter variations: Support Vector
-Machines (SVMs), Neural Networks (NNs) and Random Forests (RFs), which automatically
-learn to detect and classify between different types of transient
-objects. 
-We present the results of extensive testing and multiple experiments
-executed in order to find the best training parameters. 
+To address this issue we compile and publish in easy-to-access files a
+dataset that can be used to train and test different ML algorithms for
+transient detection.
+We use public data from the Catalina Real-Time Transient Survey
+(CRTS) \citep{1111.2566}, an astronomical survey searching transient
+and highly variable objects as base for the dataset.
+In this paper we present light-curve data, in a future publication we
+will present an imaging dataset. 
 
+In Section \ref{sec:data} we present the CRTS and the steps we follow
+to build the curated dataset. 
+In Section \ref{sec:repository} we describe the main features of the
+dataset and the repository structure gathering the files and code
+useful to explore it. 
+In Section \ref{sec:ml_tests} we show how this dataset can be used to
+perform some tests using some classical ML tests. 
+We follow a similar approach as \cite{1601.03931}. 
+We finalize in Section \ref{sec:conclusions} with a summary of main
+features of our dataset and the results of our ML tests.
 
-
-% STRUCTURE
-The paper is structured as it follows. In Section \ref{section_data}
-we present the dataset used for this project. 
-Section \ref{section_method} describes the methodology.
-Section \ref{section_experimentation} explains the experiments
-performed to classify transient objects with machine
-learning. 
-Finally, the results are presented and discussed in
-Section \ref{section_results}.  
-
-\section{Data} \label{section_data}
+\section{The lightcurve dataset} \label{section_data}
 %\import{./chapters/}{2.data.tex}
 %%% Overview
 
